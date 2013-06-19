@@ -2,7 +2,7 @@ require 'json'
 class ApiController < ApplicationController
   layout nil
   
-  def auth
+  def index
     respond_to do |format|
       format.html { render json: params[:echostr] }
     end
