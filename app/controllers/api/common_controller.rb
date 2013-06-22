@@ -22,6 +22,7 @@ class Api::CommonController < Api::ApplicationController
 		when "voice"
 			@message.content = "我们收到了您的留言信息"
 		end
+		p @message
 		render :xml, :template => 'api/message_text'
 	end
 
