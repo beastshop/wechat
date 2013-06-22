@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:35:59
+  msg_type: MyString
+  location_x: 9.99
+  location_y: 9.99
+  scale: 1
+  label: MyString
+  msg_id: 
+  origin_source: MyText
+
+two:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:35:59
+  msg_type: MyString
+  location_x: 9.99
+  location_y: 9.99
+  scale: 1
+  label: MyString
+  msg_id: 
+  origin_source: MyText

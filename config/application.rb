@@ -58,5 +58,7 @@ module Wechat
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.wechat_token = "1234"
   end
 end

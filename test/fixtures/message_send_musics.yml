@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:53:19
+  msg_type: MyString
+  music_url: MyString
+  hq_music_url: MyString
+  func_flag: MyString
+
+two:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:53:19
+  msg_type: MyString
+  music_url: MyString
+  hq_music_url: MyString
+  func_flag: MyString

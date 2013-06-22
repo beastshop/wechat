@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:36:49
+  msg_type: MyString
+  title: MyString
+  description: MyString
+  url: MyString
+  msg_id: 
+  origin_source: MyText
+
+two:
+  to_user_name: MyString
+  from_user_name: MyString
+  create_time: 2013-06-22 15:36:49
+  msg_type: MyString
+  title: MyString
+  description: MyString
+  url: MyString
+  msg_id: 
+  origin_source: MyText
