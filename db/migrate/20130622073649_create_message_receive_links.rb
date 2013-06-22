@@ -8,7 +8,7 @@ class CreateMessageReceiveLinks < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.string :url
-      t.long :msg_id
+      t.integer :msg_id, :limit => 8
       t.text :origin_source
 
       t.timestamps

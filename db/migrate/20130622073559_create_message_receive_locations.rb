@@ -9,7 +9,7 @@ class CreateMessageReceiveLocations < ActiveRecord::Migration
       t.decimal :location_y
       t.integer :scale
       t.string :label
-      t.long :msg_id
+      t.integer :msg_id, :limit => 8
       t.text :origin_source
 
       t.timestamps

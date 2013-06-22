@@ -6,7 +6,7 @@ class CreateMessageReceiveTexts < ActiveRecord::Migration
       t.datetime :create_time
       t.string :msg_type
       t.text :content
-      t.long :msg_id
+      t.integer :msg_id, :limit => 8
       t.text :origin_source
 
       t.timestamps

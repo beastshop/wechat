@@ -5,7 +5,7 @@ class CreateMessageSendTexts < ActiveRecord::Migration
       t.string :from_user_name
       t.datetime :create_time
       t.string :msg_type
-      t.text :content
+      t.integer :msg_id, :limit => 8
       t.string :func_flag
 
       t.timestamps

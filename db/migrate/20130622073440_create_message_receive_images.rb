@@ -6,7 +6,7 @@ class CreateMessageReceiveImages < ActiveRecord::Migration
       t.datetime :create_time
       t.string :msg_type
       t.string :pic_url
-      t.long :msg_id
+      t.integer :msg_id, :limit => 8
       t.text :origin_source
 
       t.timestamps
