@@ -1,8 +1,8 @@
 <xml>
-	<ToUserName><![CDATA[toUser]]></ToUserName>
-	<FromUserName><![CDATA[fromUser]]></FromUserName>
-	<CreateTime>12345678</CreateTime>
+	<ToUserName><![CDATA[<% @message.to_user_name %>]]></ToUserName>
+	<FromUserName><![CDATA[<% @message.from_user_name %>]]></FromUserName>
+	<CreateTime><% @message.create_time.Ticks %></CreateTime>
 	<MsgType><![CDATA[text]]></MsgType>
-	<Content><![CDATA[content]]></Content>
+	<Content><![CDATA[<% @message.content %>]]></Content>
 	<FuncFlag>0</FuncFlag>
 </xml>

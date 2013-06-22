@@ -7,7 +7,7 @@ class CreateMessageReceiveVoices < ActiveRecord::Migration
       t.string :msg_type
       t.string :media_id
       t.string :format
-      t.integer :msg_id
+      t.integer :msg_id, :limit => 8
       t.string :recognition
       t.text :region_source
 

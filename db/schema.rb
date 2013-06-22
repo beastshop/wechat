@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130622075742) do
+ActiveRecord::Schema.define(:version => 20130622144804) do
 
   create_table "message_receive_events", :force => true do |t|
     t.string   "to_user_name"
@@ -74,6 +74,20 @@ ActiveRecord::Schema.define(:version => 20130622075742) do
     t.text     "content"
     t.integer  "msg_id",         :limit => 8
     t.text     "origin_source"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  create_table "message_receive_voices", :force => true do |t|
+    t.string   "to_user_name"
+    t.string   "from_user_name"
+    t.datetime "create_time"
+    t.string   "msg_type"
+    t.string   "media_id"
+    t.string   "format"
+    t.integer  "msg_id",         :limit => 8
+    t.string   "recognition"
+    t.text     "region_source"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end
