@@ -9,8 +9,15 @@ Wechat::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
-  get 'api' => 'api#call'
-  post 'api' => 'api#call'
+  get '/api' => 'api/common#test'
+  scope :path => "/api", :via => :post, :defaults => {:format => 'xml'} do
+    root :to => 'api/common#echo'
+    # root :to => 'api/users#welcome', :constraints => Wechat::Router.new(:type => "text", :content => "Hello2BizUser")
+    # root :to => 'weixin/staffs#show', :constraints => Wechat::Router.new(:type => "text", :content => /^@/)
+    # root :to => 'weixin/staff_photos#update', :constraints => Wechat::Router.new(:type => "text", :content=>/^#photo /)
+    # root :to => 'weixin/staffs#index', :constraints => Wechat::Router.new(:type => "text")
+    # root :to => 'weixin/staff_photos#create', :constraints => Wechat::Router.new(:type => "image")
+  end
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
