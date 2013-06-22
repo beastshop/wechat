@@ -8,6 +8,7 @@ class CreateMessageSendMusics < ActiveRecord::Migration
       t.string :music_url
       t.string :hq_music_url
       t.string :func_flag
+      t.string :content
 
       t.timestamps
     end

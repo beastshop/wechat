@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130622144804) do
     t.string   "music_url"
     t.string   "hq_music_url"
     t.string   "func_flag"
+    t.string   "content"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20130622144804) do
     t.string   "msg_type"
     t.integer  "article_count"
     t.string   "func_flag"
+    t.string   "content"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
@@ -131,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20130622144804) do
     t.string   "msg_type"
     t.integer  "msg_id",         :limit => 8
     t.string   "func_flag"
+    t.string   "content"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end

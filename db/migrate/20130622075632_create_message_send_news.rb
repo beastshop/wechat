@@ -7,6 +7,7 @@ class CreateMessageSendNews < ActiveRecord::Migration
       t.string :msg_type
       t.integer :article_count
       t.string :func_flag
+      t.string :content
 
       t.timestamps
     end
