@@ -11,7 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130622144804) do
+ActiveRecord::Schema.define(:version => 20130625152821) do
+
+  create_table "message_auto_reply_musics", :force => true do |t|
+    t.string   "music_url"
+    t.string   "hq_music_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "message_auto_reply_texts", :force => true do |t|
+    t.string   "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "message_keywords", :force => true do |t|
+    t.string   "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "message_keywords_message_auto_reply_musics", :id => false, :force => true do |t|
+    t.integer "message_keyword_id"
+    t.integer "message_auto_reply_music_id"
+  end
+
+  create_table "message_keywords_message_auto_reply_texts", :id => false, :force => true do |t|
+    t.integer "message_keyword_id"
+    t.integer "message_auto_reply_text_id"
+  end
 
   create_table "message_receive_events", :force => true do |t|
     t.string   "to_user_name"

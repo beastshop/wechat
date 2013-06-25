@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  music_url: MyString
+  hq_music_url: MyString
+
+two:
+  music_url: MyString
+  hq_music_url: MyString
