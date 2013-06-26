@@ -30,8 +30,8 @@ class Api::CommonController < Api::ApplicationController
 					@message.to_user_name = params[:xml][:FromUserName]
 					@message.from_user_name = params[:xml][:ToUserName]
 					@message.create_time = Time.now
-					@message.music_url = request.protocol<< request.host_with_port << @mkw.message_auto_reply_musics.first.music_url.to_s
-					@message.hq_music_url = request.protocol << request.host_with_port << @mkw.message_auto_reply_musics.first.hq_music_url.to_s
+					@message.music_url = request.protocol + request.host_with_port + @mkw.message_auto_reply_musics.first.music_url.to_s
+					@message.hq_music_url = request.protocol + request.host_with_port + @mkw.message_auto_reply_musics.first.hq_music_url.to_s
 					p @message
 					render :xml, :template => 'api/message_music'
 				elsif @mkw.message_auto_reply_news.size > 0
@@ -44,7 +44,7 @@ class Api::CommonController < Api::ApplicationController
 						news_article.title = article.title
 						news_article.description = article.description
 						news_article.pic_url = request.protocol + request.host_with_port + article.pic_url.to_s
-						news_article.url = news_article.pic_url
+						news_article.url = article.url
 						@message.message_send_news_articles << news_article
 					end
 					p @message
