@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>title:</b>
+  <%= @message_auto_reply_news_article.title %>
+</p>
+<p>
+  <b>desc:</b>
+  <%= @message_auto_reply_news_article.description %>
+</p>
+<p>
+  <b>pic_url:</b>
+  <%= @message_auto_reply_news_article.pic_url %>
+</p>
+<p>
+  <b>url:</b>
+  <%= @message_auto_reply_news_article.url %>
+</p>
+
+<%= link_to 'Edit', edit_message_auto_reply_news_article_path(@message_auto_reply_news_article) %> |
+<%= link_to 'Back', message_auto_reply_news_articles_path %>

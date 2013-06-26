@@ -1,0 +1,23 @@
+<h1>Listing message_auto_reply_news</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @message_auto_reply_news.each do |message_auto_reply_news| %>
+  <tr>
+    <td><%= message_auto_reply_news.content %></td>
+    <td><%= link_to 'Show', message_auto_reply_news %></td>
+    <td><%= link_to 'Edit', edit_message_auto_reply_news_path(message_auto_reply_news) %></td>
+    <td><%= link_to 'Destroy', message_auto_reply_news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Message auto reply news', new_message_auto_reply_news_path %>

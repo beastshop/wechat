@@ -1,22 +1,18 @@
  <xml>
-	 <ToUserName><![CDATA[toUser]]></ToUserName>
-	 <FromUserName><![CDATA[fromUser]]></FromUserName>
-	 <CreateTime>12345678</CreateTime>
+	 <ToUserName><![CDATA[<%= @message.to_user_name %>]]></ToUserName>
+	 <FromUserName><![CDATA[<%= @message.from_user_name %>]]></FromUserName>
+	 <CreateTime><%= @message.create_time.to_i %></CreateTime>
 	 <MsgType><![CDATA[news]]></MsgType>
-	 <ArticleCount>2</ArticleCount>
+	 <ArticleCount><%=@message.message_send_news_articles.size %></ArticleCount>
 	 <Articles>
+	 	<% @message.message_send_news_articles.each do | article | %>
 		 <item>
-			 <Title><![CDATA[title1]]></Title> 
-			 <Description><![CDATA[description1]]></Description>
-			 <PicUrl><![CDATA[picurl]]></PicUrl>
-			 <Url><![CDATA[url]]></Url>
+			 <Title><![CDATA[<%= article.title %>]]></Title> 
+			 <Description><![CDATA[<%= article.description %>]]></Description>
+			 <PicUrl><![CDATA[<%= article.pic_url %>]]></PicUrl>
+			 <Url><![CDATA[<%= article.url %>]]></Url>
 		 </item>
-		 <item>
-			 <Title><![CDATA[title]]></Title>
-			 <Description><![CDATA[description]]></Description>
-			 <PicUrl><![CDATA[picurl]]></PicUrl>
-			 <Url><![CDATA[url]]></Url>
-		 </item>
+		<% end %>
 	 </Articles>
 	 <FuncFlag>1</FuncFlag>
  </xml> 

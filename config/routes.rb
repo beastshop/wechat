@@ -1,11 +1,9 @@
 Wechat::Application.routes.draw do
   resources :message_keywords
-
-
   resources :message_auto_reply_musics
-
-
   resources :message_auto_reply_texts
+  resources :message_auto_reply_news
+  resources :message_auto_reply_news_articles
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

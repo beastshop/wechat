@@ -1,5 +1,5 @@
 class MessageAutoReplyTextsController < ApplicationController
-def index
+  def index
     @message_auto_reply_texts = MessageAutoReplyText.all
 
   end

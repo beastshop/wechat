@@ -1,0 +1,36 @@
+<%= form_for(@message_auto_reply_news_article) do |f| %>
+  <% if @message_auto_reply_news_article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message_auto_reply_news_article.errors.count, "error") %> prohibited this message_auto_reply_news_article from being saved:</h2>
+
+      <ul>
+      <% @message_auto_reply_news_article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+    <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+    <div class="field">
+    <%= f.label :pic_url %><br />
+    <%= f.file_field :pic_url %>
+  </div>
+    <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.collection_select  :message_auto_reply_news_id, MessageAutoReplyNews.all, :id, :content%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
