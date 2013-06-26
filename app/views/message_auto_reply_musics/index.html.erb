@@ -8,10 +8,10 @@
     <th></th>
     <th></th>
   </tr>
-
+ 
 <% @message_auto_reply_musics.each do |message_auto_reply_music| %>
   <tr>
-    <td><%= message_auto_reply_music.music_url %></td>
+    <td><a href="<%= message_auto_reply_music.music_url %>" ><%= message_auto_reply_music.music_url %></a></td>
     <td><%= message_auto_reply_music.hq_music_url %></td>
     <td><%= link_to 'Show', message_auto_reply_music %></td>
     <td><%= link_to 'Edit', edit_message_auto_reply_music_path(message_auto_reply_music) %></td>

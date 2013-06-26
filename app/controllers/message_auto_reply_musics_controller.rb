@@ -1,7 +1,6 @@
 class MessageAutoReplyMusicsController < ApplicationController
 def index
     @message_auto_reply_musics = MessageAutoReplyMusic.all
-    
   end
 
   def show
