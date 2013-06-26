@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130626080842) do
+ActiveRecord::Schema.define(:version => 20130626135111) do
 
   create_table "message_auto_reply_musics", :force => true do |t|
     t.string   "music_url"
@@ -26,26 +26,47 @@ ActiveRecord::Schema.define(:version => 20130626080842) do
     t.integer  "hq_music_url_file_size"
   end
 
+  create_table "message_auto_reply_musics_message_keywords", :id => false, :force => true do |t|
+    t.integer "message_keyword_id"
+    t.integer "message_auto_reply_music_id"
+  end
+
+  create_table "message_auto_reply_news", :force => true do |t|
+    t.integer  "article_count"
+    t.string   "content"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "message_auto_reply_news_articles", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "pic_url"
+    t.integer  "message_auto_reply_news_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "message_auto_reply_news_message_keywords", :id => false, :force => true do |t|
+    t.integer "message_keyword_id"
+    t.integer "message_auto_reply_news_id"
+  end
+
   create_table "message_auto_reply_texts", :force => true do |t|
     t.string   "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  create_table "message_auto_reply_texts_message_keywords", :id => false, :force => true do |t|
+    t.integer "message_keyword_id"
+    t.integer "message_auto_reply_text_id"
+  end
+
   create_table "message_keywords", :force => true do |t|
     t.string   "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "message_keywords_message_auto_reply_musics", :id => false, :force => true do |t|
-    t.integer "message_keyword_id"
-    t.integer "message_auto_reply_music_id"
-  end
-
-  create_table "message_keywords_message_auto_reply_texts", :id => false, :force => true do |t|
-    t.integer "message_keyword_id"
-    t.integer "message_auto_reply_text_id"
   end
 
   create_table "message_receive_events", :force => true do |t|
