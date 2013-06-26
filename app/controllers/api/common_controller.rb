@@ -17,11 +17,10 @@ class Api::CommonController < Api::ApplicationController
 		case params[:xml][:MsgType]
 		when "text"
 			@message.content = "我们收到了您的文本信息"
-
 			msg_text = params[:xml][:Content]
-			MessageKeyword.where("content like '%#{msg_text}%'").first.message_auto_reply_texts.each do | auto_reply_text |
-				@message.content += auto_reply_text.content
-			end
+			@mkw = MessageKeyword.where("content like '%#{msg_text}%'").first
+
+			if !@mkw.nil? render :xml, :template => 'api/message_texts'
 		when "image"
 			@message.content = "我们收到了您的图片信息"
 		when "location"
