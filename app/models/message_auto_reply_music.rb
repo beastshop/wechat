@@ -8,7 +8,7 @@ class MessageAutoReplyMusic < ActiveRecord::Base
                     :path => ":rails_root/public/musicfile/:attachment/:id/:style/:filename"
 
   has_attached_file :hq_music_url,  
-                    :url  => "/musicfile/:attachment/:id/:style/:filename",
+                    :url  => "/hqmusicfile/:attachment/:id/:style/:filename",
                     :path => ":rails_root/public/hqmusicfile/:attachment/:id/:style/:filename"
 
 end
