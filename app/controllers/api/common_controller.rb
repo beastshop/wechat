@@ -43,7 +43,7 @@ class Api::CommonController < Api::ApplicationController
 						news_article = MessageSendNewsArticle.new
 						news_article.title = article.title
 						news_article.description = article.description
-						news_article.pic_url = request.protocol << request.host_with_port << article.pic_url.to_s
+						news_article.pic_url = request.protocol + request.host_with_port + article.pic_url.to_s
 						news_article.url = news_article.pic_url
 						@message.message_send_news_articles << news_article
 					end
