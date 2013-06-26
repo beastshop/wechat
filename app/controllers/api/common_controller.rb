@@ -32,6 +32,7 @@ class Api::CommonController < Api::ApplicationController
 					@message.create_time = Time.now
 					@message.music_url = @mkw.message_auto_reply_musics.first.music_url
 					@message.hq_music_url = @mkw.message_auto_reply_musics.first.hq_music_url
+					p @message
 					render :xml, :template => 'api/message_music'
 				end
 					
@@ -42,13 +43,15 @@ class Api::CommonController < Api::ApplicationController
 
 		when "image"
 			@message.content = "我们收到了您的图片信息"
+			render :xml, :template => 'api/message_text'
 		when "location"
 			@message.content = "我们收到了您的位置信息"
+			render :xml, :template => 'api/message_text'
 		when "voice"
 			@message.content = "我们收到了您的留言信息"
+			render :xml, :template => 'api/message_text'
 		end
 		p @message
-		render :xml, :template => 'api/message_text'
 	end
 
 end
