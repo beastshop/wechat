@@ -3,7 +3,7 @@ development:
   database: wechat_dev
   encoding: utf8
   username: root
-  password: '13636632007'
+  password: ''
   host: 127.0.0.1
   pool: 5
   timeout: 5000

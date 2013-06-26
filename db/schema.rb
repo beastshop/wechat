@@ -11,13 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625152821) do
+ActiveRecord::Schema.define(:version => 20130626080842) do
 
   create_table "message_auto_reply_musics", :force => true do |t|
     t.string   "music_url"
     t.string   "hq_music_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "music_url_file_name"
+    t.string   "music_url_content_type"
+    t.integer  "music_url_file_size"
+    t.string   "hq_music_url_file_name"
+    t.string   "hq_music_url_content_type"
+    t.integer  "hq_music_url_file_size"
   end
 
   create_table "message_auto_reply_texts", :force => true do |t|

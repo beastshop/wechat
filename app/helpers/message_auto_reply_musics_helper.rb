@@ -1,0 +1,2 @@
+module MessageAutoReplyMusicsHelper
+end

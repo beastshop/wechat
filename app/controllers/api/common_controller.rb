@@ -21,9 +21,25 @@ class Api::CommonController < Api::ApplicationController
 
 			@mkw = MessageKeyword.where("content like '%#{msg_text}%'").first
 
-			if !@mkw.nil? && @mkw.message_auto_reply_texts.size > 0
-				@message.content = @mkw.message_auto_reply_texts.first.content
+			if !@mkw.nil?
+				if @mkw.message_auto_reply_texts.size > 0
+					@message.content = @mkw.message_auto_reply_texts.first.content
+					render :xml, :template => 'api/message_text'
+				elsif @mkw.message_auto_reply_musics.size > 0
+					@message = MessageSendMusic.new
+					@message.to_user_name = params[:xml][:FromUserName]
+					@message.from_user_name = params[:xml][:ToUserName]
+					@message.create_time = Time.now
+					@message.music_url = @mkw.message_auto_reply_musics.first.music_url
+					@message.hq_music_url = @mkw.message_auto_reply_musics.first.hq_music_url
+					render :xml, :template => 'api/message_music'
+				end
+					
+
 			end
+
+
+
 		when "image"
 			@message.content = "我们收到了您的图片信息"
 		when "location"

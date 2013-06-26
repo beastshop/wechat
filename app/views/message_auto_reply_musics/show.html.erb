@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>music_url:</b>
+  <%= @message_auto_reply_music.music_url %>
+</p>
+
+<p>
+  <b>hq_music_url:</b>
+  <%= @message_auto_reply_music.hq_music_url %>
+</p>
+
+<%= link_to 'Edit', edit_message_auto_reply_music_path(@message_auto_reply_music) %> |
+<%= link_to 'Back', message_auto_reply_musics_path %>

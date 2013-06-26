@@ -1,0 +1,30 @@
+<%= form_for(@message_auto_reply_music) do |f| %>
+  <% if @message_auto_reply_music.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message_auto_reply_music.errors.count, "error") %> prohibited this message_auto_reply_music from being saved:</h2>
+
+      <ul>
+      <% @message_auto_reply_music.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :music_url %><br />
+    <%= f.file_field :music_url %>
+  </div>
+    <div class="field">
+    <%= f.label :hq_music_url %><br />
+    <%= f.file_field :hq_music_url %>
+  </div>
+  <div class="field">
+    <% @keywords.each do |key| %>
+      <input type="checkbox" name="keywords[]" value="<%=key.id%>" <%= @message_auto_reply_music.message_keywords.pluck(:id).include?(key.id) ? "checked" : "" %> /><%= key.content %> 
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
