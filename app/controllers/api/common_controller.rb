@@ -30,8 +30,8 @@ class Api::CommonController < Api::ApplicationController
 					@message.to_user_name = params[:xml][:FromUserName]
 					@message.from_user_name = params[:xml][:ToUserName]
 					@message.create_time = Time.now
-					@message.music_url = request.host_with_port + @mkw.message_auto_reply_musics.first.music_url
-					@message.hq_music_url = request.host_with_port + @mkw.message_auto_reply_musics.first.hq_music_url
+					@message.music_url = request.host_with_port << @mkw.message_auto_reply_musics.first.music_url.to_s
+					@message.hq_music_url = request.host_with_port << @mkw.message_auto_reply_musics.first.hq_music_url.to_s
 					p @message
 					render :xml, :template => 'api/message_music'
 				end

@@ -1,5 +1,5 @@
 class MessageAutoReplyMusicsController < ApplicationController
-def index
+  def index
     @message_auto_reply_musics = MessageAutoReplyMusic.all
   end
 
