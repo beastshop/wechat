@@ -3,10 +3,9 @@ class MessageAutoReplyNewsArticle < ActiveRecord::Base
   belongs_to :message_auto_reply_news
 
   has_attached_file :pic_url, 
-  					:styles => { :medium => "640x320", :thumb => "80x80" },
   					:url  => "/newspic/:attachment/:id/:style/:filename",
                     :path => ":rails_root/public/newspic/:attachment/:id/:style/:filename"
 
-  validates_attachment :pic_url, :presence => true, :content_type => { :content_type => ["image/jpeg", "image/jpg","image/png"] }
+  validates_attachment :pic_url,  :content_type => { :content_type => ["image/jpeg", "image/jpg","image/png"] }
 
 end
