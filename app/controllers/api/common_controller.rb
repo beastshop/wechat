@@ -20,10 +20,8 @@ class Api::CommonController < Api::ApplicationController
 
 			msg_text = params[:xml][:Content]
 			MessageKeyword.where("content like '%#{msg_text}%'").first.message_auto_reply_texts.each do | auto_reply_text |
-				@message.content = auto_reply_text.content
-				render :xml, :template => 'api/message_text'
+				@message.content += auto_reply_text.content
 			end
-			
 		when "image"
 			@message.content = "我们收到了您的图片信息"
 		when "location"
