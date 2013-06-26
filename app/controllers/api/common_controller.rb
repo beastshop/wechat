@@ -21,7 +21,7 @@ class Api::CommonController < Api::ApplicationController
 
 			@mkw = MessageKeyword.where("content like '%#{msg_text}%'").first
 
-			if !@mkw.nil? && @mkw.message_auto_reply_texts.list > 0
+			if !@mkw.nil? && @mkw.message_auto_reply_texts.size > 0
 				@message.content = @mkw.message_auto_reply_texts.first.content
 			end
 		when "image"
