@@ -1,0 +1,23 @@
+<h1>Listing message_keywords</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @message_keywords.each do |message_keyword| %>
+  <tr>
+    <td><%= message_keyword.content %></td>
+    <td><%= link_to 'Show', message_keyword %></td>
+    <td><%= link_to 'Edit', edit_message_keyword_path(message_keyword) %></td>
+    <td><%= link_to 'Destroy', message_keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Message keyword', new_message_keyword_path %>

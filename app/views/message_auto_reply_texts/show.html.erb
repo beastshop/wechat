@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @message_auto_reply_text.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_message_auto_reply_text_path(@message_auto_reply_text) %> |
+<%= link_to 'Back', message_auto_reply_texts_path %>

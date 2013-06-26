@@ -1,0 +1,26 @@
+<%= form_for(@message_auto_reply_text) do |f| %>
+  <% if @message_auto_reply_text.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message_auto_reply_text.errors.count, "error") %> prohibited this message_auto_reply_text from being saved:</h2>
+
+      <ul>
+      <% @message_auto_reply_text.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <% @keywords.each do |key| %>
+      <input type="checkbox" name="keywords[]" value="<%=key.id%>" <%= @message_auto_reply_text.message_keywords.pluck(:id).include?(key.id) ? "checked" : "" %> /><%= key.content %> 
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

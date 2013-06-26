@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @message_keyword.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_message_keyword_path(@message_keyword) %> |
+<%= link_to 'Back', message_keywords_path %>
