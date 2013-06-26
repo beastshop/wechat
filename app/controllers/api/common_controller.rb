@@ -50,8 +50,8 @@ class Api::CommonController < Api::ApplicationController
 					p @message
 					render :xml, :template => 'api/message_news'
 				end
-					
-
+			else
+				render :xml, :template => 'api/message_text'
 			end
 
 
