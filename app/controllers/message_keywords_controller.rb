@@ -26,9 +26,9 @@ class MessageKeywordsController < ApplicationController
       when "text"
         @message_keyword.message_auto_reply_texts << MessageAutoReplyText.find(params[:auto_id])
       when "voice"
-        @message_keyword.message_auto_reply_musics << MessageAutoReplyText.find(params[:auto_id])
+        @message_keyword.message_auto_reply_musics << MessageAutoReplyMusic.find(params[:auto_id])
       when "news"
-        @message_keyword.message_auto_reply_news << MessageAutoReplyText.find(params[:auto_id])
+        @message_keyword.message_auto_reply_news << MessageAutoReplyNews.find(params[:auto_id])
       end
     end
 

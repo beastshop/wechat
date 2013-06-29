@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+
   <b>Content:</b>
   <%= @message_auto_reply_news.content %>
-</p>
+
+  <% @articles.each do | article | %>
+  <label>图片: </label><%= image_tag article.pic_url %>
+  <label>标题: </label><%= article.title %>
+  <label>图片URL: </label><%= article.url %>
+  <label>描述: </label><%= article.description %>
+  <% end %>
+
 
 
 <%= link_to 'Edit', edit_message_auto_reply_news_path(@message_auto_reply_news) %> |

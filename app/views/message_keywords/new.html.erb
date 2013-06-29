@@ -33,8 +33,39 @@ function destroyAutoText(obj,autotext_id)
 	});
 }
 
+function destroyAutoMusics(obj,automusic_id)
+{
+	$.ajax({
+		url: "/message_auto_reply_musics/destroy",
+		type: "POST",
+		dataType: "json",
+		data: {id:automusic_id},
+		success: function(msg){
+			$(obj).parent().parent().remove();
+		}
+	});
+}
+
+function destroyAutoNews(obj,autonews_id)
+{
+	$.ajax({
+		url: "/message_auto_reply_news/destroy",
+		type: "POST",
+		dataType: "json",
+		data: {id:autonews_id},
+		success: function(msg){
+			$(obj).parent().parent().remove();
+		}
+	});
+}
+
 function setType (type) {
 	$("#auto_type").val(type);
+}
+
+function showNews (news_id)
+{
+	window.open ('/message_auto_reply_news/'+news_id,'newwindow','height=800,width=600,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
 }
 </script>
 <div class="container-fluid">
@@ -126,16 +157,39 @@ function setType (type) {
 										<tr>
 											<td><input type="radio" name="auto_id" value="<%=auto_music.id%>" onclick="setType('music');"></td>
 											<td><%=auto_music.music_url%></td>			
-    										<td><a class='btn btn-link' onclick="destroyAutoText(this,<%=auto_music.id%>)">destroy</a></td>
+    										<td><a class='btn btn-link' onclick="destroyAutoMusics(this,<%=auto_music.id%>)">destroy</a></td>
 										</tr>
 									<% end %>
 								</tbody>
 						</table>
 					</div>
 					<div class="tab-pane" id="panel-news">
-						<p>
-							图文.
-						</p>
+						<table id="auto_reply_news_table" class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											勾选
+										</th>
+										<th>
+											文件
+										</th>
+										<th>
+											操作
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @auto_news.each do | auto_reply_news | %>
+										<tr>
+											<td><input type="radio" name="auto_id" value="<%=auto_reply_news.id%>" onclick="setType('news');"></td>
+											<td><%=auto_reply_news.content%></td>			
+    										<td><a class='btn btn-link' onclick="destroyAutoNews(this,<%=auto_reply_news.id%>)">destroy</a>
+    											<a onclick="showNews(<%=auto_reply_news.id%>)">show</a>
+    										</td>
+										</tr>
+									<% end %>
+								</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

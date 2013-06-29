@@ -6,6 +6,8 @@ class MessageAutoReplyNewsController < ApplicationController
 
   def show
     @message_auto_reply_news = MessageAutoReplyNews.find(params[:id])
+    @articles = @message_auto_reply_news.message_auto_reply_news_articles
+    p @articles
   end
 
   def new
@@ -59,7 +61,7 @@ class MessageAutoReplyNewsController < ApplicationController
     @message_auto_reply_news = MessageAutoReplyNews.find(params[:id])
     @message_auto_reply_news.destroy
 
-    redirect_to message_auto_reply_newss_url 
+    render :text => "{}"  
     
   end
 end
