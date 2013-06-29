@@ -4,6 +4,13 @@ class MessageAutoReplyTextsController < ApplicationController
 
   end
 
+  def new_model
+    @message_auto_reply_text = MessageAutoReplyText.new
+    @message_auto_reply_text.content = params[:content]
+    @message_auto_reply_text.save
+    render :text => @message_auto_reply_text.id.to_s
+  end
+
   def show
     @message_auto_reply_text = MessageAutoReplyText.find(params[:id])
   end
@@ -58,8 +65,6 @@ class MessageAutoReplyTextsController < ApplicationController
   def destroy
     @message_auto_reply_text = MessageAutoReplyText.find(params[:id])
     @message_auto_reply_text.destroy
-
-    redirect_to message_auto_reply_texts_url 
-    
+    render :text => "{}"    
   end
 end

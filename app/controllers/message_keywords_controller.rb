@@ -10,6 +10,9 @@ class MessageKeywordsController < ApplicationController
 
   def new
     @message_keyword = MessageKeyword.new
+    @auto_texts = MessageAutoReplyText.all
+    @auto_musics = MessageAutoReplyMusic.all
+    @auto_news = MessageAutoReplyNews.all
   end
 
   def edit
@@ -18,6 +21,16 @@ class MessageKeywordsController < ApplicationController
 
   def create
     @message_keyword = MessageKeyword.new(params[:message_keyword])
+    if !params[:auto_id].nil?
+      case params[:auto_type]
+      when "text"
+        @message_keyword.message_auto_reply_texts << MessageAutoReplyText.find(params[:auto_id])
+      when "voice"
+        @message_keyword.message_auto_reply_musics << MessageAutoReplyText.find(params[:auto_id])
+      when "news"
+        @message_keyword.message_auto_reply_news << MessageAutoReplyText.find(params[:auto_id])
+      end
+    end
 
     if @message_keyword.save
       redirect_to @message_keyword

@@ -19,7 +19,7 @@ class Api::CommonController < Api::ApplicationController
 			@message.content = "我们收到了您的文本信息"
 			msg_text = params[:xml][:Content]
 
-			@mkw = MessageKeyword.where("content like '%#{msg_text}%'").first
+			@mkw = MessageKeyword.where("#{msg_text} like '%#{content}%'").first
 
 			if !@mkw.nil?
 				if @mkw.message_auto_reply_texts.size > 0

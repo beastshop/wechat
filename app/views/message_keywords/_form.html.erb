@@ -19,3 +19,22 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <h3>
+        h3. 这是一套可视化布局系统.
+      </h3>
+      <%= form_for(@message_keyword) do |f| %>
+        <fieldset>
+           <legend>表单项</legend> <label>表签名</label>
+           <input type="text" /> <span class="help-block">这里填写帮助信息.</span> 
+           <label class="checkbox"><input type="checkbox" /> 勾选同意</label> 
+            <%= f.submit %>
+        </fieldset>
+      <% end %>
+       <button class="btn btn-link" type="button">按钮</button>
+    </div>
+  </div>
+</div>

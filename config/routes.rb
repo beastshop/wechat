@@ -4,6 +4,9 @@ Wechat::Application.routes.draw do
   resources :message_auto_reply_texts
   resources :message_auto_reply_news
   resources :message_auto_reply_news_articles
+
+  post 'message_auto_reply_texts/new_model'
+  post 'message_auto_reply_texts/destroy'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
