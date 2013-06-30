@@ -32,7 +32,11 @@ Wechat::Application.routes.draw do
     namespace :the_beast do
       # Directs /admin/products/* to Admin::ProductsController
       # (app/controllers/admin/products_controller.rb)
-      resources :sessions
+      resources :sessions do
+        collection do
+          get 'success'
+        end
+      end
     end
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):

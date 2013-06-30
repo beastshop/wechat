@@ -6,8 +6,7 @@ class TheBeast::Order
 	def self.get_list(customer_id)
 		orders = []
 
-		array = { "customer_id" => s.user_id }
-		#array = { "customer_id" => "85806" }
+		array = { "customer_id" => customer_id }
 		results = Magento::Order.list(array)
 		results.each do |result|
 			o = TheBeast::Order.new
