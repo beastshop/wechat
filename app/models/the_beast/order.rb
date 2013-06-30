@@ -3,23 +3,22 @@ require 'magentor'
 class TheBeast::Order
 	attr_accessor :order_code, :status, :order_id, :order_status, :payment_status, :total_price, :address, :note, :order_items
 	
-	def self.get_list(session)
+	def self.get_list(customer_id)
 		orders = []
-		s = Session.find_by_key(session)
-		if !s.nil?
-			array = { "customer_id" => s.user_id }
-			#array = { "customer_id" => "85806" }
-			results = Magento::Order.list(array)
-			results.each do |result|
-				o = TheBeast::Order.new
-				#o.order_id = result.attributes["order_id"]
-				o.order_id = result.attributes["increment_id"]
-				o.status = result.attributes["status"]
-				o.total_price = result.attributes["total_due"]
-				o.order_code = result.attributes["protect_code"]
-				orders << o
-			end
+
+		array = { "customer_id" => s.user_id }
+		#array = { "customer_id" => "85806" }
+		results = Magento::Order.list(array)
+		results.each do |result|
+			o = TheBeast::Order.new
+			#o.order_id = result.attributes["order_id"]
+			o.order_id = result.attributes["increment_id"]
+			o.status = result.attributes["status"]
+			o.total_price = result.attributes["total_due"]
+			o.order_code = result.attributes["protect_code"]
+			orders << o
 		end
+
 		orders
 	end
 
