@@ -28,6 +28,13 @@ Wechat::Application.routes.draw do
     # root :to => 'weixin/staffs#index', :constraints => Wechat::Router.new(:type => "text")
     # root :to => 'weixin/staff_photos#create', :constraints => Wechat::Router.new(:type => "image")
   end
+
+    namespace :the_beast do
+      # Directs /admin/products/* to Admin::ProductsController
+      # (app/controllers/admin/products_controller.rb)
+      resources :sessions
+    end
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
