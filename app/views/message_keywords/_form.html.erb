@@ -68,7 +68,8 @@ function showNews (news_id)
   window.open ('/message_auto_reply_news/'+news_id,'newwindow','height=800,width=600,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
 }
 </script>
-<div class="container-fluid">
+
+
   <div class="row-fluid">
   <%= form_for(@message_keyword) do |f| %>
   <input type="hidden" name="auto_type" id="auto_type" > 
@@ -198,7 +199,6 @@ function showNews (news_id)
     <% end %>
     <%= link_to 'Back', message_keywords_path %>
   </div>
-</div>
 
 
 

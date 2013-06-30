@@ -65,6 +65,14 @@ class Api::CommonController < Api::ApplicationController
 		when "voice"
 			@message.content = "我们收到了您的留言信息"
 			render :xml, :template => 'api/message_text'
+		when "event"
+			case params[:xml][:Event]
+			when "subscribe"
+				@message.content = '感谢您的关注'
+			when "unsubscribe"
+				@message.content = '感谢您再次关注'
+			end
+			render :xml, :template => 'api/message_text'
 		end
 		p @message
 	end

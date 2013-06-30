@@ -1,13 +1,19 @@
-<h1>关键字列表</h1>
-
+<body>
+<div class="container">
+<div class="well">
+  <h3>关键字列表</h3>
+</div>
+<%= link_to '新建关键字', new_message_keyword_path, :class => "btn btn-primar" %>
 <table class="table table-striped">
-  <tr>
-    <th>Content</th>
+  <thead>
+    <tr>
+    <th>关键字</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
+</thead>
+<tbody>
 <% @message_keywords.each do |message_keyword| %>
   <tr>
     <td><%= message_keyword.content %></td>
@@ -16,8 +22,9 @@
     <td><%= link_to 'Destroy', message_keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
-<br />
 
-<%= link_to '新建关键字', new_message_keyword_path %>
+  </div>
+</body>
