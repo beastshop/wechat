@@ -1,40 +1,206 @@
-<%= form_for(@message_keyword) do |f| %>
-  <% if @message_keyword.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@message_keyword.errors.count, "error") %> prohibited this message_keyword from being saved:</h2>
+<script type="text/javascript">
 
-      <ul>
-      <% @message_keyword.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+function refleshAutoText()
+{
+  $("#autotext").val('');
+}
 
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_field :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+function addAutoText(textValue)
+{
+  
+  $.ajax({
+    url: "/message_auto_reply_texts/new_model",
+    type: "POST",
+    dataType: "json",
+    data: {content:textValue},
+    success: function(msg){
+      $('#modal-container-text').modal('toggle');
+      $("#auto_reply_texts_table").append("<tr><td><input type='radio' name='auto_id' value='"+msg+"' onclick=\"setType('text');\"></td><td>"+textValue+"</td><td><a class='btn btn-link' onclick='destroyAutoText(this,"+msg+")'>destroy</a></td></tr>");
+    }
+  });
+}
 
-<div class="container-fluid">
+function destroyAutoText(obj,autotext_id)
+{
+  $.ajax({
+    url: "/message_auto_reply_texts/destroy",
+    type: "POST",
+    dataType: "json",
+    data: {id:autotext_id},
+    success: function(msg){
+      $(obj).parent().parent().remove();
+    }
+  });
+}
+
+function destroyAutoMusics(obj,automusic_id)
+{
+  $.ajax({
+    url: "/message_auto_reply_musics/destroy",
+    type: "POST",
+    dataType: "json",
+    data: {id:automusic_id},
+    success: function(msg){
+      $(obj).parent().parent().remove();
+    }
+  });
+}
+
+function destroyAutoNews(obj,autonews_id)
+{
+  $.ajax({
+    url: "/message_auto_reply_news/destroy",
+    type: "POST",
+    dataType: "json",
+    data: {id:autonews_id},
+    success: function(msg){
+      $(obj).parent().parent().remove();
+    }
+  });
+}
+
+function setType (type) {
+  $("#auto_type").val(type);
+}
+
+function showNews (news_id)
+{
+  window.open ('/message_auto_reply_news/'+news_id,'newwindow','height=800,width=600,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
+}
+</script>
+
+
   <div class="row-fluid">
-    <div class="span12">
-      <h3>
-        h3. 这是一套可视化布局系统.
-      </h3>
-      <%= form_for(@message_keyword) do |f| %>
-        <fieldset>
-           <legend>表单项</legend> <label>表签名</label>
-           <input type="text" /> <span class="help-block">这里填写帮助信息.</span> 
-           <label class="checkbox"><input type="checkbox" /> 勾选同意</label> 
-            <%= f.submit %>
-        </fieldset>
-      <% end %>
-       <button class="btn btn-link" type="button">按钮</button>
-    </div>
+  <%= form_for(@message_keyword) do |f| %>
+  <input type="hidden" name="auto_type" id="auto_type" > 
+    <fieldset>
+      <div class="span6">
+          <legend>关键字</legend> 
+      <label>关键字内容:</label><%= f.text_field :content %>
+      </div>
+      <div class="span6">
+          <legend>回复消息</legend> 
+      <div class="tabbable" id="tabs-697398">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#panel-text" data-toggle="tab">文本</a>
+          </li>
+          <li>
+            <a href="#panel-voice" data-toggle="tab">声音</a>
+          </li>
+          <li>
+            <a href="#panel-news" data-toggle="tab">图文</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="panel-text">
+             <a id="modal-text" href="#modal-container-text" role="button" class="btn" data-toggle="modal" onclick="refleshAutoText();">新建文本消息</a>
+      
+            <div id="modal-container-text" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">
+                  文本消息回复
+                </h3>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <input type="text" id="autotext">
+                </p>
+              </div>
+              <div class="modal-footer">
+                 <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button> <a class="btn btn-primary" onclick="addAutoText($('#autotext').val());">保存设置</a>
+              </div>
+            </div>
+            <table id="auto_reply_texts_table" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    勾选
+                  </th>
+                  <th>
+                    文本内容
+                  </th>
+                  <th>
+                    操作
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @auto_texts.each do | auto_text | %>
+                  <tr>
+                    <td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_texts.pluck(:id).include?(auto_text.id) ? "checked" : "" %> value="<%=auto_text.id%>" onclick="setType('text');"></td>
+                    <td><%=auto_text.content%></td>     
+                    <td><a class='btn btn-link' onclick="destroyAutoText(this,<%=auto_text.id%>)">destroy</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="panel-voice">
+            <table id="auto_reply_musics_table" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>
+                      勾选
+                    </th>
+                    <th>
+                      文件
+                    </th>
+                    <th>
+                      操作
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @auto_musics.each do | auto_music | %>
+                    <tr>
+                      <td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_musics.pluck(:id).include?(auto_music.id) ? "checked" : "" %>  value="<%=auto_music.id%>" onclick="setType('music');"></td>
+                      <td><%=auto_music.music_url%></td>      
+                        <td><a class='btn btn-link' onclick="destroyAutoMusics(this,<%=auto_music.id%>)">destroy</a></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="panel-news">
+            <table id="auto_reply_news_table" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>
+                      勾选
+                    </th>
+                    <th>
+                      文件
+                    </th>
+                    <th>
+                      操作
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @auto_news.each do | auto_reply_news | %>
+                    <tr>
+                      <td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_news.pluck(:id).include?(auto_reply_news.id) ? "checked" : "" %>  value="<%=auto_reply_news.id%>" onclick="setType('news');"></td>
+                      <td><%=auto_reply_news.content%></td>     
+                        <td><a class='btn btn-link' onclick="destroyAutoNews(this,<%=auto_reply_news.id%>)">destroy</a>
+                          <a class='btn btn-link' onclick="showNews(<%=auto_reply_news.id%>)">show</a>
+                        </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </fieldset>
+    <%= f.submit :class => "btn", :value => "保存" %>
+    <% end %>
+    <%= link_to 'Back', message_keywords_path %>
   </div>
-</div>
+
+
+
+
+
