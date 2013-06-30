@@ -128,7 +128,7 @@ function showNews (news_id)
 							<tbody>
 								<% @auto_texts.each do | auto_text | %>
 									<tr>
-										<td><input type="radio" name="auto_id" value="<%=auto_text.id%>" onclick="setType('text');"></td>
+										<td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_texts.pluck(:id).include?(auto_text.id) ? "checked" : "" %> value="<%=auto_text.id%>" onclick="setType('text');"></td>
 										<td><%=auto_text.content%></td>			
 										<td><a class='btn btn-link' onclick="destroyAutoText(this,<%=auto_text.id%>)">destroy</a></td>
 									</tr>
@@ -137,7 +137,6 @@ function showNews (news_id)
 						</table>
 					</div>
 					<div class="tab-pane" id="panel-voice">
-						
 						<table id="auto_reply_musics_table" class="table table-hover">
 								<thead>
 									<tr>
@@ -155,7 +154,7 @@ function showNews (news_id)
 								<tbody>
 									<% @auto_musics.each do | auto_music | %>
 										<tr>
-											<td><input type="radio" name="auto_id" value="<%=auto_music.id%>" onclick="setType('music');"></td>
+											<td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_musics.pluck(:id).include?(auto_music.id) ? "checked" : "" %>  value="<%=auto_music.id%>" onclick="setType('music');"></td>
 											<td><%=auto_music.music_url%></td>			
     										<td><a class='btn btn-link' onclick="destroyAutoMusics(this,<%=auto_music.id%>)">destroy</a></td>
 										</tr>
@@ -181,7 +180,7 @@ function showNews (news_id)
 								<tbody>
 									<% @auto_news.each do | auto_reply_news | %>
 										<tr>
-											<td><input type="radio" name="auto_id" value="<%=auto_reply_news.id%>" onclick="setType('news');"></td>
+											<td><input type="radio" name="auto_id" <%= @message_keyword.message_auto_reply_news.pluck(:id).include?(auto_reply_news.id) ? "checked" : "" %>  value="<%=auto_reply_news.id%>" onclick="setType('news');"></td>
 											<td><%=auto_reply_news.content%></td>			
     										<td><a class='btn btn-link' onclick="destroyAutoNews(this,<%=auto_reply_news.id%>)">destroy</a>
     											<a class='btn btn-link' onclick="showNews(<%=auto_reply_news.id%>)">show</a>
