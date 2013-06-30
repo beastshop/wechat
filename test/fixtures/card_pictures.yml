@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order_no: MyString
+  wechat_user_open_id: MyString
+  title: MyString
+
+two:
+  order_no: MyString
+  wechat_user_open_id: MyString
+  title: MyString
