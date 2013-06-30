@@ -184,7 +184,7 @@ function showNews (news_id)
 											<td><input type="radio" name="auto_id" value="<%=auto_reply_news.id%>" onclick="setType('news');"></td>
 											<td><%=auto_reply_news.content%></td>			
     										<td><a class='btn btn-link' onclick="destroyAutoNews(this,<%=auto_reply_news.id%>)">destroy</a>
-    											<a onclick="showNews(<%=auto_reply_news.id%>)">show</a>
+    											<a class='btn btn-link' onclick="showNews(<%=auto_reply_news.id%>)">show</a>
     										</td>
 										</tr>
 									<% end %>
