@@ -39,9 +39,11 @@ class Api::CommonController < Api::ApplicationController
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
 			else
-				card = Card.new
-				card.content = msg_text
-				card.order_no = TheBeast::Order.get_list(user.user_id).where(:status => "pending").first.order_no
+				unless user.nil?	
+					card = Card.new
+					card.content = msg_text
+					card.order_no = TheBeast::Order.get_list(user.user_id).where(:status => "pending").first.order_no
+				end
 
 				@message.content = "无法理解您的输入，请重新按菜单输入 <br/>" + main_tree
 			end
