@@ -31,10 +31,10 @@ class Api::CommonController < Api::ApplicationController
 				unless user.nil?
 					orders = TheBeast::Order.get_list(user.user_id).where(:status => "pending")
 					orders.each do | order |
-						@message.content +=  "订单号: " + order.order_code + "<br/>" + "地址: " + order.address + "<br/>" + "备注: " + order.note + "<br/>"
+						@message.content +=  "订单号: " + order.order_code + "\n" + "地址: " + order.address + "\n" + "备注: " + order.note + "\n"
 					end
 				else
-					@message.content = "您还未绑定TheBeast账号，请<a href='http://ds.12doo.com/the_beast/sessions/new'>绑定</a>"
+					@message.content = "您还未绑定TheBeast账号，请<a href='http://ds.12doo.com/the_beast/sessions/new'>绑定</a> \n"
 				end
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
@@ -45,7 +45,7 @@ class Api::CommonController < Api::ApplicationController
 					card.order_no = TheBeast::Order.get_list(user.user_id).where(:status => "pending").first.order_no
 				end
 
-				@message.content = "无法理解您的输入，请重新按菜单输入 <br/>" + main_tree
+				@message.content = "无法理解您的输入，请重新按菜单输入 \n" + main_tree
 			end
 			
 			render :xml, :template => 'api/message_text'
