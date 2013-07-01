@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/pstuteville/magentor.git
+  remote: https://github.com/pstuteville/magentor.git
   revision: eb9b48e35ee9db0e2135ff6474f12cf0e3274ca3
   specs:
     magentor (0.3.2)

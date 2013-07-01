@@ -1,0 +1,7 @@
+<% cards.each do | card | %>
+	祝福语: <%= card.content %>
+<% end %>
+
+<% card_images.each do | image | %>
+图片 ：<img src="<%= card.picture_file_name %>" />
+<% end %>
