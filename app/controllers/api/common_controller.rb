@@ -14,7 +14,7 @@ class Api::CommonController < Api::ApplicationController
 		@message.from_user_name = params[:xml][:ToUserName]
 		@message.create_time = Time.now
 
-		main_tree = "1.查询订单 \x0A 2.录入祝福 \x0A"
+		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
 
 		user = MagentoCustomer.where(:wechat_user_open_id => @message.from_user_name).first
 
@@ -34,7 +34,7 @@ class Api::CommonController < Api::ApplicationController
 						@message.content +=  "订单号: " + order.order_code + "&#x0A;" + "地址: " + order.address + "&#x0A;" + "备注: " + order.note + "&#x0A;"
 					end
 				else
-					@message.content = "您还未绑定TheBeast账号，&lt;\lt \lt;a href=\"http://ds.12doo.com/the_beast/sessions/new\"\>绑定 &lt;/a\gt \x0A"
+					@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new\"\>绑定</a> \x0A"
 				end
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
