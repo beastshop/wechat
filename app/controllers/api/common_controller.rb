@@ -34,7 +34,7 @@ class Api::CommonController < Api::ApplicationController
 						@message.content +=  "订单号: " + order.order_code + "\r\n" + "地址: " + order.address + "\r\n" + "备注: " + order.note + "\r\n"
 					end
 				else
-					@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new\">绑定</a> \r\n"
+					@message.content = "您还未绑定TheBeast账号，\<a href=\"http://ds.12doo.com/the_beast/sessions/new\"\>绑定 &It;\</a\> \r\n"
 				end
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
