@@ -14,7 +14,7 @@ class Api::CommonController < Api::ApplicationController
 		@message.from_user_name = params[:xml][:ToUserName]
 		@message.create_time = Time.now
 
-		main_tree = "1.查询订单 2.录入祝福"
+		main_tree = "1.查询订单 \x0A 2.录入祝福 \x0A"
 
 		user = MagentoCustomer.where(:wechat_user_open_id => @message.from_user_name).first
 
@@ -34,7 +34,7 @@ class Api::CommonController < Api::ApplicationController
 						@message.content +=  "订单号: " + order.order_code + "&#x0A;" + "地址: " + order.address + "&#x0A;" + "备注: " + order.note + "&#x0A;"
 					end
 				else
-					@message.content = "您还未绑定TheBeast账号，&lt;a href=\"http://ds.12doo.com/the_beast/sessions/new\"\>绑定 &lt;/a&gt;\x0A  \x0A; &\x0A; \x0a"
+					@message.content = "您还未绑定TheBeast账号，\lt \lt;a href=\"http://ds.12doo.com/the_beast/sessions/new\"\>绑定 &lt;/a\gt \x0A"
 				end
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
@@ -45,7 +45,7 @@ class Api::CommonController < Api::ApplicationController
 					card.order_no = TheBeast::Order.get_list(user.user_id).where(:status => "pending").first.order_no
 				end
 
-				@message.content = "无法理解您的输入，请重新按菜单输入 &#x0A;" + main_tree
+				@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
 			end
 			
 			render :xml, :template => 'api/message_text'
