@@ -33,8 +33,9 @@ class Api::CommonController < Api::ApplicationController
 					if orders.nil? || orders.size == 0
 						@message.content = "最近没有订单"
 					else
-					orders.each do | order |
-						@message.content +=  "订单号: " + order.order_code + "\x0A" + "地址: " + order.address + "\x0A\x0A"
+					orders.each do | order_item |
+						order = TheBeast::Order.get(order_item.order_id)
+						@message.content +=  "订单号: " + order.order_id + "\x0A" + "地址: " + order.address + "\x0A" + "备注: " + order.note + "\x0A\x0A"
 					end
 					end
 				else

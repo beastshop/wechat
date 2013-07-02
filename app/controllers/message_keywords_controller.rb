@@ -2,6 +2,9 @@
 class MessageKeywordsController < ApplicationController
   def index
     @message_keywords = MessageKeyword.all
+    user = MagentoCustomer.where(:wechat_user_open_id => "asad").first
+    orders = TheBeast::Order.get_list(user.user_id)
+    p orders
   end
 
   def show
