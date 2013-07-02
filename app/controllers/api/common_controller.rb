@@ -34,7 +34,7 @@ class Api::CommonController < Api::ApplicationController
 						@message.content = "最近没有订单"
 					else
 					orders.each do | order |
-						@message.content +=  "订单号: " + order.order_code + "\x0A" + "地址: " + order.address + "\x0A" + "备注: " + order.note + "\x0A\x0A"
+						@message.content +=  "订单号: " + order.order_code + "\x0A" + "地址: " + order.address + "\x0A\x0A"
 					end
 					end
 				else
