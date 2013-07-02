@@ -23,10 +23,12 @@ class Api::CommonController < Api::ApplicationController
 		case params[:xml][:MsgType]
 		when "text"
 		 	msg_text = params[:xml][:Content]
-			p @message
+			
 			case msg_text
 			when "0"
 				@message.content = main_tree
+
+			render :xml, :template => 'api/message_text'
 			when "1"
 				unless user.nil?
 					orders = TheBeast::Order.get_list(user.user_id)
@@ -43,8 +45,11 @@ class Api::CommonController < Api::ApplicationController
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
 				end
+				render :xml, :template => 'api/message_text'
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
+
+			render :xml, :template => 'api/message_text'
 			else
 				unless user.nil?	
 					card = Card.new
@@ -53,8 +58,9 @@ class Api::CommonController < Api::ApplicationController
 				end
 
 				@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
-			end
+
 			render :xml, :template => 'api/message_text'
+			end
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 			
 			# @mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
