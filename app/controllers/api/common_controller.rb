@@ -92,7 +92,7 @@ class Api::CommonController < Api::ApplicationController
 			else
 				render :xml, :template => 'api/message_text'
 			end
-		end
+			
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 
 
