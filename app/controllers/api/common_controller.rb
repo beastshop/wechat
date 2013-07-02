@@ -22,7 +22,7 @@ class Api::CommonController < Api::ApplicationController
 		# p user
 		case params[:xml][:MsgType]
 		when "text"
-		# 	msg_text = params[:xml][:Content]
+		 	msg_text = params[:xml][:Content]
 		# 	p @message
 		# 	case msg_text
 		# 	when "0"
@@ -92,7 +92,7 @@ class Api::CommonController < Api::ApplicationController
 			else
 				render :xml, :template => 'api/message_text'
 			end
-			
+
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 
 
