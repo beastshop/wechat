@@ -47,6 +47,7 @@ class Api::CommonController < Api::ApplicationController
 					card = Card.new
 					card.content = msg_text
 					card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+					card.save
 					@message.content = "保存成功！\x0A请输入祝福的文字或图片,输入 0  退出录入祝福"
 				else
 					@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
@@ -95,11 +96,16 @@ class Api::CommonController < Api::ApplicationController
 
 
 		when "image"
-			card_image = CardImage.new
-			card_image.picture_file_name = params[:xml][:PicUrl]
-			card_image.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-
-			@message.content = "我们收到了您的图片信息,请继续输入文字或图片， 按 0 退出录入祝福"
+			unless user.nil?	
+				card_image = CardImage.new
+				card_image.picture_file_name = params[:xml][:PicUrl]
+				card_image.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+				card_image.save
+				@message.content = "保存成功！,请继续输入文字或图片， 按 0 退出录入祝福"
+			else
+				@message.content = "我们收到了您的图片信息"
+			end
+			
 			render :xml, :template => 'api/message_text'
 		when "location"
 			@message.content = "我们收到了您的位置信息"
