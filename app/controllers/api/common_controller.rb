@@ -29,9 +29,9 @@ class Api::CommonController < Api::ApplicationController
 				@message.content = main_tree
 			when "1"
 				unless user.nil?
-					orders = TheBeast::Order.get_list(user.user_id).where(:status => "pending")
+					orders = TheBeast::Order.get_list(user.user_id)
 					orders.each do | order |
-						@message.content +=  "订单号: " + order.order_code + "&#x0A;" + "地址: " + order.address + "&#x0A;" + "备注: " + order.note + "&#x0A;"
+						@message.content +=  "订单号: " + order.order_code + "\x0A" + "地址: " + order.address + "\x0A" + "备注: " + order.note + "\x0A\x0A"
 					end
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"

@@ -2,12 +2,6 @@
 class MessageKeywordsController < ApplicationController
   def index
     @message_keywords = MessageKeyword.all
-    @name = "asad"
-    user = MagentoCustomer.where(:wechat_user_open_id => @name).first
-    p user
-    unless  user.nil?
-      p "kao  chenggongle"
-    end
   end
 
   def show

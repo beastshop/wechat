@@ -15,7 +15,7 @@ class TheBeast::Order
 			o.status = result.attributes["status"]
 			o.total_price = result.attributes["total_due"]
 			o.order_code = result.attributes["protect_code"]
-			orders << o
+		 	if o.status=="pending" then orders << o end
 		end
 
 		orders
