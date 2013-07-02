@@ -31,14 +31,13 @@ class Api::CommonController < Api::ApplicationController
 				unless user.nil?
 					orders = TheBeast::Order.get_list(user.user_id)
 					result = ""
-					if orders.nil? || orders.size == 0
-						result = "最近没有订单"
-					else
-						# orders.each do | order_item |
-						# 	order = TheBeast::Order.get(order_item.order_id)
-						# 	result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
-						# end
-						result = "订单列表"
+					# if orders.nil? || orders.size == 0
+					# 	result = "最近没有订单"
+					# else
+						orders.each do | order_item |
+							order = TheBeast::Order.get(order_item.order_id)
+							result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
+						end
 					end
 					@message.content = result
 				else
