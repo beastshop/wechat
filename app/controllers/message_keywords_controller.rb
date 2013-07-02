@@ -1,5 +1,6 @@
 # encoding: utf-8
 class MessageKeywordsController < ApplicationController
+  
   def index
     @message_keywords = MessageKeyword.all
     user = MagentoCustomer.where(:wechat_user_open_id => "asad").first

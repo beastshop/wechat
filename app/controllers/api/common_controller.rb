@@ -2,7 +2,7 @@
 class Api::CommonController < Api::ApplicationController
 	skip_before_filter :verify_authenticity_token
 	before_filter :verify_request_source
-
+	layout false
 	def test
 		render :text => params[:echostr]
 	end
