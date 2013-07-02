@@ -44,7 +44,7 @@ class Api::CommonController < Api::ApplicationController
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
 				end
-				render :xml, :template => 'api/message_text'
+				
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
 			else
