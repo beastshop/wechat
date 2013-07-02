@@ -23,6 +23,7 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 			redirect_to :action => "success"
 		else
 			@message = "用户名密码错误!"
+			
 			render "new"
 		end
 	end
