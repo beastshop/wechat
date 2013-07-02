@@ -20,8 +20,8 @@ class Api::CommonController < Api::ApplicationController
 
 		
 		# p user
-		# case params[:xml][:MsgType]
-		# when "text"
+		case params[:xml][:MsgType]
+		when "text"
 		# 	msg_text = params[:xml][:Content]
 		# 	p @message
 		# 	case msg_text
@@ -57,7 +57,7 @@ class Api::CommonController < Api::ApplicationController
 		# 	@message.content = "kao"
 		# 	render :xml, :template => 'api/message_text'
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
-			msg_text = params[:xml][:Content]
+			
 			@mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
 
 			if !@mkw.nil?
@@ -92,6 +92,7 @@ class Api::CommonController < Api::ApplicationController
 			else
 				render :xml, :template => 'api/message_text'
 			end
+		end
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 
 
