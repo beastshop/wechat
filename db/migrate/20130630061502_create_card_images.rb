@@ -1,6 +1,6 @@
 class CreateCardImages < ActiveRecord::Migration
   def change
-    create_table :card_pictures do |t|
+    create_table :card_images do |t|
       t.string :order_no
       t.string :wechat_user_open_id
       t.string :title
