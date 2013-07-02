@@ -16,7 +16,7 @@ class Api::CommonController < Api::ApplicationController
 
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
 
-		user = MagentoCustomer.where(:wechat_user_open_id => @message.from_user_name).first
+		user = MagentoCustomer.where("wechat_user_open_id = #{@message.from_user_name}").first
 
 		
 		p user
