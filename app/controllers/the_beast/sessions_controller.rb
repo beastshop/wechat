@@ -1,5 +1,7 @@
 # encoding: utf-8
 class TheBeast::SessionsController < TheBeast::ApplicationController
+	layout "application"
+	
 	def new
 		
 	end
