@@ -17,7 +17,7 @@ class MessageKeywordsController < ApplicationController
    #  end
 
    # p content
-   card = CardPicture.new
+ 
   end
 
   def show
