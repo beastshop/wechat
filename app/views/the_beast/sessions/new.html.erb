@@ -1,3 +1,16 @@
+   <!DOCTYPE html>
+<html>
+<head>
+  <title>Wechat</title>
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
    <style type="text/css">
       body {
         padding-top: 40px;
@@ -36,6 +49,7 @@
     <h2 class="form-signin-heading">Please Sign in</h2>
     <input type="text" name="email" class="input-block-level" placeholder="Email address">
     <input type="password" name="password" class="input-block-level" placeholder="Password">
+    <input type="hidden" name="open_id" value="<%=params[:open_id]%>">
     <button class="btn btn-large btn-primary" type="submit">绑定</button>
   <div class="control-group error">
     <span class="help-inline"><%=@message%></span>
@@ -43,3 +57,5 @@
   </form>
 
 </div> 
+</body>
+</html>

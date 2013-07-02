@@ -1,14 +1,15 @@
 # encoding: utf-8
 class TheBeast::SessionsController < TheBeast::ApplicationController
-	layout "application"
-	
+	# layout "application"
+
 	def new
 		
 	end
 
 	def create
 		customer = TheBeast::Customer.login(params[:email], params[:password])
-		if customer
+		if customer && !MagentoCustomer.where(wechat_user_open_id: params[:open_id]).exists?
+
 			c = MagentoCustomer.new
 			c.user_id = customer.user_id
 			c.email = customer.email
