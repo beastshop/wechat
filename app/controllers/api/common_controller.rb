@@ -30,8 +30,12 @@ class Api::CommonController < Api::ApplicationController
 			when "1"
 				unless user.nil?
 					orders = TheBeast::Order.get_list(user.user_id)
+					if orders.nil? || orders.size == 0
+						@message.content = "最近没有订单"
+					else
 					orders.each do | order |
 						@message.content +=  "订单号: " + order.order_code + "\x0A" + "地址: " + order.address + "\x0A" + "备注: " + order.note + "\x0A\x0A"
+					end
 					end
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
@@ -42,7 +46,7 @@ class Api::CommonController < Api::ApplicationController
 				unless user.nil?	
 					card = Card.new
 					card.content = msg_text
-					card.order_no = TheBeast::Order.get_list(user.user_id).where(:status => "pending").first.order_no
+					card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_no
 				end
 
 				@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
