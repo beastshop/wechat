@@ -38,7 +38,7 @@ class Api::CommonController < Api::ApplicationController
 							order = TheBeast::Order.get(order_item.order_id)
 							result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
 						end
-					end
+					#end
 					@message.content = result
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
