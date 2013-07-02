@@ -39,15 +39,15 @@ class Api::CommonController < Api::ApplicationController
 					# 		result <<  "订单号: " << order.order_id << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
 					# 	end
 					# end
-					orders = TheBeast::Order.get_list(user.user_id)
-					result = ""
-					if orders.nil? || orders.size == 0
-						result = "最近没有订单"
-					else
-						orders.each do | order_item |
-							result << order_item.order_id
-						end
-					end
+					# orders = TheBeast::Order.get_list(user.user_id)
+					 result = "111"
+					# if orders.nil? || orders.size == 0
+					# 	result = "最近没有订单"
+					# else
+					# 	orders.each do | order_item |
+					# 		result << order_item.order_id
+					# 	end
+					# end
 					@message.content = result + "这是订单啊 亲"
 				else
 					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
