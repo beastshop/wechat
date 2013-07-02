@@ -4,7 +4,13 @@ class MessageKeywordsController < ApplicationController
     @message_keywords = MessageKeyword.all
     user = MagentoCustomer.where(:wechat_user_open_id => "asad").first
     orders = TheBeast::Order.get_list(user.user_id)
-    p orders
+    content = ""
+    orders.each do | item |
+      order = TheBeast::Order.get(item.order_id)
+      content <<  "订单号: " + order.order_id + "\x0A" + "地址: " + order.address + "\x0A" + "备注: " + order.note + "\x0A\x0A"
+      p content
+    end
+   
   end
 
   def show
