@@ -24,37 +24,38 @@ class Api::CommonController < Api::ApplicationController
 		when "text"
 		 	msg_text = params[:xml][:Content]
 			@message.content = msg_text
-			# case msg_text
-			# when "0"
-			# 	@message.content = main_tree
-			# when "1"
-			# 	unless user.nil?
-			# 		orders = TheBeast::Order.get_list(user.user_id)
-			# 		result = ""
-			# 		if orders.nil? || orders.size == 0
-			# 			result = "最近没有订单"
-			# 		else
-			# 			orders.each do | order_item |
-			# 				order = TheBeast::Order.get(order_item.order_id)
-			# 				result <<  "订单号: " << order.order_id << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
-			# 			end
-			# 		end
-			# 		@message.content = result
-			# 	else
-			# 		@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
-			# 	end
-			# 	render :xml, :template => 'api/message_text'
-			# when "2"
-			# 	@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
-			# else
-			# 	unless user.nil?	
-			# 		card = Card.new
-			# 		card.content = msg_text
-			# 		card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-			# 	end
+			case msg_text
+			when "0"
+				@message.content = main_tree
+			when "1"
+				unless user.nil?
+					# orders = TheBeast::Order.get_list(user.user_id)
+					# result = ""
+					# if orders.nil? || orders.size == 0
+					# 	result = "最近没有订单"
+					# else
+					# 	orders.each do | order_item |
+					# 		order = TheBeast::Order.get(order_item.order_id)
+					# 		result <<  "订单号: " << order.order_id << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
+					# 	end
+					# end
+					# @message.content = result
+					@message.content = "这是订单"
+				else
+					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
+				end
+				render :xml, :template => 'api/message_text'
+			when "2"
+				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
+			else
+				unless user.nil?	
+					card = Card.new
+					card.content = msg_text
+					card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+				end
 
-			# 	@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
-			# end
+				@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
+			end
 			render :xml, :template => 'api/message_text'
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 			
