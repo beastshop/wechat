@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
 	def show
-		@cards = Card.where(:order_no => params[:order_no])
-		@card_images = CardImages.where(:order_no => params[:order_no])
+		@cards = Card.where(:order_no => params[:id])
+		@card_images = CardImages.where(:order_no => params[:id])
 	end
 end
