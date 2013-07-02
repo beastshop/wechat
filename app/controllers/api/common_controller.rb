@@ -47,9 +47,11 @@ class Api::CommonController < Api::ApplicationController
 					card = Card.new
 					card.content = msg_text
 					card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+					@message.content = "保存成功！\x0A请输入祝福的文字或图片,输入 0  退出录入祝福"
+				else
+					@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
 				end
 
-				@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
 			end
 			render :xml, :template => 'api/message_text'
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
