@@ -1,16 +1,21 @@
 # encoding: utf-8
 class MessageKeywordsController < ApplicationController
-  
+
   def index
     @message_keywords = MessageKeyword.all
-    user = MagentoCustomer.where(:wechat_user_open_id => "asad").first
+   #  user = MagentoCustomer.where(:wechat_user_open_id => "asad").first
    #  orders = TheBeast::Order.get_list(user.user_id)
    #  content = ""
-   #  orders.each do | item |
+   #  if orders.nil? || orders.size == 0
+   #    p "kaokaoako"
+   #  else
+   #        orders.each do | item |
    #    order = TheBeast::Order.get(item.order_id)
    #    content <<  "订单号: " << order.order_id << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
       
    #  end
+   #  end
+
    # p content
   end
 
