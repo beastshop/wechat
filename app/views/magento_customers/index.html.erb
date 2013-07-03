@@ -3,7 +3,7 @@
 <div class="well">
   <h3>用户列表</h3>
 </div>
-<table class="table table-striped">
+<table class="table table-hover">
   <thead>
     <tr>
     <th>open_id</th>
@@ -16,7 +16,8 @@
   <tr>
     <td><%= user.wechat_user_open_id %></td>
     <td><%= user.email %></td>
-    <td><a href="cards/index_byuser?id=<%=user.id %>" >查看订单</a></td>
+    <td>  <%= link_to '查看祝福', {:action => "index_byuser" ,:controller => "cards"},:id => user.id %>
+    </td>
   </tr>
 <% end %>
 </tbody>
