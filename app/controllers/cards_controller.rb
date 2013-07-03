@@ -5,7 +5,7 @@ class CardsController < ApplicationController
 	end
 
 	def index_byuser
-		@user = MagentoCustomer.find(params[:id])
+		@user = MagentoCustomer.find(params[:uid])
 		@cards = Card.where(:wechat_user_open_id => @user.wechat_user_open_id)
 	end
 end

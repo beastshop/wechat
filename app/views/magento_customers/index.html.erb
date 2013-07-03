@@ -16,7 +16,7 @@
   <tr>
     <td><%= user.wechat_user_open_id %></td>
     <td><%= user.email %></td>
-    <td>  <%= link_to '查看祝福', {:action => "index_byuser" ,:controller => "cards"},:id => user.id %>
+    <td>  <%= link_to '查看祝福', :action => "index_byuser" ,:controller => "cards",:uid => user.id %>
     </td>
   </tr>
 <% end %>
