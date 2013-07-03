@@ -1,6 +1,6 @@
 # encoding: utf-8
 class TheBeast::SessionsController < TheBeast::ApplicationController
-	# layout "application"
+	 layout "media_application"
 
 	def new
 		
@@ -23,7 +23,7 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 			redirect_to :action => "success"
 		else
 			@message = "用户名密码错误!"
-			
+
 			render "new"
 		end
 	end
