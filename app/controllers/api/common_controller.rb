@@ -37,7 +37,7 @@ class Api::CommonController < Api::ApplicationController
 					end
 					@message.content = result
 				else
-					@message.content = "您还未绑定TheBeast账号，<a href='http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name.to_s + "'>绑定</a> \x0A"
+					@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 				end
 				
 			when "2"
