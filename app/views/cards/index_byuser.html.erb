@@ -8,7 +8,6 @@
     <tr>
     <th>订单号</th>
     <th>内容</th>
-    <th>图片</th>
     <th></th>
   </tr>
   </thead>
@@ -17,11 +16,23 @@
     <tr>
       <td><%= card.order_no %></td>
       <td><%= card.content %></td>
-      <td>
-        <% card.card_images.each do |image| %>
-          <%=image.picture_file_name %> <br/>
-        <% end %>
-      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>订单号</th>
+    <th>图片</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @card_images.each do |image| %>
+    <tr>
+      <td><%= image.order_no %></td>
+      <td><%= image.picture_file_name %></td>
     </tr>
   <% end %>
   </tbody>
