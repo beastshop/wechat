@@ -29,7 +29,7 @@
     <th></th>
   </tr>
   </thead>
-  <tbody>
+  <tbody> 
   <% @card_images.each do |image| %>
     <tr>
       <td><%= link_to image.order_no, {:controller => "cards"},:id => image.order_no %></td>
