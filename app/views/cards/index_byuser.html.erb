@@ -32,7 +32,7 @@
   <tbody> 
   <% @card_images.each do |image| %>
     <tr>
-      <td><%= link_to image.order_no, {:controller => "cards"},:id => image.order_no %></td>
+      <td><a href="~/cards/<%=image.order_no%>"><%= image.order_no%></a></td>
       <td><a href="<%= image.picture_file_name %>"><%= image.picture_file_name %></a></td>
     </tr>
   <% end %>
