@@ -1,4 +1,6 @@
 Wechat::Application.routes.draw do
+  devise_for :users
+
   resources :message_keywords
   resources :message_auto_reply_musics
   resources :message_auto_reply_texts

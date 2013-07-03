@@ -1,4 +1,5 @@
 class MessageAutoReplyNewsController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @message_auto_reply_news = MessageAutoReplyNews.all
 

@@ -1,4 +1,5 @@
 class CardsController < ApplicationController
+	before_filter :authenticate_user!, :except => [:show]
 	def show
 		@cards = Card.where(:order_no => params[:id])
 		@card_images = CardImage.where(:order_no => params[:id])

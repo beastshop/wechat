@@ -14,8 +14,7 @@
   <tbody>
   <% @cards.each do |card| %>
     <tr>
-      <td><a href="/cards/<%=card.order_no%>"><%= card.order_no%></a>
-        <%=link_to card.order_no, :id=>card.order_no %></td>
+      <td><a href="/cards/<%=card.order_no%>"><%= card.order_no%></a></td>
       <td><%= card.content %></td>
     </tr>
 
