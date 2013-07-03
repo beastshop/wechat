@@ -14,7 +14,7 @@
   <tbody>
   <% @cards.each do |card| %>
     <tr>
-      <td><%= link_to card.order_no, {:action => "show"},:id => card.order_no %></td>
+      <td><%= link_to card.order_no, {:controller => "cards"},:id => card.order_no %></td>
       <td><%= card.content %></td>
     </tr>
 
@@ -29,10 +29,10 @@
     <th></th>
   </tr>
   </thead>
-  <tbody>
+  <tbody> 
   <% @card_images.each do |image| %>
     <tr>
-      <td><%= link_to image.order_no, {:action => "show"},:id => image.order_no %></td>
+      <td><%= link_to image.order_no, {:controller => "cards"},:id => image.order_no %></td>
       <td><a href="<%= image.picture_file_name %>"><%= image.picture_file_name %></a></td>
     </tr>
   <% end %>
