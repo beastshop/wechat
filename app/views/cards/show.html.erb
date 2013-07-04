@@ -1,7 +1,4 @@
-<% @cards.each do | card | %>
-	祝福语: <%= card.content %>
-<% end %>
 
-<% @card_images.each do | image | %>
-图片 ：<img src="<%= image.picture_file_name %>" />
-<% end %>
+祝福语: <%= @card.content %>
+
+图片 ：<img src="<%= @card.card_image.picture_file_name %>" />

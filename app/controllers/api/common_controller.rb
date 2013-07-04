@@ -43,12 +43,10 @@ class Api::CommonController < Api::ApplicationController
 			when "2"
 				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
 			else
-				unless user.nil?	
-					card = Card.new
-					card.content = msg_text
-					card.wechat_user_open_id = @message.to_user_name
-					card.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-					card.save
+				unless user.nil?
+					order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+					Card.save(order_no, @message.to_user_name, msg_text, nil)
+				
 					@message.content = "保存成功！\x0A请输入祝福的文字或图片,输入 0  退出录入祝福"
 				else
 					@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
@@ -97,12 +95,10 @@ class Api::CommonController < Api::ApplicationController
 
 
 		when "image"
-			unless user.nil?	
-				card_image = CardImage.new
-				card_image.picture_file_name = params[:xml][:PicUrl]
-				card_image.wechat_user_open_id = @message.to_user_name
-				card_image.order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-				card_image.save
+			unless user.nil?
+				order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+				Card.save(order_no, @message.to_user_name, nil, params[:xml][:PicUrl])	
+				
 				@message.content = "保存成功！,请继续输入文字或图片， 按 0 退出录入祝福"
 			else
 				@message.content = "我们收到了您的图片信息"

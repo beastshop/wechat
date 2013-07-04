@@ -1,0 +1,26 @@
+
+<div class="container">
+<div class="well">
+  <h3>贺卡</h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>订单号</th>
+    <th>内容</th>
+    <th>图片</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @cards.each do |card| %>
+    <tr>
+      <td><a href="/cards/<%=card.order_no%>"><%= card.order_no%></a></td>
+      <td><%= card.content %></td>
+       <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+
+</div>
