@@ -3,11 +3,6 @@ class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
   def index
     @message_keywords = MessageKeyword.all
-     # user = MagentoCustomer.where(:wechat_user_open_id => "asad").first
-     #        order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-      order_no = "2233"
-      card =   Card.get_default(order_no)
-      p card
   end
 
   def show

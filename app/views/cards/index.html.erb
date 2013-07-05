@@ -1,5 +1,3 @@
-
-<div class="container">
 <div class="well">
   <h3>贺卡</h3>
 </div>
@@ -14,7 +12,7 @@
   <tbody>
   <% @cards.each do |card| %>
     <tr>
-      <td><a href="/cards/<%=card.order_no%>"><%= card.order_no%></a></td>
+      <td><a href="/cards/<%=Base64.encode64(card.order_no).gsub('\n','')%>"><%= card.order_no%></a></td>
       <td><%= card.content %></td>
        <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>
     </tr>
@@ -22,5 +20,3 @@
   <% end %>
   </tbody>
 </table>
-
-</div>
