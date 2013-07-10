@@ -69,6 +69,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    mini_magick (3.6.0)
+      subexec (~> 0.2.1)
     multi_json (1.7.7)
     mysql2 (0.3.11)
     orm_adapter (0.4.0)
@@ -106,6 +108,9 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    rqrcode (0.4.2)
+    rqrcode-rails3 (0.1.6)
+      rqrcode (>= 0.4.2)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -116,6 +121,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    subexec (0.2.3)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -144,9 +150,11 @@ DEPENDENCIES
   devise
   jquery-rails
   magentor!
+  mini_magick
   mysql2
   paperclip (~> 3.0)
   rails (= 3.2.13)
+  rqrcode-rails3
   sass-rails (~> 3.2.3)
   therubyracer
   uglifier (>= 1.0.3)

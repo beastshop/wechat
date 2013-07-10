@@ -3,6 +3,7 @@ class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
   def index
     @message_keywords = MessageKeyword.all
+  
   end
 
   def show

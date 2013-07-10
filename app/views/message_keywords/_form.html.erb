@@ -1,4 +1,9 @@
 <script type="text/javascript">
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 
 function refleshAutoText()
 {
@@ -16,6 +21,10 @@ function addAutoText(textValue)
     success: function(msg){
       $('#modal-container-text').modal('toggle');
       $("#auto_reply_texts_table").append("<tr><td><input type='radio' name='auto_id' value='"+msg+"' onclick=\"setType('text');\"></td><td>"+textValue+"</td><td><a class='btn btn-link' onclick='destroyAutoText(this,"+msg+")'>destroy</a></td></tr>");
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert(XMLHttpRequest.responseText)
+       alert(textStatus)
     }
   });
 }
@@ -95,8 +104,9 @@ function showNews (news_id)
         <div class="tab-content">
           <div class="tab-pane active" id="panel-text">
              <a id="modal-text" href="#modal-container-text" role="button" class="btn" data-toggle="modal" onclick="refleshAutoText();">新建文本消息</a>
-      
+          
             <div id="modal-container-text" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             
               <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">

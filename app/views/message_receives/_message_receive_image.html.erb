@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>发送者</th>
+    <th>发送时间</th>
+    <th>图片</th>
+  </tr>
+</thead>
+<tbody>
+<% @message_receive_images.each do |message_receive_image| %>
+  <tr>
+    <td><%= message_receive_image.from_user_name %></td>
+    <td><%= message_receive_image.create_time %></td>
+    <td><a href="<%= message_receive_image.pic_url %>"> <%= message_receive_image.pic_url %></a></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>发送者</th>
+    <th>发送时间</th>
+    <th>location_x</th>
+    <th>location_y</th>
+    <th>scale</th>
+    <th>label</th>
+  </tr>
+</thead>
+<tbody>
+<% @message_receive_locations.each do |message_receive_location| %>
+  <tr>
+    <td><%= message_receive_location.from_user_name %></td>
+    <td><%= message_receive_location.create_time %></td>
+    <td><%= message_receive_location.location_x %></td>
+    <td><%= message_receive_location.location_y %></td>
+    <td><%= message_receive_location.scale %></td>
+    <td><%= message_receive_location.label %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

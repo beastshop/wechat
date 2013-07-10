@@ -14,9 +14,12 @@ class Api::CommonController < Api::ApplicationController
 		@message.from_user_name = params[:xml][:ToUserName]
 		@message.create_time = Time.now
 
+		receive_log
+		
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
 
 		user = MagentoCustomer.where(:wechat_user_open_id => @message.to_user_name).first
+
 
 		
 		p user
@@ -24,36 +27,97 @@ class Api::CommonController < Api::ApplicationController
 		when "text"
 		 	msg_text = params[:xml][:Content]
 			@message.content = msg_text
-			case msg_text
-			when "0"
-				@message.content = main_tree
-			when "1"
-				unless user.nil?
+
+			unless user.nil?
+				case msg_text
+				when "0"
+					user.isentry = false
+					user.save
+					@message.content = main_tree
+				when "1"
 					orders = TheBeast::Order.get_list(user.user_id)
 					result = ""
 					orders.each do | order_item |
 						order = TheBeast::Order.get(order_item.order_id)
 						result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
 					end
-					@message.content = result
+					@message.content = result.empty? ? "没有订单" : result
+				when "2"
+					user.isentry = true
+					user.save
+					@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
 				else
-					@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
-				end
-				
-			when "2"
-				@message.content = "请输入祝福的文字或图片,输入 0  退出录入祝福"
-			else
-				unless user.nil?
-					order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-					Card.save(order_no, @message.to_user_name, msg_text, nil)
-				
-					@message.content = "保存成功！\x0A请输入祝福的文字或图片,输入 0  退出录入祝福"
-				else
-					@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
-				end
+					if user.isentry
+						order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+						user.saveCards(order_no, @message.to_user_name, msg_text, nil)
+						#Card.save(order_no, @message.to_user_name, msg_text, nil)
+						
+						@message.content = "保存成功！\x0A请输入祝福的文字或图片,输入 0  退出录入祝福"
+					else
+						@message.content = "无法理解您的输入，请重新按菜单输入 \x0A" + main_tree
+					end
 
+				end
+				
+			else
+				@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 			end
 			render :xml, :template => 'api/message_text'
+
+		when "image"
+			unless user.nil? && user.isentry
+				order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+				user.saveCards(order_no, @message.to_user_name, nil, CardImage.down(params[:xml][:PicUrl]))
+				#Card.save(order_no, @message.to_user_name, nil, CardImage.down(params[:xml][:PicUrl]))	
+				
+				@message.content = "保存成功！,请继续输入文字或图片， 按 0 退出录入祝福"
+			else
+				@message.content = "我们收到了您的图片信息"
+			end
+			
+			render :xml, :template => 'api/message_text'
+		when "location"
+			@message.content = "我们收到了您的位置信息"
+			render :xml, :template => 'api/message_text'
+		when "voice"
+			@message.content = "我们收到了您的留言信息"
+			render :xml, :template => 'api/message_text'
+		when "event"
+			case params[:xml][:Event]
+			when "subscribe"
+				@message.content = '感谢您的关注' + main_tree
+			when "unsubscribe"
+				@message.content = '感谢您再次关注' + main_tree
+			end
+			render :xml, :template => 'api/message_text'
+		end
+		
+	end
+
+	private
+	def receive_log
+		from_user_name = params[:xml][:FromUserName]
+		to_user_name = params[:xml][:ToUserName]
+		type = params[:xml][:MsgType]
+		msg_id = params[:xml][:MsgId]
+		create_time = params[:xml][:CreateTime]
+
+		case type
+		when "text"
+			MessageReceiveText.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Content])
+		when "image"
+			MessageReceiveImage.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:PicUrl])
+		when "voice"
+			MessageReceiveVoice.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
+		when "location"
+			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],,params[:xml][:Label])
+		when "event"
+			MessageReceiveEvent.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Event],params[:xml][:EventKey])
+		end
+	end
+
+end
+
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 			
 			# @mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
@@ -94,33 +158,3 @@ class Api::CommonController < Api::ApplicationController
 			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 
 
-		when "image"
-			unless user.nil?
-				order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-				Card.save(order_no, @message.to_user_name, nil, params[:xml][:PicUrl])	
-				
-				@message.content = "保存成功！,请继续输入文字或图片， 按 0 退出录入祝福"
-			else
-				@message.content = "我们收到了您的图片信息"
-			end
-			
-			render :xml, :template => 'api/message_text'
-		when "location"
-			@message.content = "我们收到了您的位置信息"
-			render :xml, :template => 'api/message_text'
-		when "voice"
-			@message.content = "我们收到了您的留言信息"
-			render :xml, :template => 'api/message_text'
-		when "event"
-			case params[:xml][:Event]
-			when "subscribe"
-				@message.content = '感谢您的关注' + main_tree
-			when "unsubscribe"
-				@message.content = '感谢您再次关注' + main_tree
-			end
-			render :xml, :template => 'api/message_text'
-		end
-		p @message
-	end
-
-end

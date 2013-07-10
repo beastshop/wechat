@@ -1,30 +1,32 @@
-require 'base64' 
-
+require 'rqrcode'
+require 'digest' 
 class CardsController < ApplicationController
 	before_filter :authenticate_user!, :except => [:show]
 
 	def show
-		@card = Card.where(:order_no => Base64.decode64(params[:id])).first
+		@card = Card.where(:url => params[:id]).first
 		if @card.nil?
-			@card = Card.get_default(Base64.decode64(params[:id]))
+			@card = Card.get_default("0001")
 		end
 		render layout: nil
 	end
 
 	def index_byuser
 		@user = MagentoCustomer.find(params[:uid])
-		@cards = Card.where(:wechat_user_open_id => @user.wechat_user_open_id)
-		@card_images = CardImage.where(:wechat_user_open_id => @user.wechat_user_open_id)
-
-
 	end
 
 	def index
 		@cards = Card.all
-		# @cards.each do |card|
-		# 	enc =  Base64.encode64(card.order_no)
-		# 	p enc
-		# 	p Base64.decode64(enc)
-		# end
 	end
+
+	def show_code
+		card = Card.find(params[:id])
+		unless card.nil?
+			url = request.protocol + request.host_with_port + '/cards/' + Digest::MD5.hexdigest(card.order_no).to_s
+			p url
+			@qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
+		end
+	end
+
+
 end

@@ -6,15 +6,22 @@ Wechat::Application.routes.draw do
   resources :message_auto_reply_texts
   resources :message_auto_reply_news
   resources :message_auto_reply_news_articles
+  resources :magento_customers, :only => [:index, :destroy]
+  resources :message_receives
+  
   get 'cards/index_byuser'
   get 'cards/index'
-  match 'cards/:id' => 'cards#show'
+  get 'cards/show_code'
   
-  get 'magento_customers/index'
+  match 'cards/:id' => 'cards#show'
+
+  # get 'magento_customers/index'
   post 'message_auto_reply_texts/new_model'
   post 'message_auto_reply_texts/destroy'
   post 'message_auto_reply_musics/destroy'
   post 'message_auto_reply_news/destroy'
+  
+  match 'message_receives' => 'message_receives#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

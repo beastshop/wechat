@@ -10,6 +10,8 @@ gem 'mysql2'
 gem "paperclip", "~> 3.0"
 gem 'magentor', :git => 'https://github.com/pstuteville/magentor.git'
 gem 'devise'
+gem 'rqrcode-rails3'
+gem 'mini_magick'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
