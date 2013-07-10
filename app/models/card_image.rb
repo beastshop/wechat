@@ -18,9 +18,9 @@ class CardImage < ActiveRecord::Base
      end
      p e
 
-     image_url = "down_files/"+SecureRandom.uuid+e
+     image_url = "/down_files/"+SecureRandom.uuid+e
   	 data = open(url){|f|f.read}
-	   open("public/"+image_url,"wb"){|f|f.write(data)}
+	   open("public"+image_url,"wb"){|f|f.write(data)}
 
      return image_url
   end
