@@ -110,7 +110,7 @@ class Api::CommonController < Api::ApplicationController
 		when "voice"
 			MessageReceiveVoice.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
 		when "location"
-			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],,params[:xml][:Label])
+			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],params[:xml][:Label])
 		when "event"
 			MessageReceiveEvent.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Event],params[:xml][:EventKey])
 		end
