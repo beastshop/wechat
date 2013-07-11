@@ -13,7 +13,7 @@
   <tbody>
   <% @cards.each do |card| %>
     <tr>
-      <td><a href="/cards/<%=Base64.encode64(card.order_no).gsub('\n','')%>"><%= card.order_no%></a>
+      <td><%= card.order_no%>
         <a href="/cards/show_code?id=<%=card.id%>">二维码</a></td>
       <td><%= card.content %></td>
        <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>

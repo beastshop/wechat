@@ -18,7 +18,7 @@ class Api::CommonController < Api::ApplicationController
 		
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
 
-		user = MagentoCustomer.where(:wechat_user_open_id => @message.to_user_name).first
+		user = MagentoCustomer.where(:wechat_user_open_id => @message.to_user_name, :islocked => false).first
 
 
 		
@@ -104,15 +104,15 @@ class Api::CommonController < Api::ApplicationController
 
 		case type
 		when "text"
-			MessageReceiveText.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Content])
+			MessageReceiveText.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Content])
 		when "image"
-			MessageReceiveImage.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:PicUrl])
+			MessageReceiveImage.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:PicUrl])
 		when "voice"
-			MessageReceiveVoice.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
+			MessageReceiveVoice.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
 		when "location"
-			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],params[:xml][:Label])
+			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],params[:xml][:Label])
 		when "event"
-			MessageReceiveEvent.save(from_user_name,to_user_name,type,msg_id,create_time,params[:xml][:Event],params[:xml][:EventKey])
+			MessageReceiveEvent.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Event],params[:xml][:EventKey])
 		end
 	end
 

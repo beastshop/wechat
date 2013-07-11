@@ -13,17 +13,19 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 			c = MagentoCustomer.new
 			c.user_id = customer.user_id
 			c.email = customer.email
+			c.cards = []
+
+			if MagentoCustomer.where(email: params[:email],islocked: true).exists?
+				MagentoCustomer.where(email: params[:email],islocked: true).last.cards.each do |card|
+					c.cards << card
+				end
+			end
 
 			user = WechatUser.new
 			user.name = "from wechat api"
 			user.open_id = params[:open_id]
 			user.magento_customer = c
 			user.save
-
-			if MagentoCustomer.where(email: params[:email],islocked: true).exists?
-				mc = MagentoCustomer.where(email: params[:email],islocked: true).last
-				Card.where(wechat_user_open_id: mc.wechat_user_open_id)
-			end
 
 			redirect_to :action => "success"
 		elsif customer && MagentoCustomer.where(email: params[:email],islocked: false).size != 0
