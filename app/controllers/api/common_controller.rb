@@ -17,8 +17,8 @@ class Api::CommonController < Api::ApplicationController
 		receive_log
 		
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
-
-		user = MagentoCustomer.where(:wechat_user_open_id => @message.to_user_name, :islocked => false).last
+		
+		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 
 
 		
