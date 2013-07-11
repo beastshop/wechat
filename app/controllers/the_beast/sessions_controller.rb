@@ -13,6 +13,8 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 			c = MagentoCustomer.new
 			c.user_id = customer.user_id
 			c.email = customer.email
+			c.islocked = false
+			c.isentry = false
 			c.cards = []
 
 			if MagentoCustomer.where(email: params[:email],islocked: true).exists?
@@ -20,7 +22,7 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 					c.cards << card
 				end
 			end
-			
+
 			user = WechatUser.new
 			user.name = "from wechat api"
 			user.open_id = params[:open_id]
