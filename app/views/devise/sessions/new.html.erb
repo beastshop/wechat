@@ -3,7 +3,7 @@
 <!-- 
   <form class="form-signin" method="post" action="/users/sign_in"> -->
 	<%= form_for(resource,  :url => session_path(resource_name),html:{ :class=> "form-signin"}) do |f| %>
-    <h2 class="form-signin-heading">Please Sign in</h2>
+    <h2 class="form-signin-heading">野兽派微信管理员登录</h2>
     <%= f.text_field :email, :class => "input-block-level", :placeholder => "Email address" %>
      <%= f.password_field :password,:class => "input-block-level", :placeholder => "Password" %>
      <%= f.submit "Sign in",:class => "btn btn-large btn-primary" %>
