@@ -3,7 +3,7 @@ working_directory "/var/www/wechat"
 preload_app true
 timeout 30
 
-pid "/var/www/wechat/tmp/pids/unicorn_CRM.pid"
+pid "/var/www/wechat/tmp/pids/unicorn.pid"
 stderr_path "/var/www/wechat/log/unicorn.stderr.log"
 stdout_path "/var/www/wechat/log/unicorn.stdout.log"
 
