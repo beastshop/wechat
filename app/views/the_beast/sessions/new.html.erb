@@ -35,11 +35,11 @@
 
   <form class="form-signin" method="post" action="/the_beast/sessions">
     <img src="/bs_logo.png">
-    <h2 class="form-signin-heading">Please Sign in</h2>
+    <h2 class="form-signin-heading">请输入野兽派账号登录：</h2>
     <input type="text" name="email" class="input-block-level" placeholder="Email address">
     <input type="password" name="password" class="input-block-level" placeholder="Password">
     <input type="hidden" name="open_id" value="<%=params[:open_id]%>">
-    <button class="btn btn-large btn-primary" type="submit">绑定</button>
+    <button class="btn btn-large btn-primary" type="submit">登录</button>
   <div class="control-group error">
     <span class="help-inline"><%=@message%></span>
   </div>
