@@ -52,6 +52,8 @@ Wechat::Application.routes.draw do
       end
     end
 
+  get '/' => 'cards#index' 
+  
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
