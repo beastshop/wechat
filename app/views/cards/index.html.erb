@@ -17,7 +17,7 @@
         <a href="/cards/show_code?id=<%=card.id%>">二维码</a></td>
       <td><%= card.content %></td>
        <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>
-       <td><%=card.url %></td>
+       <td><a href="<%=card.url %>">显示</a></td>
     </tr>
 
   <% end %>
