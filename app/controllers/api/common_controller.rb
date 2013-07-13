@@ -33,13 +33,24 @@ class Api::CommonController < Api::ApplicationController
 					user.save
 					@message.content = main_tree
 				when "1"
+					
+					logger.debug "Query User Order.  "
 					orders = TheBeast::Order.get_list(user.user_id)
+					logger.debug "Query Order done.  "
+					# if @orders.empty?
+					# 	@message.content = "没有订单"
+					# else 
+					# 	render :object => @orders, :template => 'api/orders.xml.erb'
+					# 	@message.content = nil
+					# end
 					result = ""
 					orders.each do | order_item |
 						order = TheBeast::Order.get(order_item.order_id)
 						result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
 					end
+					logger.debug "Query Order Detail done"
 					@message.content = result.empty? ? "没有订单" : result
+
 				when "2"
 					user.isentry = true
 					user.save
@@ -58,9 +69,11 @@ class Api::CommonController < Api::ApplicationController
 				end
 				
 			else
-				@message.content = "您还未绑定TheBeast账号，<a href=\"http://ds.12doo.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
+				@message.content = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 			end
-			render :xml, :template => 'api/message_text'
+			unless @message.content.nil? 
+				render :xml, :template => 'api/message_text'
+			end
 
 		when "image"
 			unless user.nil? && user.isentry

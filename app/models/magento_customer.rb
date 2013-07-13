@@ -2,7 +2,7 @@ class MagentoCustomer < ActiveRecord::Base
   attr_accessible :email, :user_id, :wechat_user_open_id, :isentry, :islocked
   has_many :cards
 
-
+  default_scope order: 'id desc'
   
   def saveCards(order_no,wechat_user_open_id,content,image_url)
   	card = nil

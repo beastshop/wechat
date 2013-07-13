@@ -2,7 +2,7 @@ require 'magentor'
 
 class TheBeast::Order
 	attr_accessor :order_code, :status, :order_id, :order_status, :payment_status, :total_price, :address, :note, :order_items
-	
+
 	def self.get_list(customer_id)
 		orders = []
 
@@ -38,20 +38,20 @@ class TheBeast::Order
 				order.address = address["region"] + address["city"] + address["street"] + address["postcode"] + address["firstname"]
 			end
 
-			order.order_items = []
+			# order.order_items = []
 
-			result.attributes["items"].each do |item|
-				i = TheBeast::OrderItem.new
-				i.item_id = item["item_id"]
-				i.name_en = item["name"]
-				i.name_zh = item["name"]
-				i.price = item["price"]
-				i.product_id = item["product_id"]
-				i.qty = item["qty_ordered"]
-				i.image = ""
-				i.update_time = item["updated_at"]
-				order.order_items << i
-			end
+			# result.attributes["items"].each do |item|
+			# 	i = TheBeast::OrderItem.new
+			# 	i.item_id = item["item_id"]
+			# 	i.name_en = item["name"]
+			# 	i.name_zh = item["name"]
+			# 	i.price = item["price"]
+			# 	i.product_id = item["product_id"]
+			# 	i.qty = item["qty_ordered"]
+			# 	i.image = ""
+			# 	i.update_time = item["updated_at"]
+			# 	order.order_items << i
+			# end
 
 			p order
 			return order
