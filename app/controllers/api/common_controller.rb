@@ -35,9 +35,10 @@ class Api::CommonController < Api::ApplicationController
 					user.save
 					@message.content = main_tree
 				when "1"
-					logger.debug 'Query User #{user.email} Order. Start time #{DateTime.current}'
+					logger.formatter = Logger::Formatter.new
+					logger.debug 'Query User #{user.email} Order.'
 					orders = TheBeast::Order.get_list(user.user_id)
-					logger.debug 'Query order done.  End time #{DateTime.current}'
+					logger.debug 'Query order done.'
 					result = ""
 					orders.each do | order_item |
 						order = TheBeast::Order.get(order_item.order_id)
