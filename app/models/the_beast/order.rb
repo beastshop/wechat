@@ -1,6 +1,6 @@
 require 'magentor'
 
-class TheBeast::Order < ActiveRecord::Base
+class TheBeast::Order
 	attr_accessor :order_code, :status, :order_id, :order_status, :payment_status, :total_price, :address, :note, :order_items
 
 	def self.get_list(customer_id)
