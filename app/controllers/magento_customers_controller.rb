@@ -1,7 +1,7 @@
 class MagentoCustomersController < ApplicationController
 	before_filter :authenticate_user!
 	def index
-		@users = MagentoCustomer.all.order('id desc')
+		@users = MagentoCustomer.all.order('created_at DESC')
 		# user = MagentoCustomer.first
 		# user.isentry = true
 	

@@ -16,7 +16,7 @@ class CardsController < ApplicationController
 	end
 
 	def index
-		@cards = Card.all.order('id desc')
+		@cards = Card.all.order("created_at DESC")
 	end
 
 	def show_code
