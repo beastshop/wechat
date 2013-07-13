@@ -43,6 +43,7 @@ class Api::CommonController < Api::ApplicationController
 						@message.content = "没有订单"
 					else 
 						render :object => @orders, :template => 'api/orders.xml.erb'
+						@message.content = nil
 					end
 					# result = ""
 					# orders.each do | order_item |
@@ -70,7 +71,7 @@ class Api::CommonController < Api::ApplicationController
 			else
 				@message.content = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 			end
-			unless @message.empty? 
+			unless @message.content.nil? 
 				render :xml, :template => 'api/message_text'
 			end
 
