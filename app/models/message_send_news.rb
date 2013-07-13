@@ -1,4 +1,5 @@
 class MessageSendNews < ActiveRecord::Base
-  attr_accessible :article_count, :create_time, :from_user_name, :func_flag, :msg_type, :to_user_name
+  attr_accessible :article_count
   has_many :message_send_news_articles
+  belongs_to :message_send
 end

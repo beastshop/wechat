@@ -10,7 +10,7 @@ class CreateMessageReceiveVoices < ActiveRecord::Migration
       t.integer :msg_id, :limit => 8
       t.string :recognition
       t.text :region_source
-
+       t.belongs_to :message_receive
       t.timestamps
     end
   end

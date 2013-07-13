@@ -8,7 +8,7 @@ class CreateMessageReceiveEvents < ActiveRecord::Migration
       t.string :event
       t.string :event_key
       t.text :origin_source
-
+       t.belongs_to :message_receive
       t.timestamps
     end
   end

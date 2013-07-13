@@ -11,7 +11,7 @@ class CreateMessageReceiveLocations < ActiveRecord::Migration
       t.string :label
       t.integer :msg_id, :limit => 8
       t.text :origin_source
-
+       t.belongs_to :message_receive
       t.timestamps
     end
   end

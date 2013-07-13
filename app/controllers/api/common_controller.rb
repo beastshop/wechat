@@ -17,12 +17,10 @@ class Api::CommonController < Api::ApplicationController
 		receive_log
 		
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
-		
+		result_template = ""
+
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 
-
-		
-		p user
 		case params[:xml][:MsgType]
 		when "text"
 		 	msg_text = params[:xml][:Content]
@@ -116,45 +114,45 @@ class Api::CommonController < Api::ApplicationController
 		end
 	end
 
+	def macth_keywords
+					
+		mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
+
+		if !mkw.nil?
+			if mkw.message_auto_reply_texts.size > 0
+				@message.content = mkw.message_auto_reply_texts.first.content
+				render :xml, :template => 'api/message_text'
+			elsif mkw.message_auto_reply_musics.size > 0
+				@message = MessageSendMusic.new
+				@message.to_user_name = params[:xml][:FromUserName]
+				@message.from_user_name = params[:xml][:ToUserName]
+				@message.create_time = Time.now
+				@message.music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.music_url.to_s
+				@message.hq_music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.hq_music_url.to_s
+				
+				render :xml, :template => 'api/message_music'
+			elsif mkw.message_auto_reply_news.size > 0
+				@message = MessageSendNews.new
+				@message.to_user_name = params[:xml][:FromUserName]
+				@message.from_user_name = params[:xml][:ToUserName]
+				@message.create_time = Time.now
+				mkw.message_auto_reply_news.first.message_auto_reply_news_articles.each do | article |
+					news_article = MessageSendNewsArticle.new
+					news_article.title = article.title
+					news_article.description = article.description
+					news_article.pic_url = request.protocol + request.host_with_port + article.pic_url.to_s
+					news_article.url = article.url
+					@message.message_send_news_articles << news_article
+				end
+				render :xml, :template => 'api/message_news'
+			end
+		else
+			render :xml, :template => 'api/message_text'
+		end
+	end
+
 end
 
-			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
-			
-			# @mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
 
-			# if !@mkw.nil?
-			# 	if @mkw.message_auto_reply_texts.size > 0
-			# 		@message.content = @mkw.message_auto_reply_texts.first.content
-			# 		render :xml, :template => 'api/message_text'
-			# 	elsif @mkw.message_auto_reply_musics.size > 0
-			# 		@message = MessageSendMusic.new
-			# 		@message.to_user_name = params[:xml][:FromUserName]
-			# 		@message.from_user_name = params[:xml][:ToUserName]
-			# 		@message.create_time = Time.now
-			# 		@message.music_url = request.protocol + request.host_with_port + @mkw.message_auto_reply_musics.first.music_url.to_s
-			# 		@message.hq_music_url = request.protocol + request.host_with_port + @mkw.message_auto_reply_musics.first.hq_music_url.to_s
-			# 		p @message
-			# 		render :xml, :template => 'api/message_music'
-			# 	elsif @mkw.message_auto_reply_news.size > 0
-			# 		@message = MessageSendNews.new
-			# 		@message.to_user_name = params[:xml][:FromUserName]
-			# 		@message.from_user_name = params[:xml][:ToUserName]
-			# 		@message.create_time = Time.now
-			# 		@mkw.message_auto_reply_news.first.message_auto_reply_news_articles.each do | article |
-			# 			news_article = MessageSendNewsArticle.new
-			# 			news_article.title = article.title
-			# 			news_article.description = article.description
-			# 			news_article.pic_url = request.protocol + request.host_with_port + article.pic_url.to_s
-			# 			news_article.url = article.url
-			# 			@message.message_send_news_articles << news_article
-			# 		end
-			# 		p @message
-			# 		render :xml, :template => 'api/message_news'
-			# 	end
-			# else
-			# 	render :xml, :template => 'api/message_text'
-			# end
-
-			##-------------------------------   关键字匹配代码 Don't Remove -----------------------------------------------------------------------
 
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  to_user_name: MyString
+  from_user_name: MyString
+  ceate_time: 2013-07-13 22:57:11
+  msg_type: MyString
+  msg_id: 1
+
+two:
+  to_user_name: MyString
+  from_user_name: MyString
+  ceate_time: 2013-07-13 22:57:11
+  msg_type: MyString
+  msg_id: 1
