@@ -5,8 +5,8 @@
 	<MsgType><![CDATA[text]]></MsgType> 
 	<!--<Content><![CDATA[<%= @message.content %>]]></Content>  -->
 	<Content>
-    <% @orders.each do |order| %>
-		订单号: <%= order.order_id %> \x0A 地址: <%= order.address %> \x0A 备注: <%= order.note %> \x0A
+    <% orders.each do |order| %>
+		订单号: <%= order.order_id %> \x0A 地址: <%= order.address %> \x0A 备注: <%= order.note %> \x0A\x0A
 	<% end %>
 
 
