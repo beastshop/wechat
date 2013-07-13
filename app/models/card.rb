@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
   attr_accessible :order_no, :wechat_user_open_id, :content, :url
   has_one :card_image, autosave: true
   belongs_to :magento_customer
-
+  default_scope order: :created_at
   def self.get_default(order_no)
     return save(order_no,nil,'default card content','default card image_url')
   end
