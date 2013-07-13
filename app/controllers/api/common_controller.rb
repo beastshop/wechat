@@ -8,12 +8,9 @@ class Api::CommonController < Api::ApplicationController
 	end
 
 	def echo
-		p params[:xml][:MsgType]
-		@message = MessageSendText.new
-		@message.to_user_name = params[:xml][:FromUserName]
-		@message.from_user_name = params[:xml][:ToUserName]
-		@message.create_time = Time.now
-
+		@message = message_send_init
+		
+		# Write receive message log
 		receive_log
 		
 		main_tree = "1.查询订单 \x0A2.录入祝福 \x0A"
@@ -24,14 +21,14 @@ class Api::CommonController < Api::ApplicationController
 		case params[:xml][:MsgType]
 		when "text"
 		 	msg_text = params[:xml][:Content]
-			@message.content = msg_text
 
 			unless user.nil?
 				case msg_text
 				when "0"
 					user.isentry = false
 					user.save
-					@message.content = main_tree
+					@message.save_text(main_tree)
+					
 				when "1"
 					
 					logger.debug "Query User Order.  "
@@ -106,25 +103,41 @@ class Api::CommonController < Api::ApplicationController
 	end
 
 	private
-	def receive_log
-		from_user_name = params[:xml][:FromUserName]
-		to_user_name = params[:xml][:ToUserName]
-		type = params[:xml][:MsgType]
-		msg_id = params[:xml][:MsgId]
-		create_time = params[:xml][:CreateTime]
+	def message_send_init
+		message_send = MessageSend.new
 
-		case type
+		message_send.from_user_name = params[:xml][:ToUserName]
+		message_send.to_user_name = params[:xml][:FromUserName]
+		message_send.msg_type = params[:xml][:MsgType]
+		message_send.create_time = Time.now
+
+		return message_send
+	end
+
+	def receive_log
+		message_receive = MessageReceive.new
+
+		message_receive.from_user_name = params[:xml][:FromUserName]
+		message_receive.to_user_name = params[:xml][:ToUserName]
+		message_receive.msg_type = params[:xml][:MsgType]
+		message_receive.msg_id = params[:xml][:MsgId]
+		message_receive.create_time = params[:xml][:CreateTime]
+
+		case params[:xml][:MsgType]
 		when "text"
-			MessageReceiveText.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Content])
+			message_receive.save_text(params[:xml][:Content])
 		when "image"
-			MessageReceiveImage.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:PicUrl])
+			message_receive.save_image(params[:xml][:PicUrl])
 		when "voice"
-			MessageReceiveVoice.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
+			message_receive.save_voice(params[:xml][:MediaId],params[:xml][:Format],params[:xml][:Recognition])
 		when "location"
-			MessageReceiveLocation.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],params[:xml][:Label])
+			message_receive.save_location(params[:xml][:Scale],params[:xml][:Location_X],params[:xml][:Location_Y],params[:xml][:Label])
 		when "event"
-			MessageReceiveEvent.save(from_user_name,to_user_name,type,msg_id,Time.now,params[:xml][:Event],params[:xml][:EventKey])
+			message_receive.save_event(params[:xml][:Event],params[:xml][:EventKey])
+		when "link"
+			message_receive.save_link(params[:xml][:Description],params[:xml][:Title],params[:xml][:Url])
 		end
+		message_receive.save
 	end
 
 	def macth_keywords
