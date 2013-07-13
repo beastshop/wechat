@@ -1,6 +1,6 @@
 class MessageReceiveText < ActiveRecord::Base
   attr_accessible :content, :create_time, :from_user_name, :msg_id, :msg_type, :origin_source, :to_user_name
-
+  default_scope order: 'id desc' 
   def self.save(from_user_name,to_user_name,msg_type,msg_id,create_time,content)
   	m = MessageReceiveText.new
   	m.content = content

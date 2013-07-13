@@ -1,6 +1,6 @@
 class MessageReceiveImage < ActiveRecord::Base
   attr_accessible :create_time, :from_user_name, :msg_id, :msg_type, :origin_source, :pic_url, :to_user_name
-
+  default_scope order: 'id desc' 
 
   def self.save(from_user_name,to_user_name,msg_type,msg_id,create_time,pic_url)
   	m = MessageReceiveImage.new

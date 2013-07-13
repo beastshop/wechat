@@ -1,6 +1,6 @@
 class MessageReceiveVoice < ActiveRecord::Base
   attr_accessible :create_time, :format, :from_user_name, :media_id, :msg_id, :msg_type, :recognition, :region_source, :to_user_name
-
+  default_scope order: 'id desc' 
 
   def self.save(from_user_name,to_user_name,msg_type,msg_id,create_time,media_id,format,recognition)
   	m = MessageReceiveVoice.new
