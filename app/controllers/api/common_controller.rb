@@ -37,7 +37,7 @@ class Api::CommonController < Api::ApplicationController
 				when "1"
 					
 					logger.debug "Query User Order.  "
-					@orders = TheBeast::Order.get_list(user.user_id)
+					orders = TheBeast::Order.get_list(user.user_id)
 					logger.debug "Query Order done.  "
 					# if @orders.empty?
 					# 	@message.content = "没有订单"
