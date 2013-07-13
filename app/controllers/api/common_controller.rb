@@ -37,14 +37,19 @@ class Api::CommonController < Api::ApplicationController
 				when "1"
 					
 					logger.debug "Query User Order.  "
-					orders = TheBeast::Order.get_list(user.user_id)
+					@orders = TheBeast::Order.get_list(user.user_id)
 					logger.debug "Query Order done.  "
-					result = ""
-					orders.each do | order_item |
-						order = TheBeast::Order.get(order_item.order_id)
-						result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
+					if @orders.empty?
+						@message.content = "没有订单"
+					else 
+						render :xml, :template => 'api/orders'
 					end
-					@message.content = result.empty? ? "没有订单" : result
+					# result = ""
+					# orders.each do | order_item |
+					# 	order = TheBeast::Order.get(order_item.order_id)
+					# 	result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
+					# end
+					# @message.content = result.empty? ? "没有订单" : result
 				when "2"
 					user.isentry = true
 					user.save
