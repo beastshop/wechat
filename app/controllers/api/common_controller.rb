@@ -42,7 +42,7 @@ class Api::CommonController < Api::ApplicationController
 					if @orders.empty?
 						@message.content = "没有订单"
 					else 
-						render :xml => @orders, :template => 'api/orders'
+						render @orders, :xml, :template => 'api/orders'
 					end
 					# result = ""
 					# orders.each do | order_item |
