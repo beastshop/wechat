@@ -5,7 +5,8 @@ class MessageSend < ActiveRecord::Base
   has_one :message_send_text
   	def save_text(content)
 		m_t = MessageSendText.new
-
+		m_t.content = content
+		
 		self.message_send_text = m_t
 	end
 
