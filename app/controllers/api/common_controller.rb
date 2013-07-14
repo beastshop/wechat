@@ -20,8 +20,8 @@ class Api::CommonController < Api::ApplicationController
 		template_news = "api/message_news"
 		template_result = ""
 
-		main_menu = "1.查询订单 \x0A2.录入祝福 \x0A"
-		entry_msg = "请输入祝福的文字或图片,输入 0  退出录入祝福"
+		main_menu = "输入【1】或【xcdd】或【订单】可以查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】可以录入祝福 \x0A"
+		entry_msg = "您可以为最新订单录制祝福文字和图片"
 		no_match_msg = "无法理解您的输入，请重新按菜单输入 \x0A" + main_menu
 		account_bind_msg = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 		
@@ -32,7 +32,7 @@ class Api::CommonController < Api::ApplicationController
 		when "text"
 		 	msg_text = params[:xml][:Content]
 		 	case msg_text
-		 	when "0"
+		 	when "51"
 				back_main_menu(user)
 				@message.save_text(main_menu)
 				template_result = template_text
@@ -52,7 +52,7 @@ class Api::CommonController < Api::ApplicationController
 		 		# User in not null and  entry greetings
 		 		if !user.nil? && user.isentry
 					save_greetings(user, @message.to_user_name, msg_text)
-					@message.save_text("保存成功！" + entry_msg)
+					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 					template_result = template_text
 				else
 					#Keywords Match
@@ -63,7 +63,7 @@ class Api::CommonController < Api::ApplicationController
 		when "image"
 			unless user.nil? && user.isentry
 				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
-				@message.save_text("保存成功！" + entry_msg)
+				@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 			else
 				@message.save_text("我们收到了您的图片信息")
 			end
