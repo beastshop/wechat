@@ -1,11 +1,12 @@
 # encoding: utf-8
 class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
+
   def index
     @message_keywords = MessageKeyword.all
     
     a = "0"
-
+    p @@template
     case a
     when  "a","0","b"
       p "start"

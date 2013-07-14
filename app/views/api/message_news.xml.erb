@@ -3,9 +3,9 @@
 	 <FromUserName><![CDATA[<%= @message.from_user_name %>]]></FromUserName>
 	 <CreateTime><%= @message.create_time.to_i %></CreateTime>
 	 <MsgType><![CDATA[news]]></MsgType>
-	 <ArticleCount><%=@message.message_send_news_articles.size %></ArticleCount>
+	 <ArticleCount><%=@message.message_send_news.message_send_news_articles.size %></ArticleCount>
 	 <Articles>
-	 	<% @message.message_send_news_articles.each do | article | %>
+	 	<% @message.message_send_news.message_send_news_articles.each do | article | %>
 		 <item>
 			 <Title><![CDATA[<%= article.title %>]]></Title> 
 			 <Description><![CDATA[<%= article.description %>]]></Description>

@@ -24,12 +24,14 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 			end
 
 			user = WechatUser.new
+			if WechatUser.where(:open_id => params[:open_id]).exists?
+				user = WechatUser.where(:open_id => params[:open_id]).first
+			end
+			
 			user.name = "from wechat api"
 			user.open_id = params[:open_id]
 			user.magento_customer = c
 			user.save
-
-			
 
 			redirect_to :action => "success"
 		elsif customer && MagentoCustomer.where(email: params[:email],islocked: false).size != 0
