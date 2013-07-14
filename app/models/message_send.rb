@@ -1,5 +1,5 @@
 class MessageSend < ActiveRecord::Base
-  attr_accessible :ceate_time, :from_user_name, :msg_type, :to_user_name, :func_flag
+  attr_accessible :create_time, :from_user_name, :msg_type, :to_user_name, :func_flag
   has_one :message_send_music
   has_one :message_send_news
   has_one :message_send_text

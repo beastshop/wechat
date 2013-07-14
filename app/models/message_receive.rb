@@ -1,12 +1,12 @@
 class MessageReceive < ActiveRecord::Base
-	attr_accessible :ceate_time, :from_user_name, :msg_id, :msg_type, :to_user_name
+	attr_accessible :create_time, :from_user_name, :msg_id, :msg_type, :to_user_name
 	has_one :message_receive_event
 	has_one :message_receive_image
 	has_one :message_receive_link
 	has_one :message_receive_location
 	has_one :message_receive_voice
 	has_one :message_receive_text
-	
+
 	def save_text(content)
 		m_t = MessageReceiveText.new
 		m_t.content = content
