@@ -39,7 +39,8 @@ class Api::CommonController < Api::ApplicationController
 		 	when "1","2"
 		 		unless user.nil?
 		 			if msg_text == "1"
-						@message.save_text(show_order(user).empty? ? "没有订单" : result)
+		 				result = show_order(user)
+						@message.save_text(result.empty? ? "没有订单" : result)
 		 			elsif msg_text == "2"
 		 				begin_entry_greetings(user)
 						@message.save_text(entry_msg)
