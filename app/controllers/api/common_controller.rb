@@ -57,12 +57,6 @@ class Api::CommonController < Api::ApplicationController
 					logger.debug "Query User Order.  "
 					orders = TheBeast::Order.get_list(user.user_id)
 					logger.debug "Query Order done.  "
-					# if @orders.empty?
-					# 	@message.content = "没有订单"
-					# else 
-					# 	render :object => @orders, :template => 'api/orders.xml.erb'
-					# 	@message.content = nil
-					# end
 					result = ""
 					orders.each do | order_item |
 						order = TheBeast::Order.get(order_item.order_id)
