@@ -26,7 +26,7 @@ class TheBeast::Order
 		unless result.nil?
 			order = TheBeast::Order.new
 			order.order_id = result.attributes["increment_id"]
-			order.order_status = result.'attributes'["status"]
+			order.order_status = result.attributes["status"]
 			order.payment_status = result.attributes["status"]
 			order.total_price = result.attributes["total_due"]
 			order.note = result.attributes["customer_comment"]
