@@ -4,7 +4,6 @@ class MessageKeywordsController < ApplicationController
 
   def index
     @message_keywords = MessageKeyword.all
-
   end
 
   def show

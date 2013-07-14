@@ -7,7 +7,8 @@ class TheBeast::Order
 		orders = []
 
 		array = { "customer_id" => customer_id }
-		results =  
+		results = Magento::Order.list(array)
+		results.each do |result| 
 			o = TheBeast::Order.new
 			#o.order_id = result.attributes["order_id"]
 			o.order_id = result.attributes["increment_id"]
