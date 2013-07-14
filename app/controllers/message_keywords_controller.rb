@@ -3,8 +3,16 @@ class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
   def index
     @message_keywords = MessageKeyword.all
-    p @message_keywords.size
     
+    a = "0"
+
+    case a
+    when  "a","0","b"
+      p "start"
+      if a == "0"
+        p "0ok"
+      end
+    end
   end
 
   def show

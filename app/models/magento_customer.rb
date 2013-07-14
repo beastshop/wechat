@@ -1,7 +1,6 @@
 class MagentoCustomer < ActiveRecord::Base
   attr_accessible :email, :user_id, :wechat_user_open_id, :isentry, :islocked
   has_many :cards
-
   default_scope order: 'id desc'
   
   def saveCards(order_no,wechat_user_open_id,content,image_url)
@@ -28,11 +27,8 @@ class MagentoCustomer < ActiveRecord::Base
     card.card_image.order_no = order_no
     card.card_image.wechat_user_open_id = wechat_user_open_id
     card.url = Digest::MD5.hexdigest(order_no).to_s
-    #card.magento_customer = self
     self.cards << card
     self.save
-  #  card.card_image.save
 
-  	
 	end
 end

@@ -38,7 +38,6 @@ class Card < ActiveRecord::Base
     card.magento_customer = user
 
     card.save
-  #  card.card_image.save
 
   	return card
   end

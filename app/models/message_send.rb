@@ -4,7 +4,8 @@ class MessageSend < ActiveRecord::Base
 
   	def save_text(content)
 		m_t = MessageSendText.new
-		m_t.message_send = self
+
+		self.message_send_text = m_t
 	end
 
 
@@ -12,7 +13,8 @@ class MessageSend < ActiveRecord::Base
 		m_m = MessageSendMusic.new
 		m_m.hq_music_url = hq_music_url
 		m_m.music_url = music_url
-		m_m.message_send = self
+
+		self.message_send_music = m_m
 	end
 
 	def save_news(message_auto_reply_news)
@@ -28,7 +30,7 @@ class MessageSend < ActiveRecord::Base
 			m_n.message_send_news_articles << m_n_a
 		end
 
-		m_n.message_send = self
+		self.message_send_news = m_n
 	end
 
 end
