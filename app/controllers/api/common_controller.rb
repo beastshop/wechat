@@ -27,13 +27,14 @@ class Api::CommonController < Api::ApplicationController
 		
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 
-
 		case params[:xml][:MsgType]
 		when "text"
 		 	msg_text = params[:xml][:Content]
 		 	case msg_text
 		 	when "51"
-				back_main_menu(user)
+		 		unless user.nil?
+					back_main_menu(user)
+		 		end
 				@message.save_text(main_menu)
 				template_result = template_text
 		 	when "1","2"
