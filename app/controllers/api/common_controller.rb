@@ -84,6 +84,7 @@ class Api::CommonController < Api::ApplicationController
 			end
 			template_result = template_text
 		end
+		@message.save
 		render :xml, :template => template_result
 	end
 
