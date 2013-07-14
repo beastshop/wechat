@@ -4,16 +4,7 @@ class MessageKeywordsController < ApplicationController
 
   def index
     @message_keywords = MessageKeyword.all
-    
-    a = "0"
-    p @@template
-    case a
-    when  "a","0","b"
-      p "start"
-      if a == "0"
-        p "0ok"
-      end
-    end
+
   end
 
   def show

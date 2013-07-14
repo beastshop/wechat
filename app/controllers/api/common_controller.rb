@@ -59,6 +59,54 @@ class Api::CommonController < Api::ApplicationController
 					template_result = macth_keywords(@message, msg_text, no_match_msg)
 				end
 		 	end
+<<<<<<< HEAD
+=======
+
+			unless user.nil?
+				case msg_text
+				when "0"
+					user.isentry = false
+					user.save
+					@message.save_text(main_menu)
+				when "1"
+					
+					logger.debug "Query User Order.  "
+					orders = Magento::Order.list(:customer_id => user.user_id)
+					logger.debug "Query Order done.  "
+					result = ""
+					orders.each do | order |
+					#	order = TheBeast::Order.get(order_item.order_id)
+						result << "订单号：" << order.increment_id << "\x0A"
+                        result << "订单时间：" << order.created_at << "\x0A"
+                        result << "收货人：" << order.shipping_firstname << "\x0A"
+                        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+                        result << "状态：" << order.status << "\x0A\x0A"					
+                     end
+					logger.debug "Query Order Detail done"
+					@message.save_text(result.empty? ? "没有订单" : result)
+				when "2"
+					user.isentry = true
+					user.save
+					@message.save_text(entry_msg)
+				else
+					if user.isentry
+						order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
+						user.saveCards(order_no, @message.to_user_name, msg_text, nil)
+						@message.save_text("保存成功！" + entry_msg)
+					else
+						@message.content = no_match_msg
+					end
+
+				end
+				
+			else
+				@message.content = account_bind_msg
+			end
+			unless @message.content.nil? 
+				render :xml, :template => 'api/message_text'
+			end
+
+>>>>>>> 1fdbf851ac92b78f1bc0896642c3c1e7e26584cb
 		when "image"
 			unless user.nil? && user.isentry
 				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
@@ -99,10 +147,15 @@ class Api::CommonController < Api::ApplicationController
 		logger.debug "Query Order done.  "
 
 		result = ""
-		orders.each do | order_item |
-			order = TheBeast::Order.get(order_item.order_id)
-			result <<  "订单号: " << order.order_id  << "\x0A" << "地址: " << order.address << "\x0A" << "备注: " << order.note << "\x0A\x0A"
-		end
+		orders.each do | order |
+		#	order = TheBeast::Order.get(order_item.order_id)
+			result << "订单号：" << order.increment_id << "\x0A"
+	        result << "订单时间：" << order.created_at << "\x0A"
+	        result << "收货人：" << order.shipping_firstname << "\x0A"
+	        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+	        result << "状态：" << order.status << "\x0A\x0A"					
+        end
+
 		logger.debug "Query Order Detail done"
 		return result
 	end
