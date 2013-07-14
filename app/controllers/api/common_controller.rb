@@ -96,7 +96,7 @@ class Api::CommonController < Api::ApplicationController
 
 	def show_order(user)
 		logger.debug "Query User Order.  "
-		orders = TheBeast::Order.get_list(user.user_id)
+		orders = Magento::Order.list(:customer_id => user.user_id)
 		logger.debug "Query Order done.  "
 
 		result = ""
