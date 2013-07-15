@@ -6,6 +6,7 @@ class CardsController < ApplicationController
 	def show
 		@card = Card.where(:url => params[:id]).first
 		if !@card.nil? && params[:user].nil?
+			logger.debug "write card log.  "
 			@card.write_log(request.remote_ip, request.headers["User-Agent"])
 		end
 		render layout: nil

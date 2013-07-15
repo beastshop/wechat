@@ -4,8 +4,6 @@ class MessageKeywordsController < ApplicationController
 
   def index
     @message_keywords = MessageKeyword.all
-    #@message_keywords.first.delay.deliver("aaa")
-
   end
 
   def show
