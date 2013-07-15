@@ -99,17 +99,18 @@ class Api::CommonController < Api::ApplicationController
 
 	def show_order(user)
 		logger.debug "Query User Order.  "
-		orders = Magento::Order.list(:customer_id => user.user_id)
+		orders = Magento::Order.list(:customer_id => user.user_id).reverse
 		logger.debug "Query Order done.  "
 
 		result = ""
 		orders.each do | order |
-		#	order = TheBeast::Order.get(order_item.order_id)
-			result << "订单号：" << order.increment_id << "\x0A"
-	        result << "订单时间：" << order.created_at << "\x0A"
-	        result << "收货人：" << order.shipping_firstname << "\x0A"
-	        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
-	        result << "状态：" << order.status << "\x0A\x0A"					
+			if order.status == "pending"
+				result << "订单号：" << order.increment_id << "\x0A"
+		        result << "订单时间：" << order.created_at << "\x0A"
+		        result << "收货人：" << order.shipping_firstname << "\x0A"
+		        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+		        result << "状态：" << order.status << "\x0A\x0A"	
+			end				
         end
 
 		logger.debug "Query Order Detail done"
@@ -123,7 +124,9 @@ class Api::CommonController < Api::ApplicationController
 
 	def save_greetings_images(user, to_user_name, pic_url)
 		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-		user.saveCards(order_no, to_user_name, nil, CardImage.down(pic_url))
+		save_path = CardImage.get_file_url(pic_url)
+		user.saveCards(order_no, to_user_name, nil, save_path)
+		user.delay.deliver(pic_url,save_path)
 	end
 
 	def save_greetings(user, to_user_name, msg_text)

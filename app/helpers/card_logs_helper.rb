@@ -1,0 +1,2 @@
+module CardLogsHelper
+end

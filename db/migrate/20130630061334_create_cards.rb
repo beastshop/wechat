@@ -4,6 +4,7 @@ class CreateCards < ActiveRecord::Migration
       t.string :order_no
       t.string :wechat_user_open_id
       t.string :content
+      t.datetime :first_read_time
       t.belongs_to :magento_customer
       t.timestamps
     end

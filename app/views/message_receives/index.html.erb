@@ -1,4 +1,48 @@
+<div class="well">
+  <h3>接收消息列表</h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>from</th>
+    <th>create_time</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @message_receives.each do | message | %>
+  <tr>
+  	<td><%= message.from_user_name%></td>
+  	<td><%= message.create_time %></td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<%  case message.msg_type 
+  		when "text" %>
+  		<td colspan="3">内容:<%=message.message_receive_text.content %></td>
+  	<%  when "image" %>
+  		<td colspan="3">图片:<a href="<%=message.message_receive_image.pic_url %>"> <%=message.message_receive_image.pic_url %></a></td>
+  	<%  when "link" %>
+  		<td>标题:<%= message.message_receive_link.title %></td>
+  		<td>url:<%= message.message_receive_link.url %></td>
+  		<td>描述:<%= message.message_receive_link.desription %></td>
+  	<%  when "location" %>
+  		<td>标签:<%= message.message_receive_location.label %></td>
+  		<td>x:<%= message.message_receive_location.location_x %></td>
+  		<td>y:<%= message.message_receive_location.location_y %></td>
+  	<%  when "event" %>
+  		<td colspan="3">event:<%= message.message_receive_event.event %>   eventKey:<%= message.message_receive_event.event_key %> </td>
+  	<%  when "voice" %>
+  		<td colspan="3">media_id:<%= message.message_receive_voice.media_id %>   format:<%= message.message_receive_voice.format %>  </td>
+  	<% end %>
+  </tr>
+<% end %>
+</tbody>
+</table>
 
+
+
+<!-- 
 <div class="well">
   <h3>接收信息列表</h3>
 </div>
@@ -44,13 +88,4 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
+ -->

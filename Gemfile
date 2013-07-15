@@ -12,6 +12,8 @@ gem 'magentor', :git => 'https://github.com/pstuteville/magentor.git'
 gem 'devise'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
+gem 'delayed_job_active_record'
+gem 'daemons'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

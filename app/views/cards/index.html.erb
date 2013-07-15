@@ -8,16 +8,19 @@
     <th>内容</th>
     <th>图片</th>
     <th>url</th>
+    <th>first read time</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <% @cards.each do |card| %>
     <tr>
-      <td><%= card.order_no%>
-        <a href="/cards/show_code?id=<%=card.id%>">二维码</a></td>
+      <td><%= card.order_no%><a href="/cards/show_code?id=<%=card.id%>">二维码</a></td>
       <td><%= card.content %></td>
-       <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>
-       <td><a href="<%=card.url %>">显示</a></td>
+      <td><a href="<%= card.card_image.picture_file_name %>"><%= card.card_image.picture_file_name %></a></td>
+      <td><a href="<%=card.url %>">显示</a></td>
+      <td><%= card.first_read_time %></td>
+      <td><a href="/card_logs?order_no=<%=card.order_no %>">阅读记录</a></td>
     </tr>
 
   <% end %>

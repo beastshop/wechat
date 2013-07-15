@@ -1,0 +1,25 @@
+<div class="well">
+  <h3>祝福阅读日志</h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>订单号</th>
+    <th>阅读时间</th>
+    <th>ip</th>
+    <th>brower</th>
+  </tr>
+</thead>
+<tbody>
+<% @card_logs.each do |card_log| %>
+  <tr>
+    <td><%= card_log.card.order_no %></td>
+    <td><%= card_log.create_at %></td>
+    <td><%= card_log.host %></td>
+    <td><%= card_log.brower %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+

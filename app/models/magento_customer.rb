@@ -1,3 +1,5 @@
+require "open-uri"
+
 class MagentoCustomer < ActiveRecord::Base
   attr_accessible :email, :user_id, :wechat_user_open_id, :isentry, :islocked
   has_many :cards
@@ -31,4 +33,9 @@ class MagentoCustomer < ActiveRecord::Base
     self.save
 
 	end
+
+  def deliver(url, save_path)
+    data = open(url){|f|f.read}
+    open("public"+save_path,"wb"){|f|f.write(data)}
+  end
 end

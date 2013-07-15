@@ -7,6 +7,7 @@ Wechat::Application.routes.draw do
   resources :message_auto_reply_news
   resources :message_auto_reply_news_articles
   resources :magento_customers, :only => [:index, :destroy]
+  resources :card_logs, :only => [:index]
   resources :message_receives
   
   get 'cards/index_byuser'

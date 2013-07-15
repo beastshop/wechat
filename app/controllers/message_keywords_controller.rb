@@ -1,9 +1,11 @@
 # encoding: utf-8
+require "open-uri"
 class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
     @message_keywords = MessageKeyword.all
+    #@message_keywords.first.delay.deliver("aaa")
   end
 
   def show
@@ -74,4 +76,5 @@ class MessageKeywordsController < ApplicationController
 
     redirect_to message_keywords_url
   end
+ 
 end

@@ -1,0 +1,40 @@
+<div class="well">
+  <h3>发送消息列表</h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>to</th>
+    <th>create_time</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @message_sends.each do | message | %>
+  <tr>
+  	<td><%= message.to_user_name%></td>
+  	<td><%= message.create_time %></td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<%  case message.msg_type 
+  		when "text" %>
+  		<td colspan="3">内容:<%=message.message_send_text.content %></td>
+  	<%  when "music" %>
+  		<td colspan="3">音乐:<a href="<%=message.message_send_music.music_url %>"> <%=message.message_send_music.music_url %></a></td>
+  	<%  when "news" %>
+      <td colspan="3">
+        <% message.message_send_news.message_send_news_articles.each do | article |%>
+          <tr>
+            <td>标题: <%= article.title %></td>
+            <td>图片: <%= article.pic_url %></td>
+            <td>链接: <%= article.url %></td>
+          <tr>
+          <tr><td colspan="3">内容 <%= article.description %></td></tr>
+        <% end%>
+      </td>
+  	<% end %>
+  </tr>
+<% end %>
+</tbody>
+</table>

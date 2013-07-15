@@ -5,8 +5,8 @@ class CardsController < ApplicationController
 
 	def show
 		@card = Card.where(:url => params[:id]).first
-		if @card.nil?
-			@card = Card.get_default("0001")
+		if !@card.nil? && params[:user].nil?
+			@card.write_log(request.remote_ip, request.headers["User-Agent"])
 		end
 		render layout: nil
 	end
@@ -22,7 +22,7 @@ class CardsController < ApplicationController
 	def show_code
 		card = Card.find(params[:id])
 		unless card.nil?
-			url = request.protocol + request.host_with_port + '/cards/' + Digest::MD5.hexdigest(card.order_no).to_s
+			url = request.protocol << request.host_with_port << '/cards/' << Digest::MD5.hexdigest(card.order_no).to_s << '?user=admin'
 			p url
 			@qr = RQRCode::QRCode.new(url, :size => 4, :level => :l)
 		end
