@@ -152,7 +152,7 @@ class Api::CommonController < Api::ApplicationController
 		message_receive.to_user_name = params[:xml][:ToUserName]
 		message_receive.msg_type = params[:xml][:MsgType]
 		message_receive.msg_id = params[:xml][:MsgId]
-		message_receive.create_time = Time.at(params[:xml][:CreateTime])
+		message_receive.create_time = Time.at(params[:xml][:CreateTime].to_i).to_datetime
 
 		case params[:xml][:MsgType]
 		when "text"

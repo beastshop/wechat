@@ -1,11 +1,12 @@
 # encoding: utf-8
-require "open-uri"
 class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
     @message_keywords = MessageKeyword.all
     #@message_keywords.first.delay.deliver("aaa")
+    a = Time.at(1373882336).to_datetime
+    p a
   end
 
   def show
