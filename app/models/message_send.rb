@@ -3,6 +3,8 @@ class MessageSend < ActiveRecord::Base
   has_one :message_send_music
   has_one :message_send_news
   has_one :message_send_text
+  default_scope order: 'id desc'
+  
   	def save_text(content)
 		m_t = MessageSendText.new
 		m_t.content = content

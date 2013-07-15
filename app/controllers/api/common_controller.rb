@@ -176,12 +176,13 @@ class Api::CommonController < Api::ApplicationController
 		template_result = ""		
 
 		mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
-
+		logger.debug  mkw
 		if !mkw.nil?
 			if mkw.message_auto_reply_texts.size > 0
 				message.save_text(mkw.message_auto_reply_texts.first.content)
 				template_result = "api/message_text"
 			elsif mkw.message_auto_reply_musics.size > 0
+				logger.debug 'in  music'
 				music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.music_url.to_s
 				hq_music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.hq_music_url.to_s
 				message.save_music(hq_music_url,music_url)
@@ -194,7 +195,7 @@ class Api::CommonController < Api::ApplicationController
 			message.save_text(no_match_msg)
 			template_result = "api/message_text"
 		end
-		
+
 		return template_result
 	end
 
