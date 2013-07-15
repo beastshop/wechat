@@ -5,8 +5,7 @@ class MessageKeywordsController < ApplicationController
   def index
     @message_keywords = MessageKeyword.all
     #@message_keywords.first.delay.deliver("aaa")
-    a = Time.at(1373882336).to_datetime
-    p a
+
   end
 
   def show
