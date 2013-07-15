@@ -145,7 +145,8 @@ class Api::CommonController < Api::ApplicationController
 		logger.debug "Query User Order.  "
 		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
 		logger.debug "Begin Get Save Path "
-		save_path = CardImage.get_file_url(pic_url)
+		#save_path = CardImage.get_file_url(pic_url)
+		save_path = "/down_files/a.jpg"
 		logger.debug "Get Save Path "
 		user.saveCards(order_no, to_user_name, nil, save_path)
 		logger.debug "Save Cards "
