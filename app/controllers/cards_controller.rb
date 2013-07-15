@@ -24,7 +24,7 @@ class CardsController < ApplicationController
 		unless card.nil?
 			url = request.protocol << request.host_with_port << '/cards/' << Digest::MD5.hexdigest(card.order_no).to_s << '?user=admin'
 			p url
-			@qr = RQRCode::QRCode.new(url, :size => 4, :level => :l)
+			@qr = RQRCode::QRCode.new(url, :size => 8, :level => :l)
 		end
 	end
 
