@@ -50,7 +50,7 @@ class MagentoCustomer < ActiveRecord::Base
     image_url = "/down_files/"+SecureRandom.uuid+e
      
     data = open(url){|f|f.read}
-    open("public"+save_path,"wb"){|f|f.write(data)}
+    open("public"+image_url,"wb"){|f|f.write(data)}
 
     saveCards(order_no,wechat_user_open_id,nil,image_url)
   end
