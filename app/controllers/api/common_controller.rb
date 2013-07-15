@@ -63,7 +63,7 @@ class Api::CommonController < Api::ApplicationController
 				end
 		 	end
 		when "image"
-			unless user.nil? && user.isentry
+			if !user.nil? && user.isentry
 				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
 				@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 			else
