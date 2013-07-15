@@ -34,9 +34,25 @@ class MagentoCustomer < ActiveRecord::Base
 
 	end
 
-  def deliver(url, save_path)
+  def deliver(order_no,wechat_user_open_id, url)
+     unless File.exist?("public/down_files/")
+       FileUtils.mkdir_p 'public/down_files'
+     end
+
+     e = case open(url).meta["content-type"]
+     when "image/jpeg" then ".jpg"
+     when "image/png" then ".png"  
+     when "image/gif" then ".gif"
+     when "image/bmp" then ".bmp"  
+     end
+     p e
+
+    image_url = "/down_files/"+SecureRandom.uuid+e
+     
     data = open(url){|f|f.read}
     open("public"+save_path,"wb"){|f|f.write(data)}
+
+    saveCards(order_no,wechat_user_open_id,nil,image_url)
   end
   handle_asynchronously :deliver
 end

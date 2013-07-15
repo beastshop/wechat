@@ -66,11 +66,8 @@ class Api::CommonController < Api::ApplicationController
 		 	end
 		when "image"
 			if !user.nil? && user.isentry
-				save_path = save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
+				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
 				@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
-				logger.debug "Begin download file  "
-				user.delay.deliver(params[:xml][:PicUrl],save_path)
-				logger.debug "End download file  "
 			else
 				@message.save_text("我们收到了您的图片信息")
 			end
@@ -144,14 +141,13 @@ class Api::CommonController < Api::ApplicationController
 	def save_greetings_images(user, to_user_name, pic_url)
 		logger.debug "Query User Order.  "
 		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-		logger.debug "Begin Get Save Path "
+		#logger.debug "Begin Get Save Path "
 		#save_path = CardImage.get_file_url(pic_url)
-		save_path = "/down_files/a.jpg"
-		logger.debug "Get Save Path "
-		user.saveCards(order_no, to_user_name, nil, save_path)
-		logger.debug "Save Cards "
-		return save_path
-		#user.delay.deliver(pic_url,save_path)
+		#logger.debug "Get Save Path "
+		#user.saveCards(order_no, to_user_name, nil, save_path)
+		logger.debug "Begin download file"
+		user.delay.deliver(order_no, to_user_name,pic_url)
+		logger.debug "End download file  "
 	end
 
 	def save_greetings(user, to_user_name, msg_text)
