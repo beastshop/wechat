@@ -87,6 +87,7 @@ class Api::CommonController < Api::ApplicationController
 			template_result = template_text
 		end
 		@message.save
+		logger.debug template_result
 		render :xml, :template => template_result
 	end
 
