@@ -24,9 +24,12 @@ class MessageAutoReplyNewsController < ApplicationController
   def create
     @message_auto_reply_news = MessageAutoReplyNews.new(params[:message_auto_reply_news])
 
-    params[:keywords].each do |kid|
-      @message_auto_reply_news.message_keywords << MessageKeyword.find(kid)
+    unless params[:keywords].nil?
+      params[:keywords].each do |kid|
+        @message_auto_reply_news.message_keywords << MessageKeyword.find(kid)
+      end
     end
+    
 
     if @message_auto_reply_news.save
       redirect_to @message_auto_reply_news
