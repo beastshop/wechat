@@ -33,7 +33,7 @@ class MessageKeywordsController < ApplicationController
       case params[:auto_type]
       when "text"
         @message_keyword.message_auto_reply_texts << MessageAutoReplyText.find(params[:auto_id])
-      when "voice"
+      when "music"
         @message_keyword.message_auto_reply_musics << MessageAutoReplyMusic.find(params[:auto_id])
       when "news"
         @message_keyword.message_auto_reply_news << MessageAutoReplyNews.find(params[:auto_id])
@@ -57,7 +57,7 @@ class MessageKeywordsController < ApplicationController
       case params[:auto_type]
       when "text"
         @message_keyword.message_auto_reply_texts << MessageAutoReplyText.find(params[:auto_id])
-      when "voice"
+      when "music"
         @message_keyword.message_auto_reply_musics << MessageAutoReplyMusic.find(params[:auto_id])
       when "news"
         @message_keyword.message_auto_reply_news << MessageAutoReplyNews.find(params[:auto_id])

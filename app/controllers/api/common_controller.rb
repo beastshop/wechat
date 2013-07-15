@@ -173,7 +173,7 @@ class Api::CommonController < Api::ApplicationController
 	end
 
 	def macth_keywords(message, msg_text, no_match_msg)
-		template_result = ""		
+		template_result = "api/message_text"		
 
 		mkw = MessageKeyword.where("locate(content,'#{msg_text}')>0").first
 		logger.debug  mkw
