@@ -11,14 +11,14 @@ class MessageReceive < ActiveRecord::Base
 		m_t = MessageReceiveText.new
 		m_t.content = content
 		# m_t.origin_source = origin_source
-		m_t.message_receive = self
+		self.message_receive_text = m_t
 	end
 
 	def save_image(pic_url)
 		m_i = MessageReceiveImage.new
 		m_i.pic_url = pic_url
 		# m_i.origin_source = origin_source
-		m_i.message_receive = self
+		self.message_receive_image = m_i
 	end
 
 	def save_location(scale, location_x, location_y, label)
@@ -28,7 +28,7 @@ class MessageReceive < ActiveRecord::Base
 		m_l.location_y = location_y
 		# m_l.origin_source = m_l.origin_source
 		m_l.scale = scale
-		m_l.message_receive = self
+		self.message_receive_location = m_l
 	end
 
 	def save_event(event, event_key)
@@ -36,7 +36,7 @@ class MessageReceive < ActiveRecord::Base
 		m_e.event = event
 		m_e.event_key = event_key
 		# m_e.origin_source = origin_source
-		m_e.message_receive = self
+		self.message_receive_event = m_e
 	end
 
 	def save_voice(media_id, format, recognition)
@@ -45,7 +45,7 @@ class MessageReceive < ActiveRecord::Base
 		m_v.media_id = media_id
 		m_v.recognition = recognition
 		# m_v.region_source = region_source
-		m_v.message_receive = self
+		self.message_receive_voice = m_v
 	end
 
 	def save_link(description, title, url)
@@ -53,7 +53,7 @@ class MessageReceive < ActiveRecord::Base
 		m_l.description = description
 		# m_l.origin_source = origin_source
 		m_l.title = title
-		m_l.url = url
+		self.message_receive_link = m_l
 	end
 
 end
