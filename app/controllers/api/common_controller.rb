@@ -29,41 +29,77 @@ class Api::CommonController < Api::ApplicationController
 
 		case params[:xml][:MsgType]
 		when "text"
-		 	msg_text = params[:xml][:Content]
-		 	case msg_text
-		 	when "51"
-		 		unless user.nil?
+			msg_text = params[:xml][:Content]
+			if !user.nil? && user.isentry
+				if msg_text == "51"
 					back_main_menu(user)
-		 		end
-				@message.save_text(main_menu)
-				template_result = template_text
-		 	when "1","2","9"
-		 		unless user.nil?
-		 			if msg_text == "1"
-		 				result = show_order(user)
-						@message.save_text(result.empty? ? "没有订单" : result)
-		 			elsif msg_text == "2"
-		 				begin_entry_greetings(user)
-						@message.save_text(entry_msg)
-					elsif msg_text == "9"
-						@message.save_text(show_card_read_time(user))
-		 			end
-		 		else
-		 			@message.save_text(account_bind_msg)
-		 		end
-		 		template_result = template_text
-		 	else
-		 		# User in not null and  entry greetings
-		 		if !user.nil? && user.isentry
+					@message.save_text(main_menu)
+				else
 					save_greetings(user, @message.to_user_name, msg_text)
 					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+				end
+				template_result = template_text
+			elsif !user.nil? && !user.isentry
+				case msg_text
+			 	when "1"
+	 				result = show_order(user)
+					@message.save_text(result.empty? ? "没有订单" : result)
+			 		template_result = template_text	
+			 	when "2"
+	 				begin_entry_greetings(user)
+					@message.save_text(entry_msg)
+					template_result = template_text	
+			 	when "9"		 		
+					@message.save_text(show_card_read_time(user))
+					template_result = template_text	
+				else
+					template_result = macth_keywords(@message, msg_text, no_match_msg)
+		 		end
+			else
+				case msg_text
+				when "1","2","9"
+					@message.save_text(account_bind_msg)
 					template_result = template_text
 				else
-					#Keywords Match
-					
 					template_result = macth_keywords(@message, msg_text, no_match_msg)
 				end
-		 	end
+			end
+
+		 	# msg_text = params[:xml][:Content]
+		 	# case msg_text
+		 	# when "51"
+		 	# 	unless user.nil?
+				# 	back_main_menu(user)
+		 	# 	end
+				# @message.save_text(main_menu)
+				# template_result = template_text
+		 	# when "1","2","9"
+		 	# 	unless user.nil?
+		 	# 		if msg_text == "1"
+		 	# 			result = show_order(user)
+				# 		@message.save_text(result.empty? ? "没有订单" : result)
+		 	# 		elsif msg_text == "2"
+		 	# 			begin_entry_greetings(user)
+				# 		@message.save_text(entry_msg)
+				# 	elsif msg_text == "9"
+				# 		@message.save_text(show_card_read_time(user))
+		 	# 		end
+		 	# 	elsif
+		 	# 		@message.save_text(account_bind_msg)
+		 	# 	end
+		 	# 	template_result = template_text
+		 	# else
+		 	# 	# User in not null and  entry greetings
+		 	# 	if !user.nil? && user.isentry
+				# 	save_greetings(user, @message.to_user_name, msg_text)
+				# 	@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+				# 	template_result = template_text
+				# else
+				# 	#Keywords Match
+					
+				# 	template_result = macth_keywords(@message, msg_text, no_match_msg)
+				# end
+		 	# end
 		when "image"
 			if !user.nil? && user.isentry
 				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
