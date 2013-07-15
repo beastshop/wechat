@@ -194,6 +194,8 @@ class Api::CommonController < Api::ApplicationController
 			message.save_text(no_match_msg)
 			template_result = "api/message_text"
 		end
+		
+		return template_result
 	end
 
 
