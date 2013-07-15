@@ -140,8 +140,8 @@ class Api::CommonController < Api::ApplicationController
 
 		message_send.from_user_name = params[:xml][:ToUserName]
 		message_send.to_user_name = params[:xml][:FromUserName]
-		message_send.msg_type = params[:xml][:MsgType]
-		# message_send.create_time = Time.now
+		# message_send.msg_type = params[:xml][:MsgType]
+		message_send.create_time = Time.now
 
 		return message_send
 	end
