@@ -37,7 +37,7 @@ class Api::CommonController < Api::ApplicationController
 		 		end
 				@message.save_text(main_menu)
 				template_result = template_text
-		 	when "1","2"
+		 	when "1","2","9"
 		 		unless user.nil?
 		 			if msg_text == "1"
 		 				result = show_order(user)
@@ -45,6 +45,8 @@ class Api::CommonController < Api::ApplicationController
 		 			elsif msg_text == "2"
 		 				begin_entry_greetings(user)
 						@message.save_text(entry_msg)
+					elsif msg_text == "9"
+						@message.save_text(show_card_read_time(user))
 		 			end
 		 		else
 		 			@message.save_text(account_bind_msg)
@@ -64,8 +66,9 @@ class Api::CommonController < Api::ApplicationController
 		 	end
 		when "image"
 			if !user.nil? && user.isentry
-				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
+				save_path = save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
 				@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+				user.delay.deliver(params[:xml][:PicUrl],save_path)
 			else
 				@message.save_text("我们收到了您的图片信息")
 			end
@@ -118,6 +121,20 @@ class Api::CommonController < Api::ApplicationController
 		return result
 	end
 
+	def show_card_read_time(user)
+		result = ""
+		card = Card.where(:wechat_user_open_id => user.wechat_user_open_id).first
+		if card.nil?
+			result = "您还没有录入祝福!"
+		elsif !card.nil? && card.first_read_time.nil?
+			result = "您的祝福未被阅读"
+		else
+			result = "您的祝福被阅读时间: " + card.first_read_time.to_s
+		end
+
+		return result
+	end
+
 	def begin_entry_greetings(user)
 		user.isentry = true
 		user.save
@@ -127,7 +144,8 @@ class Api::CommonController < Api::ApplicationController
 		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
 		save_path = CardImage.get_file_url(pic_url)
 		user.saveCards(order_no, to_user_name, nil, save_path)
-		user.delay.deliver(pic_url,save_path)
+		return save_path
+		#user.delay.deliver(pic_url,save_path)
 	end
 
 	def save_greetings(user, to_user_name, msg_text)

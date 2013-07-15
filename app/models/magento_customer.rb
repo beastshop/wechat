@@ -38,4 +38,5 @@ class MagentoCustomer < ActiveRecord::Base
     data = open(url){|f|f.read}
     open("public"+save_path,"wb"){|f|f.write(data)}
   end
+  handle_asynchronously :deliver
 end
