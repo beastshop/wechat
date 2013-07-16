@@ -64,42 +64,6 @@ class Api::CommonController < Api::ApplicationController
 					template_result = macth_keywords(@message, msg_text, no_match_msg)
 				end
 			end
-
-		 	# msg_text = params[:xml][:Content]
-		 	# case msg_text
-		 	# when "51"
-		 	# 	unless user.nil?
-				# 	back_main_menu(user)
-		 	# 	end
-				# @message.save_text(main_menu)
-				# template_result = template_text
-		 	# when "1","2","9"
-		 	# 	unless user.nil?
-		 	# 		if msg_text == "1"
-		 	# 			result = show_order(user)
-				# 		@message.save_text(result.empty? ? "没有订单" : result)
-		 	# 		elsif msg_text == "2"
-		 	# 			begin_entry_greetings(user)
-				# 		@message.save_text(entry_msg)
-				# 	elsif msg_text == "9"
-				# 		@message.save_text(show_card_read_time(user))
-		 	# 		end
-		 	# 	elsif
-		 	# 		@message.save_text(account_bind_msg)
-		 	# 	end
-		 	# 	template_result = template_text
-		 	# else
-		 	# 	# User in not null and  entry greetings
-		 	# 	if !user.nil? && user.isentry
-				# 	save_greetings(user, @message.to_user_name, msg_text)
-				# 	@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
-				# 	template_result = template_text
-				# else
-				# 	#Keywords Match
-					
-				# 	template_result = macth_keywords(@message, msg_text, no_match_msg)
-				# end
-		 	# end
 		when "image"
 			if !user.nil? && user.isentry
 				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
@@ -112,7 +76,11 @@ class Api::CommonController < Api::ApplicationController
 			@message.save_text("我们收到了您的位置信息")
 			template_result = template_text
 		when "voice"
-			@message.save_text("我们收到了您的留言信息")
+			if !user.nil? && user.isentry 
+				@message.save_text("您好!无法处理")
+			else
+				@message.save_text("我们收到了您的留言信息")
+			end
 			template_result = template_text
 		when "event"
 			case params[:xml][:Event]
@@ -137,7 +105,7 @@ class Api::CommonController < Api::ApplicationController
 
 	def show_order(user)
 		logger.debug "Query User Order.  "
-		orders = Magento::Order.list(:customer_id => user.user_id).reverse
+		orders = Magento::Order.list(:customer_id => user.user_id).reverse.take(10)
 		logger.debug "Query Order done.  "
 
 		result = ""
@@ -182,7 +150,7 @@ class Api::CommonController < Api::ApplicationController
 		#logger.debug "Get Save Path "
 		#user.saveCards(order_no, to_user_name, nil, save_path)
 		logger.debug "Begin download file"
-		user.delay.deliver(order_no, to_user_name,pic_url)
+		user.delay.deliver(order_no, to_user_name, pic_url)
 		logger.debug "End download file  "
 	end
 
