@@ -2,11 +2,6 @@ class MagentoCustomersController < ApplicationController
 	before_filter :authenticate_user!
 	def index
 		@users = MagentoCustomer.all
-		# user = MagentoCustomer.first
-		# user.isentry = true
-	
-		# user.saveCards("order_no","wechat_user_open_id","content23gogogo","image_urlasd11")
-		# p user
 	end
 
 	def destroy

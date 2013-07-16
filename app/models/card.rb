@@ -41,12 +41,13 @@ class Card < ActiveRecord::Base
   	return card
   end
 
-  def write_log(host, brower)
+  def write_log(host, brower,is_admin)
     log = CardLog.new
     log.host = host
     log.brower = brower
+    log.is_admin_read = is_admin
 
-    if self.first_read_time.nil?
+    if !is_admin && self.first_read_time.nil?
       self.first_read_time = Time.now
     end
 

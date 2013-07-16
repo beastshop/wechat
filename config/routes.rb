@@ -10,6 +10,7 @@ Wechat::Application.routes.draw do
   resources :card_logs, :only => [:index]
   resources :message_receives, :only => [:index]
   resources :message_sends, :only => [:index]
+  resources :wechat_users, :only => [:index, :edit, :update]
   get 'cards/index_byuser'
   get 'cards/index'
   get 'cards/show_code'

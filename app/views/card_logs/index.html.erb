@@ -8,6 +8,7 @@
     <th>阅读时间</th>
     <th>ip</th>
     <th>brower</th>
+    <th>角色查看</th>
   </tr>
 </thead>
 <tbody>
@@ -17,6 +18,7 @@
     <td><%= card_log.created_at %></td>
     <td><%= card_log.host %></td>
     <td><%= card_log.brower %></td>
+    <td><%=raw(card_log.is_admin_read ? "Admin" : "User" ) %></td>
   </tr>
 <% end %>
 </tbody>
