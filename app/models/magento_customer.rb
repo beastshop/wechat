@@ -52,7 +52,7 @@ class MagentoCustomer < ActiveRecord::Base
     data = open(url){|f|f.read}
     open("public"+image_url,"wb"){|f|f.write(data)}
 
-    saveCards(order_no, wechat_user_open_id, nil, image_url)
+    #saveCards(order_no, wechat_user_open_id, nil, image_url)
   end
   handle_asynchronously :deliver
 end

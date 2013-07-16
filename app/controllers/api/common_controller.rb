@@ -149,6 +149,7 @@ class Api::CommonController < Api::ApplicationController
 		#save_path = CardImage.get_file_url(pic_url)
 		#logger.debug "Get Save Path "
 		#user.saveCards(order_no, to_user_name, nil, save_path)
+		logger.debug order_no
 		logger.debug "Begin download file"
 		user.delay.deliver(order_no, to_user_name, pic_url)
 		logger.debug "End download file  "
