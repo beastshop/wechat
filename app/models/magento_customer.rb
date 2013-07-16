@@ -34,7 +34,7 @@ class MagentoCustomer < ActiveRecord::Base
 
 	end
 
-  def deliver(order_no,wechat_user_open_id, url)
+  def deliver(order_no, wechat_user_open_id, url)
      unless File.exist?("public/down_files/")
        FileUtils.mkdir_p 'public/down_files'
      end
@@ -52,7 +52,7 @@ class MagentoCustomer < ActiveRecord::Base
     data = open(url){|f|f.read}
     open("public"+image_url,"wb"){|f|f.write(data)}
 
-    saveCards(order_no,wechat_user_open_id,nil,image_url)
+    saveCards(order_no, wechat_user_open_id, nil, image_url)
   end
   handle_asynchronously :deliver
 end
