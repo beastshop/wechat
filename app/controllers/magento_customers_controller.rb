@@ -1,7 +1,7 @@
 class MagentoCustomersController < ApplicationController
 	before_filter :authenticate_user!
 	def index
-		@users = MagentoCustomer.all
+		@users = MagentoCustomer.page(params[:page]).per(20)
 	end
 
 	def destroy

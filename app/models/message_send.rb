@@ -21,7 +21,7 @@ class MessageSend < ActiveRecord::Base
 		self.message_send_music = m_m
 	end
 
-	def save_news(message_auto_reply_news)
+	def save_news(message_auto_reply_news,host)
 		m_n = MessageSendNews.new
 		m_n.message_send_news_articles = []
 
@@ -29,7 +29,7 @@ class MessageSend < ActiveRecord::Base
 			m_n_a = MessageSendNewsArticle.new
 			m_n_a.title = article.title
 			m_n_a.description = article.description
-			m_n_a.pic_url = request.protocol + request.host_with_port + article.pic_url
+			m_n_a.pic_url = host + article.pic_url
 			m_n_a.url = article.url
 			m_n.message_send_news_articles << m_n_a
 		end

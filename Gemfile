@@ -14,6 +14,7 @@ gem 'rqrcode-rails3'
 gem 'mini_magick'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'kaminari'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

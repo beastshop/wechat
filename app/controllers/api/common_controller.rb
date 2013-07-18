@@ -179,7 +179,7 @@ class Api::CommonController < Api::ApplicationController
 				message.save_music(hq_music_url,music_url)
 				template_result = "api/message_music"
 			elsif mkw.message_auto_reply_news.size > 0
-				message.save_news(mkw.message_auto_reply_news.first)
+				message.save_news(mkw.message_auto_reply_news.first,request.protocol + request.host_with_port)
 				template_result = "api/message_news"
 			end
 		else

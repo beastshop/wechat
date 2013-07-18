@@ -1,7 +1,7 @@
 class MessageAutoReplyNewsArticlesController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @message_auto_reply_news_articles = MessageAutoReplyNewsArticle.all
+    @message_auto_reply_news_articles = MessageAutoReplyNewsArticle.page(params[:page]).per(20)
 
   end
 

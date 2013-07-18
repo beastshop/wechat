@@ -16,13 +16,13 @@ class CardsController < ApplicationController
 	end
 
 	def index
-		@cards = Card.all
+		@cards = Card.page(params[:page]).per(20)
 	end
 
 	def show_code
 		card = Card.find(params[:id])
 		unless card.nil?
-			url = request.protocol << request.host_with_port << '/cards/' << Digest::MD5.hexdigest(card.order_no).to_s << '?user=admin'
+			url = request.protocol << request.host_with_port << '/cards/' << Digest::MD5.hexdigest(card.order_no).to_s
 			p url
 			@qr = RQRCode::QRCode.new(url, :size => 8, :level => :l)
 		end

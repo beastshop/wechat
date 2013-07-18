@@ -1,7 +1,7 @@
 class MessageAutoReplyMusicsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @message_auto_reply_musics = MessageAutoReplyMusic.all
+    @message_auto_reply_musics = MessageAutoReplyMusic.page(params[:page]).per(20)
   end
 
   def show

@@ -1,6 +1,6 @@
 class WechatUsersController < ApplicationController
 	def index
-		@wechat_users = WechatUser.all
+		@wechat_users = WechatUser.page(params[:page]).per(20)
 	end
 
 	def edit

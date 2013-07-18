@@ -1,14 +1,21 @@
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<h3>
-				h3. 这是一套可视化布局系统.
-			</h3>
-			<form>
-				<fieldset>
-					 <legend>表单项</legend> <label>表签名</label><input type="text" /> <span class="help-block">这里填写帮助信息.</span> <label class="checkbox"><input type="checkbox" /> 勾选同意</label> <button type="submit" class="btn">提交</button>
-				</fieldset>
-			</form> <button class="btn btn-primary" type="button">按钮</button>
-		</div>
-	</div>
-</div>
+<label>内容</label>
+<%= @message_keyword.content %>
+
+<% if @message_keyword.message_auto_reply_texts.size != 0 %>
+	<label>文本消息:</label><label><%=@message_keyword.message_auto_reply_texts.first.content %></label>
+<% end %>
+<% if @message_keyword.message_auto_reply_musics.size != 0 %>
+	<label>音乐消息:</label><label><%=@message_keyword.message_auto_reply_musics.first.music_url %></label>
+<% end %>
+<% if @message_keyword.message_auto_reply_news.size != 0 %>
+	<label>图文消息:</label>
+	<% @message_keyword.message_auto_reply_news.first.message_auto_reply_news_articles.each do |article|%>
+		<label>标题：</label><label><%=article.title %></label></p>
+		<label>图片：</label><label><%=article.pic_url %></label></p>
+		<label>链接：</label><label><%=article.url %></label></p>
+		<label>内容：</label><label><%=article.description %></label></p>
+	<% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_message_keyword_path(@message_keyword) %> |
+<%= link_to 'Back', message_keywords_path %>

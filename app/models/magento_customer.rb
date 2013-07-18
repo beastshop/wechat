@@ -36,11 +36,11 @@ class MagentoCustomer < ActiveRecord::Base
 	end
 
   def deliver(order_no, wechat_user_open_id, url)
-    logger.debug "GO  TO   DELIVER"
+     logger.debug "GO  TO   DELIVER"
      unless File.exist?("public/down_files/")
        FileUtils.mkdir_p 'public/down_files'
      end
-     logger.debug "GO  TO   DELIVER111111111111"
+
      e = case open(url).meta["content-type"]
      when "image/jpeg" then ".jpg"
      when "image/png" then ".png"  
@@ -48,14 +48,14 @@ class MagentoCustomer < ActiveRecord::Base
      when "image/bmp" then ".bmp"  
      end
      p e
-     logger.debug "GO  TO   DELIVER2222222222222"
+
     image_url = "/down_files/"+SecureRandom.uuid+e
      
     data = open(url){|f|f.read}
     open("public"+image_url,"wb"){|f|f.write(data)}
-    logger.debug "GO  TO   DELIVER333333333333"
+    
     saveCards(order_no, wechat_user_open_id, nil, image_url)
-    logger.debug "GO  TO   DELIVER44444444444"
+    
   end
   handle_asynchronously :deliver
 end
