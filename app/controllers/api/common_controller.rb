@@ -53,7 +53,7 @@ class Api::CommonController < Api::ApplicationController
 			elsif !user.nil? && !user_session.is_entry
 				case msg_text
 			 	when "1"
-	 				result = Order.show_order(user.user_id)
+	 				result = TheBeast::Order.show_order(user.user_id)
 					@message.save_text(result.empty? ? "没有订单" : result)
 			 		template_result = template_text	
 			 	when "2"
