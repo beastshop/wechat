@@ -17,6 +17,7 @@ class TheBeast::Order
 		        result << "状态：" << order.status << "\x0A\x0A"	
 			# end				
         end
+
 		return result
 	end
 

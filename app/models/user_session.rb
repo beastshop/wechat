@@ -18,7 +18,7 @@ class UserSession < ActiveRecord::Base
   end
 
   def is_expired
-  	return Time.now - (self.entry_at + 15.minutes)
+  	return Time.now - (self.entry_at + 15.minutes) > 0
   end
 
   def is_entry
