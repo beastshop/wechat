@@ -7,7 +7,7 @@ class UserSession < ActiveRecord::Base
   		self.order_no = order.increment_id
   		self.order_shipping_name = order.shipping_firstname
   		self.status = "entry"
-  		entry_at = Time.now
+  		self.entry_at = Time.now
   		self.save
   	end
   end
