@@ -1,26 +1,19 @@
-<%= form_for(@message_auto_reply_news) do |f| %>
-  <% if @message_auto_reply_news.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@message_auto_reply_news.errors.count, "error") %> prohibited this message_auto_reply_news from being saved:</h2>
+<div class="row-fluid">
+    <div class="span12">
+      <%= form_for(@message_auto_reply_news) do |f| %>
+        <fieldset>
+           <legend>图文消息</legend>
+           <label>标题:</label><%= f.text_field :content %>
+            <div >
+              <label>对应关键字: </label>
+                <% @keywords.each do |key| %>
+                  <input type="checkbox" name="keywords[]" value="<%=key.id%>" <%= @message_auto_reply_news.message_keywords.pluck(:id).include?(key.id) ? "checked" : "" %> /><%= key.content %> 
+                <% end %>
+            </div>
+    
+           <%= f.submit :class => "btn", :value => "保存" %>
 
-      <ul>
-      <% @message_auto_reply_news.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        </fieldset>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_field :content %>
-  </div>
-  <div class="field">
-    <% @keywords.each do |key| %>
-      <input type="checkbox" name="keywords[]" value="<%=key.id%>" <%= @message_auto_reply_news.message_keywords.pluck(:id).include?(key.id) ? "checked" : "" %> /><%= key.content %> 
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

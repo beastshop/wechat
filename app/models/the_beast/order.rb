@@ -3,11 +3,30 @@ require 'magentor'
 class TheBeast::Order
 	attr_accessor :order_code, :status, :order_id, :order_status, :payment_status, :total_price, :address, :note, :order_items
 
+	def self.show_order(user_id)
+		orders = Magento::Order.list(:customer_id => user_id).reverse.take(10)
+		logger.debug "Query Order done.  "
+
+		result = ""
+		orders.each do | order |
+			# if order.status == "pending"
+				result << "订单号：" << order.increment_id << "\x0A"
+		        result << "订单时间：" << order.created_at << "\x0A"
+		        result << "收货人：" << order.shipping_firstname << "\x0A"
+		        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+		        result << "状态：" << order.status << "\x0A\x0A"	
+			# end				
+        end
+
+		logger.debug "Query Order Detail done"
+		return result
+	end
+
 	def self.get_list(customer_id)
 		orders = []
 
 		array = { "customer_id" => customer_id }
-		results = Magento::Order.list(array)
+		results = Magento::Order.list(array).reverse.take(10)
 		results.each do |result| 
 			o = TheBeast::Order.new
 			#o.order_id = result.attributes["order_id"]

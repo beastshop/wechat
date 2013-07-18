@@ -1,16 +1,21 @@
-<h1>Listing message_auto_reply_news_articles</h1>
-
-<table>
-  <tr>
-    <th>Content</th>
-    <th>title</th>
-    <th>desc</th>
-    <th>pic_url</th>
-    <th>url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="well">
+  <h3>文章列表</h3>
+</div>
+<%= link_to '新建文章', new_message_auto_reply_news_article_path, :class => "btn btn-primar" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>title</th>
+      <th>desc</th>
+      <th>pic_url</th>
+      <th>url</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+<tbody>
 
 <% @message_auto_reply_news_articles.each do |message_auto_reply_news_article| %>
   <tr>
@@ -23,8 +28,7 @@
     <td><%= link_to 'Destroy', message_auto_reply_news_article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
-<br />
 
-<%= link_to 'New Message auto reply news_article', new_message_auto_reply_news_article_path %>

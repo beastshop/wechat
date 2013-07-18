@@ -2,7 +2,7 @@ require "open-uri"
 require 'fileutils'
 
 class CardImage < ActiveRecord::Base
-  attr_accessible :order_no, :title, :wechat_user_open_id
+  attr_accessible :order_no, :title, :wechat_user_open_id, :url
   belongs_to :card
 
   def self.get_file_url(url)

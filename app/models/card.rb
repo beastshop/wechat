@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
   attr_accessible :order_no, :wechat_user_open_id, :content, :url, :first_read_time
   has_one :card_image, autosave: true
   belongs_to :magento_customer
-  has_many :card_logs
+  has_many :card_logs, :dependent => :destroy
   default_scope order: 'id desc' 
   def self.get_default(order_no)
     return save(order_no,nil,'default card content','default card image_url')
@@ -53,5 +53,28 @@ class Card < ActiveRecord::Base
 
     self.card_logs << log
     self.save
+  end
+
+  def self.destroy_by_order_no(order_no)
+    card = Card.where(:order_no => order_no).first
+    unless card.nil?
+      card.card_logs.destroy_all
+      card.card_image.destroy
+      card.destroy 
+    end
+  end
+
+  def self.get_read_time(open_id)
+      result = ""
+      card = Card.where(:wechat_user_open_id => open_id).first
+      if card.nil?
+        result = "您还没有录入祝福!"
+      elsif !card.nil? && card.first_read_time.nil?
+        result = "您的祝福未被阅读"
+      else
+        result = "您的祝福被阅读时间: " + card.first_read_time.to_s
+      end
+
+      return result
   end
 end

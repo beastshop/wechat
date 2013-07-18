@@ -7,6 +7,9 @@ class MessageReceive < ActiveRecord::Base
 	has_one :message_receive_voice
 	has_one :message_receive_text
 	default_scope order: 'id desc'
+
+
+
 	def save_text(content)
 		m_t = MessageReceiveText.new
 		m_t.content = content
@@ -55,5 +58,6 @@ class MessageReceive < ActiveRecord::Base
 		m_l.title = title
 		self.message_receive_link = m_l
 	end
+
 
 end

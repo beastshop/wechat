@@ -1,25 +1,26 @@
-<h1>Listing message_auto_reply_musics</h1>
-
-<table>
-  <tr>
+<div class="well">
+  <h3>音乐消息列表</h3>
+</div>
+<%= link_to '新建音乐消息回复', new_message_auto_reply_music_path, :class => "btn btn-primar" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
     <th>URL</th>
-    <th>HQURL</th>
+    <th>HQ_URL</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
- 
+</thead>
+<tbody>
 <% @message_auto_reply_musics.each do |message_auto_reply_music| %>
   <tr>
-    <td><a href="<%= message_auto_reply_music.music_url %>" ><%= message_auto_reply_music.music_url %></a></td>
-    <td><%= message_auto_reply_music.hq_music_url %></td>
+    <td><a href="<%= message_auto_reply_music.music_url %>" ><%= message_auto_reply_music.music_url %></td>
+    <td><a href="<%= message_auto_reply_music.hq_music_url %>" ><%= message_auto_reply_music.hq_music_url %></td>
     <td><%= link_to 'Show', message_auto_reply_music %></td>
     <td><%= link_to 'Edit', edit_message_auto_reply_music_path(message_auto_reply_music) %></td>
     <td><%= link_to 'Destroy', message_auto_reply_music, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Message auto reply music', new_message_auto_reply_music_path %>

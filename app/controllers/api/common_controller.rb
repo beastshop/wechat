@@ -26,31 +26,53 @@ class Api::CommonController < Api::ApplicationController
 		account_bind_msg = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 		
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
+		user_session = UserSession.where(open_id: @message.to_user_name).first
 
 		case params[:xml][:MsgType]
 		when "text"
 			msg_text = params[:xml][:Content]
-			if !user.nil? && user.isentry
-				if msg_text == "51"
-					back_main_menu(user)
+			if !user.nil? && user_session.is_entry
+				case msg_text
+				when "51"
+					user_session.exit_entry
 					@message.save_text(main_menu)
+				when "81"
+					user_session.exit_entry
+					Card.destroy_by_order_no(user_session.order_no)
+					@message.save_text("操作成功!" + main_menu)
 				else
-					save_greetings(user, @message.to_user_name, msg_text)
-					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+					if user_session.is_expired
+						user_session.exit_entry
+						@message.save_text("您的操作已超时," + main_menu)
+					else
+						user.saveCards(user_session.order_no, @message.to_user_name, msg_text, nil)
+						@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+					end
 				end
 				template_result = template_text
-			elsif !user.nil? && !user.isentry
+			elsif !user.nil? && !user_session.is_entry
 				case msg_text
 			 	when "1"
-	 				result = show_order(user)
+	 				result = Order.show_order(user.user_id)
 					@message.save_text(result.empty? ? "没有订单" : result)
 			 		template_result = template_text	
 			 	when "2"
-	 				begin_entry_greetings(user)
-					@message.save_text(entry_msg)
+			 		user_session.begin_entry(user.user_id)
+			 		card = Card.where(order_no: user_session.order_no).first
+
+			 		result = ""
+			 		if user_session.is_entry && card.nil?
+			 		 	result << "您可以为最新订单 【" << user_session.order_no << "】 收货人 【" << user_session.order_shipping_name << "】 保存祝福文字和图片"
+			 		elsif user_session.is_entry && !card.nil?
+			 		  	result << "您已经为最新订单【" << user_session.order_no << "】 收货人 【" << user_session.order_shipping_name << "】制作了祝福卡。您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福"
+			 		else
+			 			result << "您还没有可录入祝福的订单"
+			 		end
+			 		
+					@message.save_text(result)
 					template_result = template_text	
 			 	when "9"		 		
-					@message.save_text(show_card_read_time(user))
+					@message.save_text(Card.get_read_time(user.user_id))
 					template_result = template_text	
 				else
 					template_result = macth_keywords(@message, msg_text, no_match_msg)
@@ -65,9 +87,13 @@ class Api::CommonController < Api::ApplicationController
 				end
 			end
 		when "image"
-			if !user.nil? && user.isentry
-				save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
-				@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
+			if !user.nil? && user_session.is_entry && user_session.is_expired
+					user_session.exit_entry
+					@message.save_text("您的操作已超时," + main_menu)
+			elsif !user.nil? && user_session.is_entry && !user_session.is_expired
+					#save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
+					user.delay.deliver(user_session.order_no, @message.to_user_name, params[:xml][:PicUrl])
+					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 			else
 				@message.save_text("我们收到了您的图片信息")
 			end
@@ -76,7 +102,7 @@ class Api::CommonController < Api::ApplicationController
 			@message.save_text("我们收到了您的位置信息")
 			template_result = template_text
 		when "voice"
-			if !user.nil? && user.isentry 
+			if !user.nil? && user_session.is_entry
 				@message.save_text("您好!无法处理")
 			else
 				@message.save_text("我们收到了您的留言信息")
@@ -97,69 +123,9 @@ class Api::CommonController < Api::ApplicationController
 	end
 
 	private
+	
 
-	def back_main_menu(user)
-		user.isentry = false
-		user.save
-	end
-
-	def show_order(user)
-		logger.debug "Query User Order.  "
-		orders = Magento::Order.list(:customer_id => user.user_id).reverse.take(10)
-		logger.debug "Query Order done.  "
-
-		result = ""
-		orders.each do | order |
-			if order.status == "pending"
-				result << "订单号：" << order.increment_id << "\x0A"
-		        result << "订单时间：" << order.created_at << "\x0A"
-		        result << "收货人：" << order.shipping_firstname << "\x0A"
-		        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
-		        result << "状态：" << order.status << "\x0A\x0A"	
-			end				
-        end
-
-		logger.debug "Query Order Detail done"
-		return result
-	end
-
-	def show_card_read_time(user)
-		result = ""
-		card = Card.where(:wechat_user_open_id => user.wechat_user_open_id).first
-		if card.nil?
-			result = "您还没有录入祝福!"
-		elsif !card.nil? && card.first_read_time.nil?
-			result = "您的祝福未被阅读"
-		else
-			result = "您的祝福被阅读时间: " + card.first_read_time.to_s
-		end
-
-		return result
-	end
-
-	def begin_entry_greetings(user)
-		user.isentry = true
-		user.save
-	end
-
-	def save_greetings_images(user, to_user_name, pic_url)
-		logger.debug "Query User Order.  "
-		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-		#logger.debug "Begin Get Save Path "
-		#save_path = CardImage.get_file_url(pic_url)
-		#logger.debug "Get Save Path "
-		#user.saveCards(order_no, to_user_name, nil, save_path)
-		logger.debug order_no
-		logger.debug "Begin download file"
-		user.delay.deliver(order_no, to_user_name, pic_url)
-		logger.debug "End download file  "
-	end
-
-	def save_greetings(user, to_user_name, msg_text)
-		order_no = TheBeast::Order.get_list(user.user_id)[0].order_id
-		user.saveCards(order_no, to_user_name, msg_text, nil)
-	end
-
+	
 	def message_send_init
 		message_send = MessageSend.new
 

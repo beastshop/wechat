@@ -70,6 +70,7 @@ class MessageKeywordsController < ApplicationController
 
   def destroy
     @message_keyword = MessageKeyword.find(params[:id])
+    @message_keyword.message_auto_reply_texts.destroy_all
     @message_keyword.destroy
 
     redirect_to message_keywords_url
