@@ -4,6 +4,7 @@ class CreateUserSessions < ActiveRecord::Migration
       t.string :open_id
       t.string :order_no
       t.string :status
+      t.string :order_shipping_name
       t.boolean :is_timeout
       t.datetime :entry_at
       t.belongs_to :wechat_user
