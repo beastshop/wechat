@@ -1,6 +1,14 @@
 <div class="well">
   <h3>用户列表</h3>
 </div>
+<div>
+<form action="/wechat_users" method="get">
+  <select name='subscribe'>
+    <option value='true'>关注</option><option value='false'>未关注</option>
+  </select>
+  <input type="submit" value="查询" class="btn" />  
+</form>
+</div>
 <table class="table table-hover">
   <thead>
     <tr>

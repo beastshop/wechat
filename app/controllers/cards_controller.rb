@@ -7,6 +7,8 @@ class CardsController < ApplicationController
 		@card = Card.where(:url => params[:id]).first
 		if !@card.nil?
 			@card.write_log(request.remote_ip, request.headers["User-Agent"], !params[:user].nil?)
+		else
+			render 'default_card.html.erb', layout: nil
 		end
 		render layout: nil
 	end
@@ -16,7 +18,8 @@ class CardsController < ApplicationController
 	end
 
 	def index
-		@cards = Card.page(params[:page]).per(20)
+		@cards = params[:key].nil? ? Card.page(params[:page]).per(20) : Card.where("order_no like '%#{params[:key]}%'").page(params[:page]).per(20)
+
 	end
 
 	def show_code

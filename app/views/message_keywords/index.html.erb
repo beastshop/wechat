@@ -1,6 +1,11 @@
 <div class="well">
   <h3>关键字列表</h3>
 </div>
+<div>
+<form action="/message_keywords" method="get">
+  <input type="input" name="key" /> 
+  <input type="submit" value="查询" class="btn" />  </form>
+</div>
 <%= link_to '新建关键字', new_message_keyword_path, :class => "btn btn-primar" %>
 <table class="table table-striped">
   <thead>
