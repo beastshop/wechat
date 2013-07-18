@@ -6,8 +6,7 @@ class TheBeast::Order
 
 	def self.show_order(user_id)
 		orders = Magento::Order.list(:customer_id => user_id).reverse.take(10)
-		logger.debug "Query Order done.  "
-
+		
 		result = ""
 		orders.each do | order |
 			# if order.status == "pending"
@@ -18,8 +17,6 @@ class TheBeast::Order
 		        result << "状态：" << order.status << "\x0A\x0A"	
 			# end				
         end
-
-		logger.debug "Query Order Detail done"
 		return result
 	end
 
