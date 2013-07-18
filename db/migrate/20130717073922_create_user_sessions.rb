@@ -6,7 +6,7 @@ class CreateUserSessions < ActiveRecord::Migration
       t.string :status
       t.boolean :is_timeout
       t.datetime :entry_at
-      
+      t.belongs_to :user
       t.timestamps
     end
   end
