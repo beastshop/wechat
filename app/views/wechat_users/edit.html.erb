@@ -1,0 +1,13 @@
+<div class="row-fluid">
+    <div class="span12">
+      <%= form_for(@wechat_user) do |f| %>
+        <fieldset>
+           <legend>微信用户</legend>
+           <%= f.label :name %><%= f.text_field :name %>
+           <%= f.label :open_id %><span class="input-xlarge uneditable-input"><%=@wechat_user.open_id%></span>
+           <%= f.label :is_subscribe %><%= f.check_box :is_subscribe, {:disabled => "disabled"} %>
+           <%= f.submit :class => "btn", :value => "保存" %>
+        </fieldset>
+      <% end %>
+    </div>
+</div>
