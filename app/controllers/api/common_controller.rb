@@ -72,7 +72,7 @@ class Api::CommonController < Api::ApplicationController
 					@message.save_text(result)
 					template_result = template_text	
 			 	when "9"		 		
-					@message.save_text(Card.get_read_time(user.user_id))
+					@message.save_text(Card.get_read_time(user.wechat_user_open_id))
 					template_result = template_text	
 				else
 					template_result = macth_keywords(@message, msg_text, no_match_msg)
