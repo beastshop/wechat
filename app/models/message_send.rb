@@ -29,7 +29,7 @@ class MessageSend < ActiveRecord::Base
 			m_n_a = MessageSendNewsArticle.new
 			m_n_a.title = article.title
 			m_n_a.description = article.description
-			m_n_a.pic_url = host + article.pic_url_file_name
+			m_n_a.pic_url = host + article.pic_url.to_s
 			m_n_a.url = article.url
 			m_n.message_send_news_articles << m_n_a
 		end
