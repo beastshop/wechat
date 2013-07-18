@@ -14,7 +14,7 @@ class WechatUser < ActiveRecord::Base
 
     if user.user_session.nil?
       user_session = UserSession.new
-      user.status = "subscribe"
+      user_session.status = "subscribe"
       user_session.open_id = open_id
       user_session.is_timeout = false
       user.user_session = user_session
