@@ -1,7 +1,7 @@
 class WechatUser < ActiveRecord::Base
   attr_accessible :name, :open_id, :is_subscribe
   has_one :magento_customer, :foreign_key => "wechat_user_open_id", :primary_key => "open_id", autosave: true
-  has_one :user_session
+  has_one :user_session, autosave: true
 
   def self.subscribe(open_id)
   	user = WechatUser.new
