@@ -6,7 +6,8 @@ class Card < ActiveRecord::Base
   has_one :card_image, autosave: true
   belongs_to :magento_customer
   has_many :card_logs, :dependent => :destroy
-  default_scope order: 'id desc' 
+  default_scope order: 'id desc'
+ 
   def self.get_default(order_no)
     return save(order_no,nil,'default card content','default card image_url')
   end

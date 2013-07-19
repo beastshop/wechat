@@ -25,4 +25,6 @@ class UserSession < ActiveRecord::Base
   def is_entry
   	return self.status == "entry"
   end
+
+  
 end

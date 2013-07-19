@@ -4,8 +4,6 @@ class Api::CommonController < Api::ApplicationController
 	before_filter :verify_request_source
 	layout false
 
-	
-
 	def test
 		render :text => params[:echostr]
 	end
@@ -27,6 +25,10 @@ class Api::CommonController < Api::ApplicationController
 		
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 		user_session = UserSession.where(open_id: @message.to_user_name).first
+
+		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
+			main_menu << "输入 【9】 可查看祝福阅读时间 \x0A"
+		end
 
 		case params[:xml][:MsgType]
 		when "text"
