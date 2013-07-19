@@ -72,9 +72,9 @@ class Card < ActiveRecord::Base
       if card.nil?
         result = "您还没有录入祝福!"
       elsif !card.nil? && card.first_read_time.nil?
-        result = "您的祝福未被阅读"
+        result = "订单" + card.order_no.to_s + "的祝福还没被阅读过"
       else
-        result = "您的祝福被阅读时间: " + card.first_read_time.to_s
+        result = "订单" + card.order_no.to_s + "的祝福第一次被阅读的时间是" + card.first_read_time.strftime('%Y年%m月%d日 %H:%M')
       end
 
       return result
