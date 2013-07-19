@@ -18,17 +18,17 @@ class Api::CommonController < Api::ApplicationController
 		template_news = "api/message_news"
 		template_result = ""
 
-		main_menu = "输入【1】或【xcdd】或【订单】可以查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】可以录入祝福 \x0A"
-		entry_msg = "您可以为最新订单录制祝福文字和图片"
-		no_match_msg = "无法理解您的输入，请重新按菜单输入 \x0A" + main_menu
-		account_bind_msg = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
-		
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 		user_session = UserSession.where(open_id: @message.to_user_name).first
 
+		main_menu = "输入【1】或【xcdd】或【订单】可以查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】可以录入祝福 \x0A"
 		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
 			main_menu << "输入 【9】 可查看祝福阅读时间 \x0A"
 		end
+
+		entry_msg = "您可以为最新订单录制祝福文字和图片"
+		no_match_msg = "无法理解您的输入，请重新按菜单输入 \x0A" + main_menu
+		account_bind_msg = "您还未绑定TheBeast账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">绑定</a> \x0A"
 
 		case params[:xml][:MsgType]
 		when "text"
