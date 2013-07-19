@@ -7,6 +7,7 @@ class MessageReceive < ActiveRecord::Base
 	has_one :message_receive_voice
 	has_one :message_receive_text
 	default_scope order: 'id desc'
+	paginates_per 50
 
 
 

@@ -3,5 +3,5 @@ class MessageKeyword < ActiveRecord::Base
   has_and_belongs_to_many :message_auto_reply_texts
   has_and_belongs_to_many :message_auto_reply_musics
   has_and_belongs_to_many :message_auto_reply_news
-
+  paginates_per 25
 end
