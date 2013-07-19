@@ -54,11 +54,11 @@ class Api::CommonController < Api::ApplicationController
 				template_result = template_text
 			elsif !user.nil? && !user_session.is_entry
 				case msg_text
-			 	when "1"
+			 	when "1","xcdd","订单"
 	 				result = TheBeast::Order.show_order(user.user_id)
 					@message.save_text(result.empty? ? "没有订单" : result)
 			 		template_result = template_text	
-			 	when "2"
+			 	when "2","zf","祝福"
 			 		user_session.begin_entry(user.user_id)
 			 		card = Card.where(order_no: user_session.order_no).first
 
