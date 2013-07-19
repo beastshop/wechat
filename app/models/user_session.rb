@@ -3,9 +3,9 @@ class UserSession < ActiveRecord::Base
 
   def begin_entry(user_id)
 
-  	#order = Magento::Order.list("customer_id = '#{user_id}' and status in ('pending','processing','partial_delivery','has_print')").reverse.first
+  	order = Magento::Order.list("customer_id = '#{user_id}' and status in ('pending','processing','partial_delivery','has_print')").reverse.first
     #order = Magento::Order.list("customer_id = '#{user_id}' ").reverse.first
-    order = Magento::Order.list(:customer_id => user_id).reverse.first
+    #order = Magento::Order.list(:customer_id => user_id).reverse.first
   	unless order.nil?
   		self.order_no = order.increment_id
   		self.order_shipping_name = order.shipping_firstname
