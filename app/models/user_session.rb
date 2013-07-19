@@ -6,7 +6,7 @@ class UserSession < ActiveRecord::Base
   	#order = Magento::Order.list("customer_id = '#{user_id}' and status in ('pending','processing','partial_delivery','has_print')").reverse.first
     status_array = ['pending','processing','partial_delivery','has_print']
     order = Magento::Order.list(:customer_id => user_id,:status => status_array).reverse.first
-    
+     
   	unless order.nil?
   		self.order_no = order.increment_id
   		self.order_shipping_name = order.shipping_firstname
