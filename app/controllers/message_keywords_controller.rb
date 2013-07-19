@@ -3,8 +3,7 @@ class MessageKeywordsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @message_keywords = params[:key].nil? ? MessageKeyword.page(params[:page]).per(20) : MessageKeyword.where("content like '%#{params[:key]}%'").page(params[:page]).per(20)
-
+    @message_keywords = params[:key].nil? ? MessageKeyword.page(params[:page]).per(20) : MessageKeyword.where("content like '%#{params[:key]}%'").page(params[:page]).per(20)  
   end
 
   def show
