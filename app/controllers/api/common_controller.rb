@@ -21,7 +21,7 @@ class Api::CommonController < Api::ApplicationController
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 		user_session = UserSession.where(open_id: @message.to_user_name).first
 
-		main_menu = "输入【1】或【xcdd】或【订单】查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】录入祝福 \x0A"
+		main_menu = "输入【1】或【dd】或【订单】查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】录入祝福 \x0A"
 		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
 			main_menu << "输入【9】查看祝福阅读时间 \x0A"
 		end
@@ -45,7 +45,7 @@ class Api::CommonController < Api::ApplicationController
 				else
 					if user_session.is_expired
 						user_session.exit_entry
-						@message.save_text("您的操作已超时," + main_menu)
+						@message.save_text("之前的编辑操作已超时，" + main_menu)
 					else
 						user.saveCards(user_session.order_no, @message.to_user_name, msg_text, nil)
 						@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
@@ -54,7 +54,7 @@ class Api::CommonController < Api::ApplicationController
 				template_result = template_text
 			elsif !user.nil? && !user_session.is_entry
 				case msg_text
-			 	when "1","xcdd","订单"
+			 	when "1","dd","订单"
 	 				result = TheBeast::Order.show_order(user.user_id)
 					@message.save_text(result.empty? ? "没有订单" : result)
 			 		template_result = template_text	
@@ -81,7 +81,7 @@ class Api::CommonController < Api::ApplicationController
 		 		end
 			else
 				case msg_text
-				when "1","2","9"
+				when "1","2","9","dd","订单","zf","祝福"
 					@message.save_text(account_bind_msg)
 					template_result = template_text
 				else
@@ -91,13 +91,13 @@ class Api::CommonController < Api::ApplicationController
 		when "image"
 			if !user.nil? && user_session.is_entry && user_session.is_expired
 					user_session.exit_entry
-					@message.save_text("您的操作已超时," + main_menu)
+					@message.save_text("之前的编辑操作已超时，" + main_menu)
 			elsif !user.nil? && user_session.is_entry && !user_session.is_expired
 					#save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
 					user.delay.deliver(user_session.order_no, @message.to_user_name, params[:xml][:PicUrl])
 					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 			else
-				@message.save_text("我们收到了您的图片信息")
+				@message.save_text("我们收到了您的图片")
 			end
 			template_result = template_text
 		when "location"
@@ -105,7 +105,7 @@ class Api::CommonController < Api::ApplicationController
 			template_result = template_text
 		when "voice"
 			if !user.nil? && user_session.is_entry
-				@message.save_text("我们还无法保存您的语音信息")
+				@message.save_text("我们还无法保存您的语音留言")
 			else
 				@message.save_text("我们还无法识别您的语音留言")
 			end
