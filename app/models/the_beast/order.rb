@@ -13,7 +13,7 @@ class TheBeast::Order
 				result << "订单号：" << order.increment_id << "\x0A"
 		        result << "订单时间：" << order.created_at << "\x0A"
 		        result << "收货人：" << order.shipping_firstname << "\x0A"
-		        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+		        result << "订单价格：" << order.subtotal_incl_tax.chop.chop << "\x0A"
 		        result << "状态：" << order.status << "\x0A\x0A"	
 			# end				
         end
