@@ -21,7 +21,7 @@ class TheBeast::Order
 		return result
 	end
 
-	def get_status(status)
+	def self.get_status(status)
 	 	s = case status
 			when "canceled" then "取消"
 			when "complete" then "货已发出"
