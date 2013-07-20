@@ -4,7 +4,6 @@ class MessageKeywordsController < ApplicationController
 
   def index
     @message_keywords = params[:key].nil? ? MessageKeyword.page(params[:page]).per(1) : MessageKeyword.where("content like '%#{params[:key]}%'").page(params[:page]).per(20)  
-
   end
 
   def show
