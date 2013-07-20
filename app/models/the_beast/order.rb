@@ -13,12 +13,25 @@ class TheBeast::Order
 				result << "订单号：" << order.increment_id << "\x0A"
 		        result << "订单时间：" << order.created_at << "\x0A"
 		        result << "收货人：" << order.shipping_firstname << "\x0A"
-		        result << "订单价格：" << order.subtotal_incl_tax << "\x0A"
+		        result << "订单价格：" << get_status(order.subtotal_incl_tax) << "\x0A"
 		        result << "状态：" << order.status << "\x0A\x0A"	
 			# end				
         end
 
 		return result
+	end
+
+	def get_status(status)
+	 	s = case status
+			when "canceled" then "取消"
+			when "complete" then "货已发出"
+			when "has_print" then "配送准备"
+			when "holded" then "挂起"
+			when "partial_delivery" then "已支付"
+			when "pending" then "未支付"
+			when "processing" then "已支付"
+			end
+		return s
 	end
 
 	def self.get_list(customer_id)
