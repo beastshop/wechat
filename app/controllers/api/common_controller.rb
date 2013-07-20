@@ -23,7 +23,7 @@ class Api::CommonController < Api::ApplicationController
 
 		main_menu = "输入【1】或【dd】或【订单】查看您的订单状态 \x0A输入【2】或【zf】或【祝福】录入祝福 \x0A"
 		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
-			main_menu << "输入【8】查看最新已录制祝福内容 \x0A输入【9】查看祝福阅读时间 "
+			main_menu << "输入【8】查看最新录制的祝福内容 \x0A输入【9】查看祝福阅读时间 "
 		end
 
 		entry_msg = "您可以为最新订单录制祝福文字和图片"
