@@ -21,9 +21,9 @@ class Api::CommonController < Api::ApplicationController
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 		user_session = UserSession.where(open_id: @message.to_user_name).first
 
-		main_menu = "输入【1】或【dd】或【订单】查看您的订单状态 \x0A 输入【2】或【zf】或【祝福】录入祝福 \x0A"
+		main_menu = "输入【1】或【dd】或【订单】查看您的订单状态 \x0A输入【2】或【zf】或【祝福】录入祝福 \x0A"
 		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
-			main_menu << "输入【9】查看祝福阅读时间 \x0A"
+			main_menu << "输入【8】查看最新已录制祝福内容 \x0A输入【9】查看祝福阅读时间 "
 		end
 
 		entry_msg = "您可以为最新订单录制祝福文字和图片"
@@ -72,7 +72,10 @@ class Api::CommonController < Api::ApplicationController
 			 		end
 			 		
 					@message.save_text(result)
-					template_result = template_text	
+					template_result = template_text
+				when "8"
+					@message.save_text(Card.wechat_review(user.wechat_user_open_id))
+					template_result = template_text
 			 	when "9"		 		
 					@message.save_text(Card.get_read_time(user.wechat_user_open_id))
 					template_result = template_text	
@@ -81,7 +84,7 @@ class Api::CommonController < Api::ApplicationController
 		 		end
 			else
 				case msg_text
-				when "1","2","9","dd","订单","zf","祝福"
+				when "1","2","8","9","dd","订单","zf","祝福"
 					@message.save_text(account_bind_msg)
 					template_result = template_text
 				else

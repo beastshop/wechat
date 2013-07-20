@@ -79,4 +79,17 @@ class Card < ActiveRecord::Base
 
       return result
   end
+
+  def self.wechat_review(open_id)
+    result = ""
+    card = Card.where(:wechat_user_open_id => open_id).first
+    if card.nil?
+      result = "没有可查看的祝福"
+    else
+      result = "<a href='" + card.url + "' >点击查看</a>您为订单" + card.order_no.to_s + "保存的祝福内容"
+    end
+    return result
+  end
 end
+
+
