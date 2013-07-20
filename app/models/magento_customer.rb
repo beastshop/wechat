@@ -6,7 +6,7 @@ class MagentoCustomer < ActiveRecord::Base
   has_many :cards
   default_scope order: 'id desc'
   
-  def saveCards(order_no,wechat_user_open_id,content,image_url)
+  def saveCards(order_no,order_shipping_name,wechat_user_open_id,content,image_url)
   	card = nil
   	if Card.where(:order_no => order_no).exists?
   		card = Card.where(:order_no => order_no).first
@@ -27,6 +27,7 @@ class MagentoCustomer < ActiveRecord::Base
 
     card.wechat_user_open_id = wechat_user_open_id
     card.order_no = order_no
+    card.order_shipping_name = order_shipping_name
     card.card_image.order_no = order_no
     card.card_image.wechat_user_open_id = wechat_user_open_id
     card.url = Digest::MD5.hexdigest(order_no).to_s
@@ -35,7 +36,7 @@ class MagentoCustomer < ActiveRecord::Base
 
 	end
 
-  def deliver(order_no, wechat_user_open_id, url)
+  def deliver(order_no,order_shipping_name, wechat_user_open_id, url)
      logger.debug "GO  TO   DELIVER"
      unless File.exist?("public/down_files/")
        FileUtils.mkdir_p 'public/down_files'
@@ -54,7 +55,7 @@ class MagentoCustomer < ActiveRecord::Base
     data = open(url){|f|f.read}
     open("public"+image_url,"wb"){|f|f.write(data)}
     
-    saveCards(order_no, wechat_user_open_id, nil, image_url)
+    saveCards(order_no, order_shipping_name, wechat_user_open_id, nil, image_url)
     
   end
   handle_asynchronously :deliver

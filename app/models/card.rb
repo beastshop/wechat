@@ -2,46 +2,47 @@
 require 'digest'  
 
 class Card < ActiveRecord::Base
-  attr_accessible :order_no, :wechat_user_open_id, :content, :url, :first_read_time
+  attr_accessible :order_no, :wechat_user_open_id, :content, :url, :first_read_time, :order_shipping_name
   has_one :card_image, autosave: true
   belongs_to :magento_customer
   has_many :card_logs, :dependent => :destroy
   default_scope order: 'id desc'
  
-  def self.get_default(order_no)
-    return save(order_no,nil,'default card content','default card image_url')
-  end
+  # def self.get_default(order_no)
+  #   return save(order_no,nil,'default card content','default card image_url')
+  # end
 
-  def self.save(order_no,wechat_user_open_id,content,image_url,user)
-  	card = nil
-  	if Card.where(:order_no => order_no).exists?
-  		card = Card.where(:order_no => order_no).first
-  	else
-  		card = Card.new
-  		card.card_image = CardImage.new
+  # def self.save(order_no,order_shipping_name,wechat_user_open_id,content,image_url,user)
+  # 	card = nil
+  # 	if Card.where(:order_no => order_no).exists?
+  # 		card = Card.where(:order_no => order_no).first
+  # 	else
+  # 		card = Card.new
+  # 		card.card_image = CardImage.new
 
-  	end
+  # 	end
 
-    unless content.nil?
-      card.content = content
-      card.card_image.title = content
-    end
+  #   unless content.nil?
+  #     card.content = content
+  #     card.card_image.title = content
+  #   end
     
-    unless image_url.nil?
-      card.card_image.picture_file_name = image_url
-    end
+  #   unless image_url.nil?
+  #     card.card_image.picture_file_name = image_url
+  #   end
 
-    card.wechat_user_open_id = wechat_user_open_id
-    card.order_no = order_no
-    card.card_image.order_no = order_no
-    card.card_image.wechat_user_open_id = wechat_user_open_id
-    card.url = Digest::MD5.hexdigest(order_no).to_s
-    card.magento_customer = user
+  #   card.wechat_user_open_id = wechat_user_open_id
+  #   card.order_no = order_no
+  #   card.order_shipping_name = order_shipping_name
+  #   card.card_image.order_no = order_no
+  #   card.card_image.wechat_user_open_id = wechat_user_open_id
+  #   card.url = Digest::MD5.hexdigest(order_no).to_s
+  #   card.magento_customer = user
 
-    card.save
+  #   card.save
 
-  	return card
-  end
+  # 	return card
+  # end
 
   def write_log(host, brower,is_admin)
     log = CardLog.new
@@ -72,9 +73,9 @@ class Card < ActiveRecord::Base
       if card.nil?
         result = "您还没有录入祝福!"
       elsif !card.nil? && card.first_read_time.nil?
-        result = "订单" + card.order_no.to_s + "的祝福还没被阅读过"
+        result = "订单" + card.order_no.to_s + "送给 【" + card.order_shipping_name + "】的祝福还没被阅读过"
       else
-        result = "订单" + card.order_no.to_s + "的祝福第一次被阅读的时间是" + card.first_read_time.strftime('%Y年%m月%d日 %H:%M')
+        result = "订单" + card.order_no.to_s + "送给 【" + card.order_shipping_name + "】的祝福第一次被阅读的时间是" + card.first_read_time.strftime('%Y年%m月%d日 %H:%M')
       end
 
       return result

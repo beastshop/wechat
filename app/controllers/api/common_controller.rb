@@ -47,7 +47,7 @@ class Api::CommonController < Api::ApplicationController
 						user_session.exit_entry
 						@message.save_text("之前的编辑操作已超时，" + main_menu)
 					else
-						user.saveCards(user_session.order_no, @message.to_user_name, msg_text, nil)
+						user.saveCards(user_session.order_no,user_session.order_shipping_name, @message.to_user_name, msg_text, nil)
 						@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 					end
 				end
@@ -97,7 +97,7 @@ class Api::CommonController < Api::ApplicationController
 					@message.save_text("之前的编辑操作已超时，" + main_menu)
 			elsif !user.nil? && user_session.is_entry && !user_session.is_expired
 					#save_greetings_images(user, @message.to_user_name, params[:xml][:PicUrl])
-					user.delay.deliver(user_session.order_no, @message.to_user_name, params[:xml][:PicUrl])
+					user.delay.deliver(user_session.order_no,user_session.order_shipping_name, @message.to_user_name, params[:xml][:PicUrl])
 					@message.save_text("您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福" )
 			else
 				@message.save_text("我们收到了您的图片")
