@@ -64,9 +64,9 @@ class Api::CommonController < Api::ApplicationController
 
 			 		result = ""
 			 		if user_session.is_entry && card.nil?
-			 		 	result << "您可以为最新订单【" << user_session.order_no << "】 收货人【" << user_session.order_shipping_name << "】保存祝福文字和图片"
+			 		 	result << "您可以为最新订单【" << user_session.order_no << "】收货人【" << user_session.order_shipping_name << "】保存祝福文字和图片"
 			 		elsif user_session.is_entry && !card.nil?
-			 		  	result << "您已经为最新订单【" << user_session.order_no << "】 收货人【" << user_session.order_shipping_name << "】制作了祝福卡。您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入“51”结束编辑。输入“81”取消发送祝福"
+			 		  	result << "您已经为最新订单【" << user_session.order_no << "】收货人【" << user_session.order_shipping_name << "】制作了祝福卡。您可以继续输入，我们会将您最后输入的信息作为祝福贺卡内容。输入【51】结束编辑。输入【81】取消发送祝福"
 			 		else
 			 			result << "您没有可录入祝福的订单"
 			 		end

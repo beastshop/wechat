@@ -73,9 +73,9 @@ class Card < ActiveRecord::Base
       if card.nil?
         result = "您还没有录入祝福!"
       elsif !card.nil? && card.first_read_time.nil?
-        result = "订单" + card.order_no.to_s + "送给 【" + card.order_shipping_name + "】的祝福还没被阅读过"
+        result = "订单" + card.order_no.to_s + "送给【" + card.order_shipping_name + "】的祝福还没被阅读过"
       else
-        result = "订单" + card.order_no.to_s + "送给 【" + card.order_shipping_name + "】的祝福第一次被阅读的时间是" + card.first_read_time.strftime('%Y年%m月%d日 %H:%M')
+        result = "订单" + card.order_no.to_s + "送给【" + card.order_shipping_name + "】的祝福第一次被阅读的时间是" + card.first_read_time.strftime('%Y年%m月%d日 %H:%M')
       end
 
       return result
@@ -87,7 +87,7 @@ class Card < ActiveRecord::Base
     if card.nil?
       result = "没有可查看的祝福"
     else
-      result = "<a href=\"http://wechat.thebeastshop.com/cards/" + card.url + "\">点击查看</a>您为订单" + card.order_no.to_s + "保存的祝福内容"
+      result = "<a href=\"http://wechat.thebeastshop.com/cards/" + card.url + "\">点击查看</a>您为订单【" << user_session.order_no << "】收货人【" << user_session.order_shipping_name << "】保存的祝福"
     end
     return result
   end
