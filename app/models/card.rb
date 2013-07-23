@@ -87,7 +87,7 @@ class Card < ActiveRecord::Base
     if card.nil?
       result = "没有可查看的祝福"
     else
-      result = "<a href=\"http://wechat.thebeastshop.com/cards/" + card.url + "\">点击查看</a>您为订单【" << user_session.order_no << "】收货人【" << user_session.order_shipping_name << "】保存的祝福"
+      result = "<a href=\"http://wechat.thebeastshop.com/cards/" + card.url + "\">点击查看</a> 您为订单【" << card.order_no.to_s<< "】收货人【" << card.order_shipping_name << "】保存的祝福"
     end
     return result
   end
