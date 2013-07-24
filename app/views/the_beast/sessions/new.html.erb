@@ -3,14 +3,15 @@
 
   <form class="form-signin" method="post" action="/the_beast/sessions">
     <img src="/images/wechat_login.jpg">
+    <div class="control-group error">
+      <span class="help-inline"><%=@message%></span>
+    </div>
     <h3 class="form-signin-heading"></h3>
     <input type="text" name="email" class="input-block-level" placeholder="Email address">
     <input type="password" name="password" class="input-block-level" placeholder="Password">
     <input type="hidden" name="open_id" value="<%=params[:open_id]%>">
-    <button class="btn btn-large btn-primary" type="submit">登录</button>
-  <div class="control-group error">
-    <span class="help-inline"><%=@message%></span>
-  </div>
+    <button class="btn btn-large btn-block btn-primary" type="submit">登录</button>
+
   </form>
 
 </div> 
