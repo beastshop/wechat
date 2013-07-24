@@ -19,7 +19,7 @@
   <tr>
   	<%  case message.msg_type 
   		when "text" %>
-  		<td colspan="3">内容:<%=message.message_receive_text.content.gsub('\n','<br/>') %></td>
+  		<td colspan="3">内容:<%=message.message_receive_text.content.gsub(/\n/,'<br/>') %></td>
   	<%  when "image" %>
   		<td colspan="3">图片:<a href="<%=message.message_receive_image.pic_url %>"> <%=message.message_receive_image.pic_url %></a></td>
   	<%  when "link" %>
