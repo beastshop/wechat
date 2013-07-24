@@ -1,2 +1,2 @@
 <img src="<%= @card.card_image.picture_file_name %>" /><br/>
-<%=raw(@card.content.gsub('\n','<br/>')) %>
+<%=raw(@card.content.gsub(/\n/,'<br/>')) %>
