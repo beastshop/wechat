@@ -2,7 +2,7 @@ require 'rqrcode'
 require 'digest' 
 class CardsController < ApplicationController
 	before_filter :authenticate_user!, :except => [:show]
-	layout: 'media_application', :only => [:show]
+	layout 'media_application', :only => [:show]
 
 	def show
 		@card = Card.where(:url => params[:id]).first
