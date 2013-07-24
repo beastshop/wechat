@@ -1,2 +1,8 @@
-<img src="<%= @card.card_image.picture_file_name %>" /><br/>
-<%=raw(@card.content.gsub(/\n/,'<br/>')) %>
+
+
+<div class="container">
+	<div class="signin">
+		<img  src="<%= @card.card_image.picture_file_name %>" />
+    	<%=raw(@card.content.gsub(/\n/,'<br/>')) %>
+	</div>
+</div> 
