@@ -2,14 +2,14 @@ require 'rqrcode'
 require 'digest' 
 class CardsController < ApplicationController
 	before_filter :authenticate_user!, :except => [:show]
+	layout: 'media_application', :only => [:show]
 
 	def show
 		@card = Card.where(:url => params[:id]).first
 		if !@card.nil?
 			@card.write_log(request.remote_ip, request.headers["User-Agent"], !params[:user].nil?)
-			render layout: nil
 		else
-			render 'default_card.html.erb', layout: 'media_application'
+			render 'default_card.html.erb'
 		end
 		
 	end
