@@ -55,6 +55,7 @@
 <body>
 	 <div class="container">
     <div class="masthead">
+      <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
         <h3 class="muted">TheBeastShop Admin</h3>
         <div class="navbar">
           <div class="navbar-inner">

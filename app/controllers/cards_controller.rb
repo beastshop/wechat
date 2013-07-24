@@ -7,10 +7,11 @@ class CardsController < ApplicationController
 		@card = Card.where(:url => params[:id]).first
 		if !@card.nil?
 			@card.write_log(request.remote_ip, request.headers["User-Agent"], !params[:user].nil?)
+			render layout: nil
 		else
-			render 'default_card.html.erb', layout: nil
+			render 'default_card.html.erb', layout: 'media_application'
 		end
-		render layout: nil
+		
 	end
 
 	def index_byuser

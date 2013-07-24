@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
       "/message_keywords" # <- Path you want to redirect the user to.
   end
 
-
+   def after_sign_out_path_for(resource)
+      "/users/sign_in" # <- Path you want to redirect the user to.
+  end
 
   protected
 
