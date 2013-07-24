@@ -19,7 +19,7 @@
 <tbody>
 <% @message_keywords.each do |message_keyword| %>
   <tr>
-    <td><%= message_keyword.content %></td>
+    <td><%=message_keyword.content %></td>
     <td><%= link_to 'Show', message_keyword %></td>
     <td><%= link_to 'Edit', edit_message_keyword_path(message_keyword) %></td>
     <td><%= link_to 'Destroy', message_keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
