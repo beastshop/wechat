@@ -11,10 +11,16 @@ Wechat::Application.routes.draw do
   resources :message_receives, :only => [:index]
   resources :message_sends, :only => [:index]
   resources :wechat_users, :only => [:index, :edit, :update]
-  resources :cards, :only => [:index, :show]
-  get 'cards/index_byuser'
-  #get 'cards/index'
-  get 'cards/show_code'
+  
+  # get 'cards/index_byuser'
+  # get 'cards/show_code'
+  resources :cards, :only => [:index, :show] do
+    collection do
+      get 'show_code'
+      get 'index_byuser'
+    end
+  end
+
   
   #match 'cards/:id' => 'cards#show'
 
