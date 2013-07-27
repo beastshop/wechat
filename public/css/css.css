@@ -1,0 +1,8 @@
+body{ text-align:center; margin:20px 0px; font-family:Arial, Helvetica, sans-serif, "Arial Narrow", "寰蒋闆呴粦"}
+#wx_body{ margin:0px 15px; border:2px solid #e5e5e5; -moz-border-radius: 15px; -webkit-border-radius: 15px; border-radius:15px; padding:18px 20px;}
+.input{ width:95%; height:40px; border:1px solid #ccc; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius:5px; margin-top:20px; color:#999; padding:0px 5px; font-weight:bold; font-size:18px;}
+#post{ width:114px; height:66px; background:url(images/post.jpg) no-repeat center center; margin-top:20px; cursor:pointer; border:none;}
+#wx_kard{ font-size:16px; font-weight:bold; text-align:left; width:90%; margin:20px auto;}
+#wx_sound{ background:url(images/s2.jpg) repeat-x top left; width:90%; margin:20px auto; position:relative; cursor:hand; height:75px;}
+#wx_s1{ position:absolute; left:0px;}
+#wx_s3{ position:absolute; right:0px;}

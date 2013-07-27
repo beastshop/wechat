@@ -1,8 +1,9 @@
-
-
-<div class="container">
-	<div class="signin">
-		<img  src="<%= @card.card_image.picture_file_name %>" /><br />
-    	<%=raw(@card.content.gsub(/\n/,'<br/>')) %>
-	</div>
-</div> 
+<div id="wx_body">
+<img  src="<%= @card.card_image.picture_file_name %>" width="95%"  />
+<div id="wx_kard">
+Dear:
+<%=raw(@card.content.gsub(/\n/,'<br/>')) %>
+</div>
+<div id="wx_sound">
+</div>
+</div>

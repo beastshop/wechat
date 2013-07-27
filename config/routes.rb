@@ -11,11 +11,12 @@ Wechat::Application.routes.draw do
   resources :message_receives, :only => [:index]
   resources :message_sends, :only => [:index]
   resources :wechat_users, :only => [:index, :edit, :update]
+  resources :cards, :only => [:index, :show]
   get 'cards/index_byuser'
-  get 'cards/index'
+  #get 'cards/index'
   get 'cards/show_code'
   
-  match 'cards/:id' => 'cards#show'
+  #match 'cards/:id' => 'cards#show'
 
   # get 'magento_customers/index'
   post 'message_auto_reply_texts/new_model'
