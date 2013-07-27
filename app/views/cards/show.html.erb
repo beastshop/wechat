@@ -2,7 +2,7 @@
 <img  src="<%= @card.card_image.picture_file_name %>" width="95%"  />
 <div id="wx_kard">
 Dear:<br />
-&nbsp;&nbsp;<%=raw(@card.content.gsub(/\n/,'<br/>&nbsp;&nbsp;')) %>
+&nbsp;&nbsp;&nbsp;&nbsp;<%=raw(@card.content.gsub(/\n/,'<br/>&nbsp;&nbsp;&nbsp;&nbsp;')) %>
 </div>
 <div id="wx_sound">
 </div>
