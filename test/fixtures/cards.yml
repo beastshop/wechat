@@ -1,9 +1,6 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
 one:
-  order_no: MyString
-  wechat_user_open_id: MyString
-
-two:
-  order_no: MyString
-  wechat_user_open_id: MyString
+ order_no: test_order_no
+ wechat_user_open_id: test_open_id
+ content: this is test card content
+ url: url
+ order_shipping_name: itsme

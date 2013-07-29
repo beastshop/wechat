@@ -1,9 +1,4 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
 one:
-  open_id: MyString
-  name: MyString
-
-two:
-  open_id: MyString
-  name: MyString
+ name: bruce
+ open_id: test_open_id
+ is_subscribe: true
