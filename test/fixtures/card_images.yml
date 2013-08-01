@@ -1,0 +1,5 @@
+one:
+ order_no: test_order_no
+ title: this is test card content
+ wechat_user_open_id: test_open_id
+ card_id: 980190962

@@ -117,11 +117,11 @@ class Api::CommonController < Api::ApplicationController
 			case params[:xml][:Event]
 			when "subscribe"
 				WechatUser.subscribe(@message.to_user_name)
-				@message.save_text('感谢您的关注' + main_menu)
+				template_result = macth_keywords(@message, "event", '感谢您的关注' + main_menu)
 			when "unsubscribe"
 				WechatUser.unsubscribe(@message.to_user_name)
+				template_result = template_text
 			end
-			template_result = template_text
 		end
 		@message.save
 		render :xml, :template => template_result
