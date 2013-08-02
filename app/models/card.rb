@@ -87,10 +87,15 @@ class Card < ActiveRecord::Base
     if card.nil?
       result = "没有可查看的祝福"
     else
-      result = "<a href=\"" +request.protocol + request.host_with_port +"/cards/" + card.url + "\">点击查看</a> 您为订单【" << card.order_no.to_s<< "】收货人【" << card.order_shipping_name << "】保存的祝福"
+      result = "<a href=\"" + self.class.get_host + "/cards/" + card.url + "\">点击查看</a> 您为订单【" << card.order_no.to_s << "】收货人【" << card.order_shipping_name << "】保存的祝福"
     end
     return result
   end
+
+  def get_host
+    return request.protocol + request.host_with_port
+  end
+
 end
 
 
