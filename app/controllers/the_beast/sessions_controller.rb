@@ -46,8 +46,6 @@ class TheBeast::SessionsController < TheBeast::ApplicationController
 	end
 
 	def success
-		user = WechatUser.first.magento_customer
-		@orders = TheBeast::Order.get_list(user.user_id)
-		p @orders
+		
 	end
 end
