@@ -32,7 +32,6 @@ class Api::CommonController < Api::ApplicationController
 		entry_msg = "您可以为最新订单录制祝福文字和图片"
 		no_match_msg = "不太明白您的意思。 \x0A" + main_menu
 		account_bind_msg = "您还未绑定BeastShop网站账号，<a href=\"" + request.protocol + request.host_with_port + "/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">去登录绑定</a> \x0A"
-
 		case params[:xml][:MsgType]
 		when "text"
 			msg_text = params[:xml][:Content]
