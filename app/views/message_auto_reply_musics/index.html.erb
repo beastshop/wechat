@@ -5,6 +5,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
+    <th>title</th>
+    <th>description</th>
     <th>URL</th>
     <th>HQ_URL</th>
     <th></th>
@@ -15,6 +17,8 @@
 <tbody>
 <% @message_auto_reply_musics.each do |message_auto_reply_music| %>
   <tr>
+    <td><%= message_auto_reply_music.title %></td>
+    <td><%= message_auto_reply_music.description %></td>
     <td><a href="<%= message_auto_reply_music.music_url %>" ><%= message_auto_reply_music.music_url %></td>
     <td><a href="<%= message_auto_reply_music.hq_music_url %>" ><%= message_auto_reply_music.hq_music_url %></td>
     <td><%= link_to 'Show', message_auto_reply_music %></td>

@@ -1,5 +1,5 @@
 class MessageAutoReplyMusic < ActiveRecord::Base
-  attr_accessible :hq_music_url, :music_url
+  attr_accessible :hq_music_url, :music_url, :title, :description
   has_and_belongs_to_many :message_keywords
 
 

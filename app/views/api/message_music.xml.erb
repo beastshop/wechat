@@ -4,8 +4,8 @@
 	 <CreateTime><%= @message.create_time.to_i %></CreateTime>
 	 <MsgType><![CDATA[music]]></MsgType>
 	 <Music>
-		 <Title><![CDATA[Music]]></Title>
-		 <Description><![CDATA[DESCRIPTION]]></Description>
+		 <Title><![CDATA[<%= @message.message_send_music.title %>]]></Title>
+		 <Description><![CDATA[<%= @message.message_send_music.description %>]]></Description>
 		 <MusicUrl><![CDATA[<%= @message.message_send_music.music_url %>]]></MusicUrl>
 		 <HQMusicUrl><![CDATA[<%= @message.message_send_music.hq_music_url %>]]></HQMusicUrl>
 	 </Music>

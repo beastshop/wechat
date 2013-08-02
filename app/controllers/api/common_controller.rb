@@ -20,6 +20,9 @@ class Api::CommonController < Api::ApplicationController
 
 		user = MagentoCustomer.where(wechat_user_open_id: @message.to_user_name, islocked: false).first
 		user_session = UserSession.where(open_id: @message.to_user_name).first
+		if user_session.nil?
+			WechatUser.subscribe(@message.to_user_name)
+		end
 
 		main_menu = "输入【1】或【dd】或【订单】查看您的订单状态 \x0A输入【2】或【zf】或【祝福】录入祝福 \x0A"
 		if !user_session.nil? && Card.where(order_no: user_session.order_no).exists?
@@ -28,7 +31,7 @@ class Api::CommonController < Api::ApplicationController
 
 		entry_msg = "您可以为最新订单录制祝福文字和图片"
 		no_match_msg = "不太明白您的意思。 \x0A" + main_menu
-		account_bind_msg = "您还未绑定BeastShop网站账号，<a href=\"http://wechat.thebeastshop.com/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">去登录绑定</a> \x0A"
+		account_bind_msg = "您还未绑定BeastShop网站账号，<a href=\"" + request.protocol + request.host_with_port + "/the_beast/sessions/new?open_id=" + @message.to_user_name + "\">去登录绑定</a> \x0A"
 
 		case params[:xml][:MsgType]
 		when "text"
@@ -181,7 +184,7 @@ class Api::CommonController < Api::ApplicationController
 				logger.debug 'in  music'
 				music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.music_url.to_s
 				hq_music_url = request.protocol + request.host_with_port + mkw.message_auto_reply_musics.first.hq_music_url.to_s
-				message.save_music(hq_music_url,music_url)
+				message.save_music(hq_music_url,music_url,mkw.message_auto_reply_musics.first.title,mkw.message_auto_reply_musics.first.description)
 				template_result = "api/message_music"
 			elsif mkw.message_auto_reply_news.size > 0
 				message.save_news(mkw.message_auto_reply_news.first,request.protocol + request.host_with_port)

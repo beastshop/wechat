@@ -21,7 +21,9 @@
   		when "text" %>
   		<td colspan="3">内容:<%=message.message_send_text.content %></td>
   	<%  when "music" %>
-  		<td colspan="3">音乐:<a href="<%=message.message_send_music.music_url %>"> <%=message.message_send_music.music_url %></a></td>
+  		<td>音乐:<%=message.message_send_music.title %></td>
+      <td>描述:<%=message.message_send_music.description %></td>
+      <td><a href="<%=message.message_send_music.music_url %>"> <%=message.message_send_music.music_url %></a></td>
   	<%  when "news" %>
       <td colspan="3">
         <% message.message_send_news.message_send_news_articles.each do | article |%>

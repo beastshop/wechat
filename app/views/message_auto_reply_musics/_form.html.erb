@@ -3,6 +3,9 @@
       <%= form_for(@message_auto_reply_music) do |f| %>
         <fieldset>
            <legend>音乐消息</legend>
+
+           <label>标题:</label><%= f.text_field :title %>
+           <label>描述:</label><%= f.text_field :description %>
            <label>音乐文件:</label><%= f.file_field :music_url %>
            <label>高质量音乐文件:</label><%= f.file_field :hq_music_url %>
             <div >

@@ -13,8 +13,10 @@ class MessageSend < ActiveRecord::Base
 	end
 
 
-	def save_music(hq_music_url, music_url)
+	def save_music(hq_music_url, music_url, title, description)
 		m_m = MessageSendMusic.new
+		m_m.title = title
+		m_m.description = description
 		m_m.hq_music_url = hq_music_url
 		m_m.music_url = music_url
 		self.msg_type = "music"
